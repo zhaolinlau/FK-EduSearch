@@ -1,0 +1,12 @@
+{
+  "name": "FK-EduSearch",
+  "version": "1.0.0",
+  "description": "This project is developed for BCS2243",
+  "main": "index.php",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "BCS2243 Section 3 Group OWO",
+  "license": "Proprietary"
+}
