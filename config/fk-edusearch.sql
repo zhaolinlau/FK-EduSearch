@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 21, 2023 at 06:50 AM
+-- Generation Time: Apr 21, 2023 at 07:06 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -42,10 +42,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `username`, `password`, `email`, `role`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'test', 'admin@gmail.com', 0, '2023-04-21 04:33:09.909294', '2023-04-21 04:36:15.702396'),
-(2, 'expert', 'test', 'expert@gmail.com', 1, '2023-04-21 04:40:21.719293', '2023-04-21 04:40:21.719293'),
-(3, 'lecturer', 'test', 'lecturer@gmail.com', 2, '2023-04-21 04:48:28.248413', '2023-04-21 04:48:28.248413'),
-(4, 'student', 'test', 'student@gmail.com', 3, '2023-04-21 04:49:40.980236', '2023-04-21 04:50:36.720872');
+(1, 'admin', '$2y$10$CAm3gPZ4.wvS/XIEdSRjyuWyKIscUZSmGy81vB.Cbx0hyjExnPkGy', 'admin@gmail.com', 0, '2023-04-21 04:33:09.909294', '2023-04-21 05:06:08.619610'),
+(2, 'expert', '$2y$10$SP9p0I1BDIyhTolQj49ne.yvAdZ6.0VDHeW0RxyEekH7s3Obv8Zq.', 'expert@gmail.com', 1, '2023-04-21 04:40:21.719293', '2023-04-21 05:06:21.999917'),
+(3, 'lecturer', '$2y$10$MUj2qkbdj.yrRN/Q/LeSQekLaoEVBQHvUet3kr5Bv7AfeNL0WIMv.', 'lecturer@gmail.com', 2, '2023-04-21 04:48:28.248413', '2023-04-21 05:06:32.752053'),
+(4, 'student', '$2y$10$IAP1nXuyGH/ZQuFWko9vqOvT3aRvSknD999s.k34PP7vtl.F5NS7i', 'student@gmail.com', 3, '2023-04-21 04:49:40.980236', '2023-04-21 05:06:45.889582');
 
 --
 -- Indexes for dumped tables
