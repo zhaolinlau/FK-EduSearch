@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 21, 2023 at 05:32 AM
+-- Generation Time: Apr 21, 2023 at 06:50 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -34,8 +34,18 @@ CREATE TABLE `users` (
   `email` varchar(100) NOT NULL,
   `role` tinyint(1) NOT NULL,
   `created_at` timestamp(6) NOT NULL DEFAULT current_timestamp(6),
-  `updated_at` timestamp(6) NOT NULL DEFAULT current_timestamp(6)
+  `updated_at` timestamp(6) NOT NULL DEFAULT current_timestamp(6) ON UPDATE current_timestamp(6)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`user_id`, `username`, `password`, `email`, `role`, `created_at`, `updated_at`) VALUES
+(1, 'admin', 'test', 'admin@gmail.com', 0, '2023-04-21 04:33:09.909294', '2023-04-21 04:36:15.702396'),
+(2, 'expert', 'test', 'expert@gmail.com', 1, '2023-04-21 04:40:21.719293', '2023-04-21 04:40:21.719293'),
+(3, 'lecturer', 'test', 'lecturer@gmail.com', 2, '2023-04-21 04:48:28.248413', '2023-04-21 04:48:28.248413'),
+(4, 'student', 'test', 'student@gmail.com', 3, '2023-04-21 04:49:40.980236', '2023-04-21 04:50:36.720872');
 
 --
 -- Indexes for dumped tables
@@ -55,7 +65,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` bigint(255) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
