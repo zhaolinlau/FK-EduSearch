@@ -24,7 +24,7 @@ session_start();
 				</div>
 			</div>
 			<div class="col">
-				<h2 class="text-dark fa-italic fw-semibold d-block d-lg-none p-3 py-5 px-md-5"><em>FK-EduSearch</em></h2>
+				<h2 class="text-dark fa-italic fw-semibold d-block d-lg-none p-3 mt-3 px-md-5"><em>FK-EduSearch</em></h2>
 				<form action="./controllers/login.php" class="needs-validation row g-3 px-md-5 px-3" method="post" novalidate>
 					<h2 class="fw-bold">Log In to FK-EduSearch</h1>
 						<?php if (isset($_SESSION['error'])) : ?>
