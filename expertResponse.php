@@ -56,8 +56,34 @@
 	  <span><b>Status</b> : <span id="PostStatus"> Active </span></span>
   </div>
 	<hr>
-  <i class="fa fa-thumbs-up" style="color:blue; float:right;"> <span id="PostLike">5</span></i>
-	
+    
+  <div class="card" style="width: 100%; min-height: 150px;">
+  <div class="card-body position-relative" id="postBody">
+    This is the body text of a post.
+    <i class="fa fa-thumbs-up position-absolute bottom-0 end-0" style="color: blue;margin-bottom:10px;margin-right:10px"><span id="PostLike"> # </span></i>
+  </div>
+</div>
+
+  <span>Posted by <b><span id="UserID">user</span></b> at <span id="PostCreated">(date)</span> </span>
+  <span>under <b><span id="PostCategory">(category)</span></b> </span>
+  <span style="float:right;">Last updated on <span id="PostUpdated">(date)</span></span>
+
+  <br><br>
+
+  <input class="form-control" type="CommentDetails" placeholder="Response" aria-label="default input example" style="width: 100%; min-height: 150px;">
+
+  <br>
+  <div class="d-flex justify-content-end">
+      <button class="btn btn-primary btn-sm" style="margin-right: 0; padding: 0.25rem 0.5rem;" onclick="submitForm()">Submit</button>
+  </div>
+  <br>
+  <div class="d-flex justify-content-end">
+    <button class="btn btn-primary btn-sm" style="margin-right: 0; padding: 0.25rem 0.5rem;" onclick="closePost()">Close Post</button>
+  </div>
+
+  <br><br>
+
+
 
 </div>
 
