@@ -5,8 +5,8 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>FK-EduSearch | </title>
-	<link rel="shortcut icon" href="./src/img/favicon.ico" type="image/x-icon">
+	<title>FK-EduSearch</title>
+	<link rel="shortcut icon" href="./resources/img/favicon.ico" type="image/x-icon">
 	<link 
   href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" 
   rel="stylesheet"  type='text/css'>
@@ -58,7 +58,7 @@
 <nav class="navbar bg-body-tertiary border-bottom">
   <div class="container-fluid">
     <a class="navbar-brand d-flex align-items-center"href="#">
-      <img src="./logo.png" alt="FK-EDUSEARCH" width="150" height="150">   
+      <img src="./resources/img/logo.png" alt="FK-EDUSEARCH" width="150" height="150">   
 		</a>		
 		<label class="text1"><b>FK-EduSearch System</b></label> 
 
