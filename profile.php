@@ -3,7 +3,7 @@ session_start();
 require "./Middleware/Authenticate.php";
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-100">
 
 <head>
 	<meta charset="UTF-8">
@@ -15,10 +15,39 @@ require "./Middleware/Authenticate.php";
 	<link rel="stylesheet" href="./node_modules/@fortawesome/fontawesome-free/css/all.min.css">
 </head>
 
-<body>
+<body class="h-100">
+	<div class="container-fluid h-100 d-flex align-items-center justify-content-center">
+		<div class="row">
+			<div class="col">
+				<?php
+				try {
+					require "./config/db.php";
+					$stmt = $conn->prepare("SELECT * FROM user WHERE UserID=:UserID");
+					$stmt->bindParam(':UserID', $_GET['UserID']);
+					$stmt->execute();
+					$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+					if ($stmt->rowCount() > 0) :
+						foreach ($result as $row) :
+				?>
+							<form action="" class="needs-validation" novalidate method="post">
+								<label for="username">Username</label>
+								<input type="text" value="<?php echo $row["UserName"]; ?>" name="username" id="username" required>
+							</form>
+				<?php
+						endforeach;
+					endif;
+				} catch (PDOException $e) {
+					echo $e->getMessage();
+				}
+				?>
+			</div>
+		</div>
+	</div>
+
 	<?php require "layouts/navbar.php" ?>
 	<script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="./src/plugins/livechat.js"></script>
+	<script src="./resources/js/form_validate.js"></script>
 </body>
 
 </html>

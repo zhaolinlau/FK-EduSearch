@@ -71,7 +71,7 @@ require "./Middleware/AdminAuth.php";
 											?>
 										</td>
 										<td class="text-center">
-											<a class="btn btn-info" href="./Controllers/ReadUserController.php?UserID=<?php echo $row["UserID"]; ?>">View</a>
+											<a class="btn btn-info" href="./profile.php?UserID=<?php echo $row["UserID"]; ?>">View</a>
 										</td>
 										<td class="text-center"><a class="btn btn-danger" href="./Controllers/DeleteUserController.php?UserID=<?php echo $row["UserID"]; ?>" onclick="return confirm('Are you sure to delete <?php echo $row['UserName']; ?> ?')">Delete</a></td>
 									</tr>
