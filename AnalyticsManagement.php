@@ -45,210 +45,47 @@
 			</div>
 		</div>
 
-		<div class="col" style="margin-top: 10px; display:block;">
-			<div class="row">
-				<div class="col-sm">
-				<canvas id="totalposts" style=" background-color: #fff8e1;"></canvas>
-				<h3 style="text-align: center;" >Total Posts</h3>
-				</div>
-				<div class="col-sm">
-				<canvas id="totalcomments" style="margin: 5px 5px 5px 5px; background-color: #fff8e1;"></canvas>
-				<h3 style="text-align: center;" >Total Comments</h3>
-				</div>
-				<div class="col-sm">
-				<canvas id="totallikes" style="margin: 5px 5px 5px 5px; background-color: #fff8e1;"></canvas>
-				<h3 style="text-align: center;" >Total Likes</h3>
-				</div>
-			</div>	
+		<div class="justify-content-center d-flex bg-primary">
+		<div class="col-4" style="margin-top: 20px; display:block;">
+			<canvas id="UserActivity" style="background-color: #fff8e1;"></canvas>
+			<h3 style="text-align: center;" >User Activity</h3>
 		</div>
+		</div>
+		
 
 		</div>
 	</div>
 	<script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
 	<script src="./node_modules/chart.js/dist/chart.umd.js"></script>
 	<script>
-		const post = [{
-				month: "January",
+
+
+		const info = [{
+				activity: "Posts",
 				count: 10,
 			},
 			{
-				month: "February",
+				activity: "Comments",
 				count: 20,
 			},
 			{
-				month: "March",
+				activity: "Likes",
 				count: 15,
-			},
-			{
-				month: "April",
-				count: 25,
-			},
-			{
-				month: "May",
-				count: 22,
-			},
-			{
-				month: "June",
-				count: 30,
-			},
-			{
-				month: "July",
-				count: 28,
-			},
-			{
-				month: "August",
-				count: 15,
-			},
-			{
-				month: "September",
-				count: 25,
-			},
-			{
-				month: "October",
-				count: 22,
-			},
-			{
-				month: "November",
-				count: 30,
-			},
-			{
-				month: "December",
-				count: 28,
 			},
 		];
 
-		const comments = [{
-				month: "January",
-				count: 10,
-			},
-			{
-				month: "February",
-				count: 20,
-			},
-			{
-				month: "March",
-				count: 15,
-			},
-			{
-				month: "April",
-				count: 25,
-			},
-			{
-				month: "May",
-				count: 22,
-			},
-			{
-				month: "June",
-				count: 30,
-			},
-			{
-				month: "July",
-				count: 28,
-			},
-			{
-				month: "August",
-				count: 15,
-			},
-			{
-				month: "September",
-				count: 25,
-			},
-			{
-				month: "October",
-				count: 22,
-			},
-			{
-				month: "November",
-				count: 30,
-			},
-			{
-				month: "December",
-				count: 28,
-			},
-		];
 
-		const likes = [{
-				month: "January",
-				count: 10,
-			},
-			{
-				month: "February",
-				count: 20,
-			},
-			{
-				month: "March",
-				count: 15,
-			},
-			{
-				month: "April",
-				count: 25,
-			},
-			{
-				month: "May",
-				count: 22,
-			},
-			{
-				month: "June",
-				count: 30,
-			},
-			{
-				month: "July",
-				count: 28,
-			},
-			{
-				month: "August",
-				count: 15,
-			},
-			{
-				month: "September",
-				count: 25,
-			},
-			{
-				month: "October",
-				count: 22,
-			},
-			{
-				month: "November",
-				count: 30,
-			},
-			{
-				month: "December",
-				count: 28,
-			},
-		];
-
-		new Chart(document.getElementById("totalposts"), {
-			type: "pie",
+		new Chart(document.getElementById("UserActivity"), {
+			type: "polarArea",
 			data: {
-				labels: likes.map((row) => row.month),
+				labels: info.map((row) => row.activity),
 				datasets: [{
-					label: "Total likes of the month",
-					data: likes.map((row) => row.count),
+					label: "Total counts",
+					data: info.map((row) => row.count),
 				}, ],
 			},
 		});
 
-		new Chart(document.getElementById("totalcomments"), {
-			type: "pie",
-			data: {
-				labels: likes.map((row) => row.month),
-				datasets: [{
-					label: "Total likes of the month",
-					data: likes.map((row) => row.count),
-				}, ],
-			},
-		});
-
-		new Chart(document.getElementById("totallikes"), {
-			type: "pie",
-			data: {
-				labels: likes.map((row) => row.month),
-				datasets: [{
-					label: "Total likes of the month",
-					data: likes.map((row) => row.count),
-				}, ],
-			},
-		});
 	</script>
 </body>
 
