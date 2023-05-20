@@ -71,7 +71,7 @@ require "./Middleware/AdminAuth.php";
 											?>
 										</td>
 										<td class="text-center">
-											<a class="btn btn-info" href="./profile.php?UserID=<?php echo $row["UserID"]; ?>">View</a>
+											<a class="btn btn-info" href="./user_profile.php?UserID=<?php echo $row["UserID"]; ?>">View</a>
 										</td>
 										<td class="text-center"><a class="btn btn-danger" href="./Controllers/DeleteUserController.php?UserID=<?php echo $row["UserID"]; ?>" onclick="return confirm('Are you sure to delete <?php echo $row['UserName']; ?> ?')">Delete</a></td>
 									</tr>
@@ -127,19 +127,27 @@ require "./Middleware/AdminAuth.php";
 						</div>
 					</div>
 
-					<div id="student">
-						<label for="student_id">Student ID</label>
-						<input type="text" class="form-control" name="student_id" id="student_id">
-						<div class="invalid-feedback">
-							Please enter a student id.
-						</div>
-					</div>
-
 					<div id="staff">
 						<label for="staff_id">Staff ID</label>
 						<input type="text" class="form-control" name="staff_id" id="staff_id">
 						<div class="invalid-feedback">
 							Please enter a staff id.
+						</div>
+					</div>
+
+					<div class="col-6">
+						<label for="staff_id">Expert ID</label>
+						<input type="text" value="<?php echo $row["ExpertID"]; ?>" class="form-control" name="expert_id" id="expert_id">
+						<div class="invalid-feedback">
+							Please enter a expert id.
+						</div>
+					</div>
+
+					<div id="student">
+						<label for="student_id">Student ID</label>
+						<input type="text" class="form-control" name="student_id" id="student_id">
+						<div class="invalid-feedback">
+							Please enter a student id.
 						</div>
 					</div>
 
@@ -164,6 +172,24 @@ require "./Middleware/AdminAuth.php";
 	<script src="./resources/js/datatables.js"></script>
 	<script>
 		document.getElementById("user_list").classList.add("active");
+		$.fn.dataTable.Buttons.defaults.dom.button.className =
+			"btn btn-outline-primary";
+		$("#user_table").DataTable({
+			language: {
+				searchPlaceholder: "Search by a field...",
+			},
+			dom: "Bfrtip",
+			buttons: [
+				"colvis",
+				"pageLength",
+				{
+					extend: "collection",
+					text: "Export",
+					buttons: ["csv", "excel", "pdf"],
+				},
+				"print",
+			],
+		});
 	</script>
 </body>
 

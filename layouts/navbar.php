@@ -54,6 +54,7 @@
 			elseif (isset($_SESSION["staff"]) || isset($_SESSION["student"])) :
 			?>
 				<a class="nav-link" id="complaint" href="./ComplaintDashBoard.php">Complaint</a>
+				<a class="nav-link" id="bug_report" href="./bug_report.php">Bug Report</a>
 			<?php
 			endif;
 			?>
