@@ -35,7 +35,7 @@
 	</div>
 	<div class="offcanvas-body">
 		<nav class="nav nav-pills flex-column">
-			<form action="" class="d-" method="get">
+			<form action="" class="d-lg-none" method="get">
 				<div class="input-group">
 					<input class="form-control" type="text" placeholder="Search">
 					<button class="btn btn-outline-info" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -46,6 +46,11 @@
 			if (isset($_SESSION["admin"])) :
 			?>
 				<a class="nav-link" id="user_list" href="./user_list.php">User List</a>
+				<a class="nav-link" id="complaint_list" href="./AdminUpdateStatus.php">Complaint List</a>
+			<?php
+			elseif (isset($_SESSION["staff"]) || isset($_SESSION["student"])) :
+			?>
+				<a class="nav-link" id="complaint" href="./ComplaintDashBoard.php">Complaint</a>
 			<?php
 			endif;
 			?>
