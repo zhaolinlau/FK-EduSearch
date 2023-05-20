@@ -117,30 +117,22 @@ require "./Middleware/Authenticate.php";
 					</tr>
 				</tbody>
 			</table>
+			<nav aria-label="Page navigation">
+				<ul class="pagination">
+					<li class="page-item disabled">
+						<a class="page-link" href="#" tabindex="-1">Previous</a>
+					</li>
+					<li class="page-item"><a class="page-link" href="#">1</a></li>
+					<li class="page-item"><a class="page-link" href="#">2</a></li>
+					<li class="page-item"><a class="page-link" href="#">3</a></li>
+					<li class="page-item">
+						<a class="page-link" href="#">Next</a>
+					</li>
+				</ul>
+			</nav>
 		</div>
-		<nav aria-label="Page navigation">
-			<ul class="pagination justify-content-end" style="margin-right:60px">
-				<li class="page-item disabled">
-					<a class="page-link" href="#" tabindex="-1">Previous</a>
-				</li>
-				<li class="page-item"><a class="page-link" href="#">1</a></li>
-				<li class="page-item"><a class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
-				<li class="page-item">
-					<a class="page-link" href="#">Next</a>
-				</li>
-			</ul>
-		</nav>
 	</div>
 	</nav>
-	<div class="footer" style="background-color:lightblue; padding:10px 10px;">
-		<p class="text-center">Copyright © 2023 FK-EduSearch System</p>
-	</div>
-
-
-
-
-
 
 	<script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="./resources/js/livechat.js"></script>
@@ -188,6 +180,8 @@ require "./Middleware/Authenticate.php";
     	  </div>`;
 			alertContainer.innerHTML = alertHTML;
 		}
+
+		document.getElementById("data_analytics").classList.add("active");
 	</script>
 </body>
 

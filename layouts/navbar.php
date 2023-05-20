@@ -49,6 +49,7 @@
 				<a class="nav-link" id="data_analytics" href="./data_analytics.php">Data Analytics</a>
 				<a class="nav-link" id="user_list" href="./user_list.php">User List</a>
 				<a class="nav-link" id="complaint_list" href="./AdminUpdateStatus.php">Complaint List</a>
+				<a class="nav-link" id="bug_list" href="./bug_list.php">Bug List</a>
 			<?php
 			elseif (isset($_SESSION["staff"]) || isset($_SESSION["student"])) :
 			?>
