@@ -5,7 +5,7 @@
 			FK-EduSearch
 		</a>
 
-		<form action="" class="d-none d-lg-flex ms-5" method="get">
+		<form action="" class="d-none d-lg-flex" method="get">
 			<div class="input-group">
 				<input class="form-control" type="text" placeholder="Search">
 				<button class="btn btn-outline-info" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
