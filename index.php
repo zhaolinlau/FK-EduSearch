@@ -56,38 +56,25 @@ require "./Middleware/Authenticate.php";
 			<br>
 
 
-			<table class="table table-bordered" style="border-color: black;">
-				<thead>
-					<tr>
-						<th id="PostTitle" colspan="3">Post Title</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td id="PostBody" colspan="3">Post Body</td>
-					</tr>
-					<tr>
-						<td style="width: 33%;">
-							<div class="d-flex align-items-center justify-content-center">
-								<i class="fa fa-thumbs-up" style="font-size: 24px; color: blue;"></i>
-								<span class="ms-1 align-middle">Like</span>
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="card border-0 shadow">
+							<div class="card-header bg-white">
+								<h5 class="card-title fw-semibold">Post Title</h5>
 							</div>
-						</td>
-						<td style="width: 33%;">
-							<div class="d-flex align-items-center justify-content-center">
-								<i class="gg-comment" style="color: red;"></i>
-								<span class="ms-1 align-middle">Comment</span>
+							<div class="card-body">
+								<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugiat, eos non commodi obcaecati molestias qui ab? Sed inventore, nam consequuntur dicta dignissimos eaque doloremque, tempore qui necessitatibus, sequi assumenda ducimus?</p>
 							</div>
-						</td>
-						<td style="width: 34%;">
-							<div class="d-flex align-items-center justify-content-center">
-								<span>Post Status: &nbsp;</span><span id="PostStatus">Placeholder</span>
+							<div class="card-footer bg-white">
+								<button class="btn btn-outline-primary"><i class="fa-solid fa-thumbs-up"></i> Like</button>
+								<button class="btn btn-light"><i class="fa-solid fa-comment"></i> Comment</button>
+								<span class="badge bg-info fs-6">Post Status: Placeholder</span>
 							</div>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 
