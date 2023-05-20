@@ -1,3 +1,7 @@
+<?php 
+session_start();
+require "./Middleware/Authenticate.php";
+?>
 </html>
 
 <!DOCTYPE html>
@@ -9,9 +13,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>FK-EduSearch | Expert</title>
 	<link rel="shortcut icon" href="./resources/img/favicon.ico" type="image/x-icon">
-	<link 
-  href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" 
-  rel="stylesheet"  type='text/css'>
+	<link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet"  type='text/css'>
 	<link rel="shortcut icon" href="./src/img/favicon.ico" type="image/x-icon">
 	<link rel="stylesheet" href="./node_modules/@fortawesome/fontawesome-free/css/all.min.css">
 	<link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
@@ -20,37 +22,14 @@
 </head>
 
 <body>
-<nav class="navbar bg-body-tertiary border-bottom">
-  <div class="container-fluid">
-    <a class="navbar-brand d-flex align-items-center"href="#">
-      <img src="./resources/img/logo.png" alt="FK-EDUSEARCH" width="150" height="150">   
-		</a>		
-		<label class="text1"><b>FK-EduSearch System</b></label> 
-		<div class="profileicon"><a href="#"><i class="fa fa-user"></i></a></div>
-  </div>
-</nav>
-<div class="row">
-<div class="col-2">
-<ul class="nav flex-column border">
-  <li class="nav-item">
-    <a class="nav-link active border" href="#">User Profile</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link border" href="#">Discussion Board</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link border" href="#">Report</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link border" href="#">Complaint</a>
-  </li>
-	<li class="nav-item">
-    <a class="nav-link border" href="#"><b>Log Out</b></a>
-  </li>
-	<br><br><br><br><br><br><br><br><br>
-</ul>
-</div>
-<div class="col-9">
+<?php require "layouts/navbar.php" ?>
+	<div class="row" style="margin-top: 94px;">
+		<div class="col">
+	
+		</div>
+	</div>
+  <div class="">
+  <div class="col-9 mx-auto" style="margin-right: 0;">
 	<br>
 	<div class="d-flex justify-content-between align-items-center">
     <span class="text2">Expert Profile Page</span>
@@ -152,10 +131,10 @@
     <p class="card-text"><span id="averageRatings">X.X</span>★</p>
   </div>
 </div>
-
+</div>
 </div>
 
-<footer class="footer fixed-bottom">
+<footer class="footer">
   <div class="container-fluid">
     <p class="text-center" style="margin-bottom: 0;">Copyright © 2023 FK-EduSearch System</p>
   </div>
