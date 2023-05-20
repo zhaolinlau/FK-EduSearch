@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 20, 2023 at 03:18 PM
+-- Generation Time: May 20, 2023 at 07:23 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -104,7 +104,8 @@ CREATE TABLE `post` (
   `PostID` bigint(255) NOT NULL,
   `UserID` bigint(255) NOT NULL,
   `PostStatus` tinyint(1) NOT NULL,
-  `PostLike` int(255) NOT NULL,
+  `PostTitle` varchar(25) NOT NULL,
+  `PostContent` varchar(255) NOT NULL,
   `PostCategory` varchar(25) NOT NULL,
   `PostCreated` timestamp(6) NOT NULL DEFAULT current_timestamp(6),
   `PostUpdated` timestamp(6) NOT NULL DEFAULT current_timestamp(6) ON UPDATE current_timestamp(6)
