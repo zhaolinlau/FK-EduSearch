@@ -12,8 +12,7 @@ require "./Middleware/Authenticate.php";
 	<title>FK-EduSearch | Discussion</title>
 	<link rel="shortcut icon" href="./src/img/favicon.ico" type="image/x-icon">
 	<link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
-	<link rel="stylesheet" href="./node_modules/@fortawesome/fontawesome-free/css/all.min.css">
-	<link rel="stylesheet" href="./custom_css/custom.css">
+	<link rel="stylesheet" href="./node_modules/@fortawesome/fontawesome-free/css/all.min.css">>
 	<link href='https://css.gg/css' rel='stylesheet'>
 </head>
 
@@ -32,11 +31,14 @@ require "./Middleware/Authenticate.php";
 	<div class="">
 		<div class="col-9 mx-auto" style="margin-right: 0;">
 			<div> <!--Discussion Board and search bar-->
-				<b style="font-size:larger;">Discussion Board</b>
+				<h3>Discussion Board</h3>
 				<br><br>
 				<form class="row g-3">
-					<div class="col-auto">
-						<button class="btn btn-secondary d-flex align-items-center discussionBoard-btn" onclick="">CREATE</button>
+					<div class="col justify-content-end d-flex">
+						<button class="btn btn-primary rounded-5" onclick="">
+							<i class="fa-regular fa-plus"></i>
+							Create Post
+						</button>
 					</div>
 				</form>
 			</div>
