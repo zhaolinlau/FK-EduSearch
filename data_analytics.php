@@ -47,6 +47,7 @@ require "./Middleware/Authenticate.php";
 						<th scope="col">No.</th>
 						<th scope="col">Comment ID</th>
 						<th scope="col">Reported By</th>
+						<th scope="col">Report Description</th>
 						<th scope="col">Reported On</th>
 						<th scope="col" style="width: 240px;">Report Status</th>
 						<th scope="col">Operation</th>
@@ -57,6 +58,7 @@ require "./Middleware/Authenticate.php";
 						<th scope="row">1</th>
 						<td>5534646723</td>
 						<td>234512</td>
+						<td>Go kill yourself you fucking bitch you deserve be raoe just die bitch!</td>
 						<td>2023/05/27 07:48:12</td>
 						<td>
 							<select class="form-select" aria-label="Complaint Status">
@@ -79,6 +81,7 @@ require "./Middleware/Authenticate.php";
 					<th scope="row">2</th>
 					<td>9476923039</td>
 					<td>758023</td>
+					<td>How can I commit suicide wihtout pain?</td>
 					<td>2023/08/07 13:25:32</td>
 					<td><select class="form-select" aria-label="Complaint Status">
 							<option selected>Select Report Status</option>
@@ -100,6 +103,7 @@ require "./Middleware/Authenticate.php";
 						<th scope="row">3</th>
 						<td>1043465349</td>
 						<td>884394</td>
+						<td>You are fucking horrible animals!</td>
 						<td>2023/12/15 23:58:52</td>
 						<td><select class="form-select" aria-label="Complaint Status">
 								<option selected>Select Report Status</option>
