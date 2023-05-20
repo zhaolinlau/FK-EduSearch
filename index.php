@@ -12,8 +12,7 @@ require "./Middleware/Authenticate.php";
 	<title>FK-EduSearch | Discussion</title>
 	<link rel="shortcut icon" href="./src/img/favicon.ico" type="image/x-icon">
 	<link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
-	<link rel="stylesheet" href="./node_modules/@fortawesome/fontawesome-free/css/all.min.css">>
-	<link href='https://css.gg/css' rel='stylesheet'>
+	<link rel="stylesheet" href="./node_modules/@fortawesome/fontawesome-free/css/all.min.css">
 </head>
 
 <body>
