@@ -9,13 +9,14 @@ require "./Middleware/Authenticate.php";
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>FK-EduSearch | Profile</title>
-	<link rel="shortcut icon" href="./src/img/favicon.ico" type="image/x-icon">
+	<title>FK-EduSearch | My Profile</title>
+	<link rel="shortcut icon" href="./resources/img/favicon.ico" type="image/x-icon">
 	<link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="./node_modules/@fortawesome/fontawesome-free/css/all.min.css">
 </head>
 
 <body class="h-100">
+	<?php require "layouts/navbar.php" ?>
 	<div class="container-fluid h-100 d-flex align-items-center justify-content-center">
 		<div class="row">
 			<div class="col">
@@ -44,9 +45,8 @@ require "./Middleware/Authenticate.php";
 		</div>
 	</div>
 
-	<?php require "layouts/navbar.php" ?>
 	<script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="./src/plugins/livechat.js"></script>
+	<script src="./resources/js/livechat.js"></script>
 	<script src="./resources/js/form_validate.js"></script>
 </body>
 

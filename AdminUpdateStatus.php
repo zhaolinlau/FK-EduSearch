@@ -11,8 +11,7 @@ require "./Middleware/AdminAuth.php";
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>FK-EduSearch | Complaint Status</title>
-	<link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
-	<link rel="shortcut icon" href="./src/img/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="./resources/img/favicon.ico" type="image/x-icon">
 	<link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="./node_modules/@fortawesome/fontawesome-free/css/all.min.css">
 </head>
@@ -128,9 +127,8 @@ require "./Middleware/AdminAuth.php";
 			</div>
 		</div>
 
-
-
 		<script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+		<script src="./resources/js/livechat.js"></script>
 		<script>
 			function showAlert() {
 				var alertContainer = document.getElementById("alertContainer");

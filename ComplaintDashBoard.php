@@ -6,7 +6,8 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>FK-EduSearch | Dashboard</title>
-	<link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css">
+	<link rel="shortcut icon" href="./resources/img/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
 </head>
 
 <body class="h-100">
@@ -28,35 +29,33 @@
 							<a class="nav-link border" href="#">User Profile</a>
 						</li>
 						<li class="nav-item">
-              <a class="nav-link border" href="#">Discussion Board</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link border" href="#">Report</a>
-            </li>
-            <li class="nav-item">
-             <a class="nav-link active" aria-current="page" href="#">Complaint</a>
-            </li>
-	          <li class="nav-item">
-             <a class="nav-link border" href="#"><b>Log Out</b></a>
-           </li>
+							<a class="nav-link border" href="#">Discussion Board</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link border" href="#">Report</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" aria-current="page" href="#">Complaint</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link border" href="#"><b>Log Out</b></a>
+						</li>
 					</ul>
 				</div>
 			</div>
 		</div>
 		<div class="col">
 			<div style="width: 800px;"><br>
-	&nbsp &nbsp<label class="text2">Complaint</label>
-	<hr>
-	<button type="button" class="btn btn-primary btn-1g" style="padding:30px 30px; margin-right:30px;">All Complaint Information</button>
-  <button type="button" class="btn btn-secondary btn-1g" style="padding:30px 30px; margin-right:30px;">Calculation of Complaints</button>
-	<button type="button" class="btn btn-info btn-1g" style="padding:30px 30px; margin-right:30px;">Report of Complaints</button>
-</div>
+				&nbsp &nbsp<label class="text2">Complaint</label>
+				<hr>
+				<button type="button" class="btn btn-primary btn-1g" style="padding:30px 30px; margin-right:30px;">All Complaint Information</button>
+				<button type="button" class="btn btn-secondary btn-1g" style="padding:30px 30px; margin-right:30px;">Calculation of Complaints</button>
+				<button type="button" class="btn btn-info btn-1g" style="padding:30px 30px; margin-right:30px;">Report of Complaints</button>
+			</div>
 		</div>
 	</div>
-	<div class="footer" style="background-color:lightblue; padding:10px 10px;">
-	<p class="text-center" >Copyright © 2023 FK-EduSearch System</p>
-</div>
-	<script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+	<script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="./resources/js/livechat.js"></script>
 
 </body>
 

@@ -46,6 +46,7 @@
 			<?php
 			if (isset($_SESSION["admin"])) :
 			?>
+				<a class="nav-link" id="data_analytics" href="./data_analytics.php">Data Analytics</a>
 				<a class="nav-link" id="user_list" href="./user_list.php">User List</a>
 				<a class="nav-link" id="complaint_list" href="./AdminUpdateStatus.php">Complaint List</a>
 			<?php

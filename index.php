@@ -10,7 +10,7 @@ require "./Middleware/Authenticate.php";
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>FK-EduSearch | Discussion</title>
-	<link rel="shortcut icon" href="./src/img/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="./resources/img/favicon.ico" type="image/x-icon">
 	<link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="./node_modules/@fortawesome/fontawesome-free/css/all.min.css">
 </head>
@@ -113,7 +113,7 @@ require "./Middleware/Authenticate.php";
 
 	<script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="./resources/js/form_validate.js"></script>
-	<script src="./src/plugins/livechat.js"></script>
+	<script src="./recources/js/livechat.js"></script>
 	<script>
 		document.getElementById("discussion").classList.add("active");
 	</script>
