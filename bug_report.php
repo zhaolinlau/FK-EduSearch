@@ -18,9 +18,12 @@ require "./Middleware/Authenticate.php";
 <body class="h-100">
 	<?php require "./layouts/navbar.php"; ?>
 	<div class="container h-100 d-flex align-items-center justify-content-center">
-		<div class="row w-100">
-			<div class="col-12 w-100 d-flex justify-content-center">
-				<form action="#" class="row g-3 needs-validation" method="post" novalidate>
+		<div class="row w-100 d-flex justify-content-center">
+			<div class="col-12">
+				<form action="#" class="row shadow p-5 rounded-5 g-3 needs-validation" method="post" novalidate>
+					<div class="col-12">
+						<h3>Bug Report</h3>
+					</div>
 					<div class="col-12">
 						<label for="bug_description" class="form-label">Bug Description</label>
 						<textarea name="bug_description" class="form-control" id="bug_description" cols="100" rows="10" required></textarea>

@@ -27,6 +27,7 @@ require "./Middleware/AdminAuth.php";
 			<div class="col-12">
 				<div class="table-responsive w-100">
 					<table class="table table-hover w-100" id="bug_table">
+						<h3>Bug List</h3>
 						<thead>
 							<tr>
 								<th>No.</th>

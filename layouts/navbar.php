@@ -51,7 +51,7 @@
 				<a class="nav-link" id="complaint_list" href="./AdminUpdateStatus.php">Complaint List</a>
 				<a class="nav-link" id="bug_list" href="./bug_list.php">Bug List</a>
 			<?php
-			elseif (isset($_SESSION["staff"]) || isset($_SESSION["student"])) :
+			elseif (!isset($_SESSION["admin"])) :
 			?>
 				<a class="nav-link" id="complaint" href="./ComplaintDashBoard.php">Complaint</a>
 				<a class="nav-link" id="bug_report" href="./bug_report.php">Bug Report</a>

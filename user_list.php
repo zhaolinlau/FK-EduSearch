@@ -25,6 +25,9 @@ require "./Middleware/AdminAuth.php";
 	<div class="container h-100 d-flex align-items-center">
 		<div class="row w-100 g-3">
 			<div class="col-12">
+				<h3>User List</h3>
+			</div>
+			<div class="col-12">
 				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#user_form">
 					Add User
 				</button>
@@ -90,7 +93,10 @@ require "./Middleware/AdminAuth.php";
 
 	<div class="modal fade" id="user_form" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content p-5">
+			<div class="modal-content px-5 py-3">
+				<div class="modal-header">
+					<h5 class="modal-title">Add User</h5>
+				</div>
 				<form action="./Controllers/AddUserController.php" class="needs-validation" method="post" novalidate>
 					<div>
 						<label for="username" class="form-label">Username</label>
