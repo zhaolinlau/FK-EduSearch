@@ -12,6 +12,8 @@
 	<link 
   href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" 
   rel="stylesheet"  type='text/css'>
+	<link rel="shortcut icon" href="./src/img/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" href="./node_modules/@fortawesome/fontawesome-free/css/all.min.css">
 	<link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="./custom_css/custom.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -61,31 +63,31 @@
       <!-- Placeholder div with red background color and border -->
       <div style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; background-color: gray; border: 1px solid white;"></div>
     </td>
-    <td style="width: 15%;"><b>Name</b></td>
+    <td style="width: 15%;" class="text-center align-middle"><b>Name</b></td>
     <td style="width: 60%;"><input type="text" class="form-control" value="UserName" disabled>
 	</td>
   	</tr>
   	<tr>
-    	<td><b>Email</b></td>
+    	<td class="text-center align-middle"><b>Email</b></td>
     	<td><input type="text" class="form-control" value="UserEmail" disabled></td>
  	 </tr>
  	 <tr>
-    	<td><b>Role</b></td>
+    	<td class="text-center align-middle"><b>Role</b></td>
    	 	<td><input type="text" class="form-control" value="UserRole" disabled></td>
  	</tr>
  	 <tr>
     	<td colspan="2" class="text-center"><h4>Social Media Accounts</h4></td>
     
 	  </tr>
- 	<tr>
+ 	<tr class="text-center align-middle">
     	<td><span class="fa fa-facebook"></span></td>
    		<td><input type="text" class="form-control" value="Facebook Name" disabled></td>
  	</tr>
- 	 <tr>
+   <tr class="text-center align-middle">
     	<td><span class="fa fa-twitter"></span></td>
     	<td><input type="text" class="form-control" value="Twitter Handle" disabled></td>
   	</tr>
-  	<tr>
+  	<tr class="text-center align-middle">
     	<td><span class="fa fa-linkedin"></span></td>
     	<td><input type="text" class="form-control" value="LinkedIn Name" disabled></td>
   	</tr>
