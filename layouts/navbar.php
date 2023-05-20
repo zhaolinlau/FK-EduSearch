@@ -19,6 +19,7 @@
 			</a>
 			<ul class="dropdown-menu dropdown-menu-end shadow-sm">
 				<li><a class="dropdown-item" href="./profile.php">My Profile</a></li>
+				<li><a class="dropdown-item" href="./posts.php">My Posts</a></li>
 				<li><a class="dropdown-item" href="./Controllers/LogoutController.php">Logout</a></li>
 			</ul>
 		</div>
@@ -56,4 +57,15 @@
 			?>
 		</nav>
 	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col text-center">
+				Copyright &COPY; <span id="year"></span> FK-EduSearch. All Rights Reserved.
+			</div>
+		</div>
+	</div>
+	<script>
+		const year = new Date().getFullYear()
+		document.getElementById('year').innerHTML = year;
+	</script>
 </div>

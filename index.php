@@ -36,10 +36,7 @@ require "./Middleware/Authenticate.php";
 				<br><br>
 				<form class="row g-3">
 					<div class="col-auto">
-						<input type="text" class="form-control" id="searchPost" placeholder="Search for Posts" style="border-color:black; height:50px;">
-					</div>
-					<div class="col-auto">
-						<button type="submit" class="btn btn-secondary" style="border-radius: 10%; height: 50px; padding: 6px 12px; background-color: lightgray; color: black;">Search</button>
+						<button class="btn btn-secondary d-flex align-items-center discussionBoard-btn" onclick="">CREATE</button>
 					</div>
 				</form>
 			</div>
@@ -89,21 +86,9 @@ require "./Middleware/Authenticate.php";
 				</tbody>
 			</table>
 
-			<div class="d-flex justify-content-center mt-4 mb-5">
-				<div class="d-flex justify-content-between" style="width: 60%;">
-					<button class="btn btn-secondary d-flex align-items-center discussionBoard-btn" onclick="">CREATE</button>
-					<button class="btn btn-secondary d-flex align-items-center discussionBoard-btn" onclick="">MY POSTS</button>
-				</div>
-			</div>
-
 		</div>
 	</div>
 
-	<footer class="footer">
-		<div class="container-fluid">
-			<p class="text-center" style="margin-bottom: 0;">Copyright © 2023 FK-EduSearch System</p>
-		</div>
-	</footer>
 	<script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="./js/form_validate.js"></script>
 	<script src="./src/plugins/livechat.js"></script>
