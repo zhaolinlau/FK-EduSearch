@@ -32,14 +32,14 @@ require "./Middleware/Authenticate.php";
 			<div> <!--Discussion Board and search bar-->
 				<h3>Discussion Board</h3>
 				<br><br>
-				<form class="row g-3">
+				<div class="row g-3">
 					<div class="col justify-content-end d-flex">
-						<button class="btn btn-primary rounded-5" onclick="">
+						<button class="btn btn-primary rounded-5" data-bs-toggle="modal" data-bs-target="#post_form">
 							<i class="fa-regular fa-plus"></i>
 							Create Post
 						</button>
 					</div>
-				</form>
+				</div>
 			</div>
 
 			<div class="dropdown d-flex align-items-center justify-content-center text-center">
@@ -77,8 +77,42 @@ require "./Middleware/Authenticate.php";
 		</div>
 	</div>
 
+	<div class="modal fade" id="post_form" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content p-3">
+				<div class="modal-header">
+					<h5 class="modal-title">Create Post</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form action="#" class="needs-validation" method="post" novalidate>
+						<div>
+							<label for="post_title" class="form-label">Post Title</label>
+							<input type="text" class="form-control" name="post_title" id="post_title" required>
+							<div class="invalid-feedback">
+								Please enter post title.
+							</div>
+						</div>
+						<div>
+							<label for="post_content">Post Content</label>
+							<textarea name="post_content" id="post_content" class="form-control" rows="10" required></textarea>
+							<div class="invalid-feedback">
+								Please enter post content.
+							</div>
+						</div>
+
+						<div class="modal-footer">
+							<input type="submit" class="btn btn-primary" name="post" value="Post">
+							<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="./js/form_validate.js"></script>
+	<script src="./resources/js/form_validate.js"></script>
 	<script src="./src/plugins/livechat.js"></script>
 	<script>
 		document.getElementById("discussion").classList.add("active");
