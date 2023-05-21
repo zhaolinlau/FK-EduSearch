@@ -30,7 +30,7 @@ require "./Middleware/Authenticate.php";
 			<div class="d-flex justify-content-between align-items-center">
 				<span class="text2">Edit Expert Profile Page</span>
 				<div>
-					<a href="./expert.php" class="btn btn-light btn-sm me-2">Back</a>
+					<span class="btn btn-light btn-sm me-2" onclick="history.back()">Back</span>
 					<a href="#" class="btn btn-light btn-sm">Save Changes</a>
 				</div>
 			</div>

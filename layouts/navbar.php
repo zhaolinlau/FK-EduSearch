@@ -50,14 +50,25 @@
 				<a class="nav-link" id="user_list" href="./user_list.php">User List</a>
 				<a class="nav-link" id="complaint_list" href="./AdminUpdateStatus.php">Complaint List</a>
 				<a class="nav-link" id="bug_list" href="./bug_list.php">Bug List</a>
-			<?php
+				<?php
 			elseif (!isset($_SESSION["admin"])) :
-			?>
-				<a class="nav-link" id="complaint" href="./ComplaintDashBoard.php">Complaint</a>
-				<a class="nav-link" id="bug_report" href="./bug_report.php">Bug Report</a>
+				if (isset($_SESSION["expert"])) :
+				?>
+					<a class="nav-link" id="complaint" href="./ComplaintDashBoard.php">Complaint</a>
+					<a class="nav-link" id="bug_report" href="./bug_report.php">Bug Report</a>
+					<a class="nav-link" id="assigned_posts" href="./assignedPost.php">Assigned Posts</a>
+					<a class="nav-link" id="expert_statistics" href="./expertStatistics.php">Your Report</a>
+
+				<?php
+				else :
+				?>
+					<a class="nav-link" id="complaint" href="./ComplaintDashBoard.php">Complaint</a>
+					<a class="nav-link" id="bug_report" href="./bug_report.php">Bug Report</a>
 			<?php
+				endif;
 			endif;
 			?>
+
 		</nav>
 	</div>
 	<div class="container">
