@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 20, 2023 at 07:23 PM
+-- Generation Time: Jun 02, 2023 at 12:00 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -163,7 +163,9 @@ INSERT INTO `user` (`UserID`, `UserName`, `UserPassword`, `UserEmail`, `UserSoci
 -- Indexes for table `bug`
 --
 ALTER TABLE `bug`
-  ADD PRIMARY KEY (`BugID`);
+  ADD PRIMARY KEY (`BugID`),
+  ADD UNIQUE KEY `BugID` (`BugID`),
+  ADD KEY `UserID` (`UserID`);
 
 --
 -- Indexes for table `comment`
@@ -171,8 +173,7 @@ ALTER TABLE `bug`
 ALTER TABLE `comment`
   ADD PRIMARY KEY (`CommentID`),
   ADD UNIQUE KEY `CommentID` (`CommentID`),
-  ADD KEY `PostID` (`PostID`,`UserID`),
-  ADD KEY `UserID` (`UserID`);
+  ADD KEY `PostID` (`PostID`,`UserID`);
 
 --
 -- Indexes for table `complaint`
@@ -191,6 +192,14 @@ ALTER TABLE `feedback`
   ADD UNIQUE KEY `PostID` (`FeedbackID`),
   ADD KEY `FeedbackID` (`PostID`),
   ADD KEY `PostID_2` (`PostID`);
+
+--
+-- Indexes for table `likes`
+--
+ALTER TABLE `likes`
+  ADD PRIMARY KEY (`LikeID`),
+  ADD UNIQUE KEY `LikeID` (`LikeID`),
+  ADD KEY `UserID` (`UserID`,`PostID`);
 
 --
 -- Indexes for table `post`
@@ -214,7 +223,9 @@ ALTER TABLE `rating`
 ALTER TABLE `user`
   ADD PRIMARY KEY (`UserID`),
   ADD UNIQUE KEY `UserName` (`UserName`),
-  ADD UNIQUE KEY `UserID` (`UserID`);
+  ADD UNIQUE KEY `UserID` (`UserID`),
+  ADD UNIQUE KEY `UserEmail` (`UserEmail`),
+  ADD UNIQUE KEY `StaffID` (`StaffID`,`StudentID`,`ExpertID`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -243,6 +254,12 @@ ALTER TABLE `complaint`
 --
 ALTER TABLE `feedback`
   MODIFY `FeedbackID` bigint(255) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `likes`
+--
+ALTER TABLE `likes`
+  MODIFY `LikeID` bigint(255) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `post`
