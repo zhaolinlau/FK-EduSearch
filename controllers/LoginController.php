@@ -2,6 +2,7 @@
 require "../config/db.php";
 
 try {
+	session_start();
 	$username = $_POST["username"];
 	$password = $_POST["password"];
 
@@ -11,7 +12,7 @@ try {
 	$result = $stmt->fetch(PDO::FETCH_ASSOC);
 
 	if ($result && password_verify($password, $result["UserPassword"])) {
-		session_start();
+
 		$_SESSION["user_id"] = $result["UserID"];
 		$_SESSION["username"] = $result["UserName"];
 		$_SESSION["user_password"] = $result["UserPassword"];
@@ -20,7 +21,6 @@ try {
 		$_SESSION["research_topic"] = $result["ResearchTopic"];
 		require "../Middleware/UserRole.php";
 	} else {
-		session_start();
 		$_SESSION["error"] = "Username or password is invalid";
 		header("location: ../login.php");
 	}
