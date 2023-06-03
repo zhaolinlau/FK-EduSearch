@@ -37,7 +37,7 @@ require "./Middleware/Authenticate.php";
 			<hr>
 			<table class="table table-borderless">
 				<tr>
-					<td rowspan="7" style="width: 25%; position: relative;">
+					<td rowspan="5" style="width: 20%; position: relative;">
 						<!-- Placeholder div with gray background color and border -->
 						<div style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; background-color: gray; border: 1px solid white;">
 							<!-- Input field for uploading an image -->
@@ -64,16 +64,8 @@ require "./Middleware/Authenticate.php";
 
 				</tr>
 				<tr class="text-center align-middle">
-					<td><i class="fa-brands fa-facebook"></i></td>
-					<td><input type="text" class="form-control" value="Facebook Name"></td>
-				</tr>
-				<tr class="text-center align-middle">
-					<td><i class="fa-brands fa-twitter"></i></td>
-					<td><input type="text" class="form-control" value="Twitter Handle"></td>
-				</tr>
-				<tr class="text-center align-middle">
-					<td><i class="fa-brands fa-linkedin"></i></td>
-					<td><input type="text" class="form-control" value="LinkedIn Name"></td>
+					<td><i class="fa fa-rss" aria-hidden="true"></i></td>
+					<td><input type="text" class="form-control" value="Social Media"></td>
 				</tr>
 			</table>
 
@@ -110,7 +102,7 @@ require "./Middleware/Authenticate.php";
 					</h2>
 					<div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
 						<div class="accordion-body">
-							<input type="text" class="form-control border-0" value="ExpertPublicationList">
+							<a href="./publication_list.php" style="text-decoration:none;">Click here to edit publication lists.</a>
 						</div>
 					</div>
 				</div>
