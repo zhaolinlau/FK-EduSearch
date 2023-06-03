@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 02, 2023 at 12:00 PM
+-- Generation Time: Jun 03, 2023 at 08:56 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -114,6 +114,19 @@ CREATE TABLE `post` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `publication`
+--
+
+CREATE TABLE `publication` (
+  `PublicationID` bigint(255) NOT NULL,
+  `PublicationTitle` varchar(255) NOT NULL,
+  `PublicationDate` varchar(255) NOT NULL,
+  `UserID` bigint(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `rating`
 --
 
@@ -141,6 +154,11 @@ CREATE TABLE `user` (
   `ExpertID` varchar(10) NOT NULL,
   `UserRole` tinyint(1) NOT NULL,
   `ResearchTopic` varchar(25) NOT NULL,
+  `ExpertAreaOfExpertise` varchar(255) NOT NULL,
+  `ExpertCV` varchar(255) NOT NULL,
+  `ExpertAccountStatus` tinyint(4) NOT NULL,
+  `ExpertRatings` float NOT NULL,
+  `PublicationID` bigint(255) NOT NULL,
   `created_at` timestamp(6) NOT NULL DEFAULT current_timestamp(6),
   `updated_at` timestamp(6) NOT NULL DEFAULT current_timestamp(6) ON UPDATE current_timestamp(6)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -149,11 +167,11 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`UserID`, `UserName`, `UserPassword`, `UserEmail`, `UserSocialMedia`, `UserResearchArea`, `StaffID`, `StudentID`, `ExpertID`, `UserRole`, `ResearchTopic`, `created_at`, `updated_at`) VALUES
-(1, 'admin', '$2y$10$KNL1l8BZGYGbtA63C.ikpuevRBo3OIsZQ3ITuZ2LkACh8B5mxptSy', 'admin@gmail.com', '', '', 'STA001', '0', '', 0, '', '2023-04-21 04:33:09.909294', '2023-05-14 01:51:35.645232'),
-(2, 'expert', '$2y$10$oqnJGRxriBE8NJli9yice.P4..48apl7fH2EmuC0rxljahoD3mey6', 'expert@gmail.com', '', '', '', '0', 'EXB023', 1, '', '2023-04-21 04:40:21.719293', '2023-05-20 13:09:09.951685'),
-(3, 'lecturer', '$2y$10$u3lUUWPNcQD3a5rz3IhkfeNg1asAuRe766JDH4bJGtlWj524jUyEq', 'lecturer@gmail.com', '', '', 'STH750', '0', '', 2, '', '2023-04-21 04:48:28.248413', '2023-05-14 01:51:35.650834'),
-(4, 'student', '$2y$10$DhERISDlz/5dIwsWnn/bNO3TrHu3ET9uALXWwjaLRzaI2mlITvtLW', 'student@gmail.com', '', '', '0', 'CB22039', '', 3, '', '2023-04-21 04:49:40.980236', '2023-05-14 01:51:35.653402');
+INSERT INTO `user` (`UserID`, `UserName`, `UserPassword`, `UserEmail`, `UserSocialMedia`, `UserResearchArea`, `StaffID`, `StudentID`, `ExpertID`, `UserRole`, `ResearchTopic`, `ExpertAreaOfExpertise`, `ExpertCV`, `ExpertAccountStatus`, `ExpertRatings`, `PublicationID`, `created_at`, `updated_at`) VALUES
+(1, 'admin', '$2y$10$KNL1l8BZGYGbtA63C.ikpuevRBo3OIsZQ3ITuZ2LkACh8B5mxptSy', 'admin@gmail.com', '', '', 'STA001', '0', '', 0, '', '', '', 0, 0, 0, '2023-04-21 04:33:09.909294', '2023-05-14 01:51:35.645232'),
+(2, 'expert', '$2y$10$oqnJGRxriBE8NJli9yice.P4..48apl7fH2EmuC0rxljahoD3mey6', 'expert@gmail.com', '', '', '', '0', 'EXB023', 1, '', '', '', 0, 0, 0, '2023-04-21 04:40:21.719293', '2023-05-20 13:09:09.951685'),
+(3, 'lecturer', '$2y$10$u3lUUWPNcQD3a5rz3IhkfeNg1asAuRe766JDH4bJGtlWj524jUyEq', 'lecturer@gmail.com', '', '', 'STH750', '0', '', 2, '', '', '', 0, 0, 0, '2023-04-21 04:48:28.248413', '2023-05-14 01:51:35.650834'),
+(4, 'student', '$2y$10$DhERISDlz/5dIwsWnn/bNO3TrHu3ET9uALXWwjaLRzaI2mlITvtLW', 'student@gmail.com', '', '', '0', 'CB22039', '', 3, '', '', '', 0, 0, 0, '2023-04-21 04:49:40.980236', '2023-05-14 01:51:35.653402');
 
 --
 -- Indexes for dumped tables
@@ -173,7 +191,8 @@ ALTER TABLE `bug`
 ALTER TABLE `comment`
   ADD PRIMARY KEY (`CommentID`),
   ADD UNIQUE KEY `CommentID` (`CommentID`),
-  ADD KEY `PostID` (`PostID`,`UserID`);
+  ADD KEY `PostID` (`PostID`,`UserID`),
+  ADD KEY `comment_ibfk_1` (`UserID`);
 
 --
 -- Indexes for table `complaint`
@@ -208,6 +227,12 @@ ALTER TABLE `post`
   ADD PRIMARY KEY (`PostID`),
   ADD UNIQUE KEY `PostID` (`PostID`),
   ADD KEY `UserID` (`UserID`);
+
+--
+-- Indexes for table `publication`
+--
+ALTER TABLE `publication`
+  ADD PRIMARY KEY (`PublicationID`);
 
 --
 -- Indexes for table `rating`
@@ -266,6 +291,12 @@ ALTER TABLE `likes`
 --
 ALTER TABLE `post`
   MODIFY `PostID` bigint(255) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `publication`
+--
+ALTER TABLE `publication`
+  MODIFY `PublicationID` bigint(255) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `rating`
