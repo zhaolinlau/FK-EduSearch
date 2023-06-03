@@ -135,26 +135,24 @@ require "./Middleware/Authenticate.php";
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
          function deleteComplaint(complaintID) {
-        const confirmed = confirm("Are you sure you want to delete this record?");
-        if (confirmed) {
-					<?php
-              try {
-                require "./config/db.php";
-								$stmt = $conn->prepare("DELETE FROM complaint WHERE ComplaintID = :complaintID");
-               	$stmt->bindParam(':complaintID', $complaintID);
-                $stmt->execute();
-								?>
-          showAlert("The record of the complaint is successfully deleted");
-					<?php
-						 $conn = null;
-						  } catch (PDOException $e) {
-					?>
-					showAlert("Error: <?php echo $e->getMessage(); ?>");
-					<?php
-					}
-					?>
+            const confirmed = confirm("Are you sure you want to delete this record?");
+            if (confirmed) {
+                $.ajax({
+                    type: "POST",
+                    url: "./controllers/DeleteComplaint.php",
+                    data: {
+                        complaintID: complaintID
+                    },
+                    success: function(response) {
+                        showAlert(response);
+                    },
+                    error: function(xhr, status, error) {
+                        showAlert("Error: " + xhr.responseText);
+                    }
+                });
             }
-        });
+        }
+
         function showAlert(message) {
             var alertMessage = document.getElementById("alertMessage");
             alertMessage.textContent = message;
