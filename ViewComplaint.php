@@ -1,6 +1,32 @@
 <?php
 session_start();
 require "./Middleware/Authenticate.php";
+ try{
+	require "./config/db.php";
+	$complaintID = $_GET['ComplaintID'];
+	$UserID = $_SESSION["user_id"];
+
+	$stmt=$conn->prepare("SELECT u.UserID, u.UserName,c.FeedbackID, c.ComplaintStatus,c.ComplaintDescription,c.ComplaintType,c.ComplaintCreatedDate FROM user u
+	                      JOIN complaint c ON u.UserID = c.UserID
+	                      WHERE ComplaintID = :complaintID;");
+	 $stmt->bindParam(':complaintID', $complaintID);
+	 $stmt->execute();
+	 $complaint = $stmt->fetch(PDO::FETCH_ASSOC);
+	 $timestamp=strtotime($complaint['ComplaintCreatedDate']);
+	 $feedbackID=$complaint["FeedbackID"];
+	 var_dump($complaint);
+	 $stmt=$conn->prepare("SELECT c.ComplaintID, f.ExpertFeedback, f.FeedbackID, p.PostTitle
+	 											FROM complaint c
+	 											JOIN feedback f ON c.FeedbackID = f.FeedbackID
+	 											JOIN post p ON f.PostID = p.PostID
+												WHERE f.FeedbackID = :feedbackID");
+	 $stmt->bindParam(':feedbackID', $feedbackID);
+	 $stmt->execute();
+	 $feedback= $stmt->fetch(PDO::FETCH_ASSOC);
+	 $conn = null;
+}catch(PDOException $e){
+	echo "Error: " . $e->getMessage();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en" class="h-100">
@@ -30,65 +56,64 @@ require "./Middleware/Authenticate.php";
   <div class="form-group row">
     <label for="UserID" class="col-sm-2 col-form-label">User ID</label>
     <div class="col-sm-8">
-      <input type="text" class="form-control" id="UserID" placeholder="UserID" value="1" disabled>
+      <input type="text" class="form-control" id="UserID" placeholder="UserID" value="<?php echo $complaint['UserID']?>" disabled>
     </div>
   </div>
   <div class="form-group row">
     <label for="Username" class="col-sm-2 col-form-label">Username</label>
     <div class="col-sm-8">
-      <input type="text" class="form-control" id="Username" placeholder="Username" value="Mingkang" disabled>
+      <input type="text" class="form-control" id="Username" placeholder="Username" value="<?php echo $complaint["UserName"]?>" disabled>
     </div>
   </div>
   <div class="form-group row">
     <label for="PostTitle" class="col-sm-2 col-form-label">Post Title</label>
     <div class="col-sm-8">
-      <input type="text" class="form-control" id="Post Title" placeholder="Post Title" value="DBMS Secirty" disabled>
+      <input type="text" class="form-control" id="Post Title" placeholder="Post Title" value="<?php echo $feedback["PostTitle"]?>" disabled>
     </div>
   </div>
   <div class="form-group row">
     <label for="Feedback" class="col-sm-2 col-form-label">Feedback</label>
     <div class="col-sm-8">
-      <input type="text" class="form-control" id="Feedback" placeholder="Expert Feedback" value="You can find Google. Google will give you direction." disabled>
+      <input type="text" class="form-control" id="Feedback" placeholder="Expert Feedback" value="<?php echo $feedback["FeedbackID"]?>" disabled>
     </div>
   </div>
   <div class="form-group row">
     <label for="ComplaintType" class="col-sm-2 col-form-label">Complaint Type</label>
     <div class="col-sm-8">
-      <input type="text" class="form-control" id="ComplaintType" placeholder="Complaint Type" value="Unsatisfied Expert’s Feedback" disabled>
+      <input type="text" class="form-control" id="ComplaintType" placeholder="Complaint Type" value="<?php echo $complaint["ComplaintType"]?>" disabled>
     </div>
   </div>
   <div class="form-group row">
     <label for="ComplaintDescription" class="col-sm-2 col-form-label">Complaint Description</label>
     <div class="col-sm-8">
-      <textarea class="form-control" id="ComplaintDescription" placeholder="Complaint Description" disabled>The feedback doesn't provide me a clear direction</textarea>
+      <textarea class="form-control" id="ComplaintDescription" placeholder="Complaint Description" disabled><?php echo $complaint["ComplaintDescription"]?></textarea>
     </div>
   </div>
   <div class="form-group row">
   <label for="ComplaintDate" class="col-sm-2 col-form-label">Complaint Date</label>
   <div class="col-sm-8">
-     <input type="text" class="form-control" id="ComplaintDate" placeholder="Complaint Date" value="04/05/2023" disabled>
+     <input type="text" class="form-control" id="ComplaintDate" placeholder="Complaint Date" value="<?php echo date("Y-m-d",$timestamp); ?>" disabled>
   </div>
 </div>
   <div class="form-group row">
   <label for="ComplaintTime" class="col-sm-2 col-form-label">Complaint Time</label>
   <div class="col-sm-8">
-     <input type="text" class="form-control" id="ComplaintTime" placeholder="Complaint Time" value="7:48pm"disabled>
+     <input type="text" class="form-control" id="ComplaintTime" placeholder="Complaint Time" value="<?php echo date("H:i:s",$timestamp); ?>"disabled>
   </div>
   </div>
   <div class="form-group row">
   <label for="ComplaintStatus" class="col-sm-2 col-form-label">Complaint Status</label>
   <div class="col-sm-8">
-     <input type="text" class="form-control" id="ComplaintStatus" placeholder="Complaint Status" value="In Investigation"disabled>
+     <input type="text" class="form-control" id="ComplaintStatus" placeholder="Complaint Status" value="<?php echo $complaint["ComplaintStatus"];?>"disabled>
   </div>
   </div>
   <div class="form-group row">
   <div class="col-sm-8">
-  <input class="btn btn-primary" type="button" value="Edit" style="margin-left: 30px; padding:10px 30px;" onclick="window.location.href='EditComplaint.php'">
-  <input class="btn btn-primary" id="delete-btn" type="button" value="Delete" style="margin-left: 80px; padding:10px 30px;">
-  <input class="btn btn-primary" type="button" value="Back" style="margin-left: 80px;padding:10px 30px;" onclick="window.location.href='SearchComplaint.php'">
+	<input class="btn btn-primary" type="button" value="Edit" style="margin-left: 100px; padding:10px 30px;" onclick="window.location.href='EditComplaint.php?ComplaintID=<?php $feedback['ComplaintID'];?>'">
+  <input class="btn btn-primary" type="button" value="Back" style="margin-left: 250px;padding:10px 30px;" onclick="window.location.href='SearchComplaint.php'">
   </div>
   </div>
-</form>
+</form method="post">
   </div>
   </div>
   <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
@@ -107,23 +132,5 @@ require "./Middleware/Authenticate.php";
     </div>
   </div>
 </div>
-<script>
-    const deleteBtn = document.getElementById('delete-btn');
-  deleteBtn.addEventListener('click', function() {
-    const confirmed = confirm("Are you sure you want to delete this record?");
-    if (confirmed) {
-      showAlert("The record of complaint is sucessfully deleted");
-    }
-  });
-  function showAlert(message) {
-    var alertMessage = document.getElementById("alertMessage");
-    alertMessage.textContent = message;
-    var alertModal = new bootstrap.Modal(document.getElementById("alertModal"));
-    alertModal.show();
-  }
-  </script>
-  <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
-  <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
 </html>

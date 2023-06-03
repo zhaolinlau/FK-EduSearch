@@ -31,18 +31,18 @@ require "./Middleware/Authenticate.php";
                 </form>
             </div>
         </div>
-        <div style="width: 910px;">
+        <div style="width: 1000px;">
             <br>
-            &nbsp &nbsp<label class="text3">Complaint List</label>
+            &nbsp &nbsp<label class="text3"><b><u>Complaint List</u></b></label>
             <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col">Complaint ID</th>
+                        <th scope="col" style="width: 120px;">Complaint ID</th>
                         <th scope="col">Username</th>
                         <th scope="col">Complaint Type</th>
                         <th scope="col">Complaint Description</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Time</th>
+                        <th scope="col" style="width: 100px;">Date</th>
+                        <th scope="col" style="width: 30px;">Time</th>
                         <th scope="col">Complaint Status</th>
                         <th scope="col" style="width: 150px;">Operation</th>
                     </tr>
@@ -52,7 +52,7 @@ require "./Middleware/Authenticate.php";
                     try {
                         require "./config/db.php";
 												$UserID = $_SESSION["user_id"];
-                        $stmt = $conn->prepare("SELECT c.ComplaintID, u.UserName, c.ComplaintType, c.ComplaintDescription, c.ComplaintStatus
+                        $stmt = $conn->prepare("SELECT c.ComplaintID, u.UserName, c.ComplaintType, c.ComplaintDescription, c.ComplaintStatus,c.ComplaintCreatedDate
                         												FROM complaint c
                         												JOIN user u ON c.UserID = u.UserID
                         												WHERE c.UserID = :UserID");
@@ -61,14 +61,15 @@ require "./Middleware/Authenticate.php";
                         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         if ($stmt->rowCount() > 0) :
                             foreach ($result as $complaint) :
+															$timestamp=strtotime($complaint['ComplaintCreatedDate']);
                     ?>
                                 <tr>
                                     <th scope="row"><?php echo $complaint['ComplaintID']; ?></th>
                                     <td><?php echo $complaint['UserName']; ?></td>
                                     <td><?php echo $complaint['ComplaintType']; ?></td>
                                     <td><?php echo $complaint['ComplaintDescription']; ?></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td><?php echo date("Y-m-d",$timestamp); ?></td>
+                                    <td><?php echo date("H:i:s",$timestamp); ?></td>
                                     <td><?php echo $complaint['ComplaintStatus']; ?></td>
                                     <td style="width: 150px;">
                                         <ul class="list-inline">
@@ -145,6 +146,7 @@ require "./Middleware/Authenticate.php";
                     },
                     success: function(response) {
                         showAlert(response);
+												location.reload();
                     },
                     error: function(xhr, status, error) {
                         showAlert("Error: " + xhr.responseText);
