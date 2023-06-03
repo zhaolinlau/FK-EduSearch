@@ -1,4 +1,4 @@
-<nav class="navbar shadow-sm fixed-top bg-white">
+<nav class="navbar shadow-sm sticky-top bg-white">
 	<div class="container-fluid">
 		<button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive"><i class="fa-solid fa-bars fa-xl"></i></button>
 		<a class="navbar-brand d-none d-lg-flex" href="./">
@@ -50,25 +50,16 @@
 				<a class="nav-link" id="user_list" href="./user_list.php">User List</a>
 				<a class="nav-link" id="complaint_list" href="./AdminUpdateStatus.php">Complaint List</a>
 				<a class="nav-link" id="bug_list" href="./bug_list.php">Bug List</a>
-				<?php
-			elseif (!isset($_SESSION["admin"])) :
-				if (isset($_SESSION["expert"])) :
-				?>
-					<a class="nav-link" id="complaint" href="./ComplaintDashBoard.php">Complaint</a>
-					<a class="nav-link" id="bug_report" href="./bug_report.php">Bug Report</a>
-					<a class="nav-link" id="assigned_posts" href="./assignedPost.php">Assigned Posts</a>
-					<a class="nav-link" id="expert_statistics" href="./expertStatistics.php">Your Report</a>
-
-				<?php
-				else :
-				?>
-					<a class="nav-link" id="complaint" href="./ComplaintDashBoard.php">Complaint</a>
-					<a class="nav-link" id="bug_report" href="./bug_report.php">Bug Report</a>
 			<?php
-				endif;
+			elseif (isset($_SESSION["expert"])) :
+			?>
+				<a class="nav-link" id="complaint" href="./ComplaintDashBoard.php">Complaint</a>
+				<a class="nav-link" id="assigned_posts" href="./assignedPost.php">Assigned Posts</a>
+				<a class="nav-link" id="expert_statistics" href="./expertStatistics.php">Your Report</a>
+			<?php
 			endif;
 			?>
-
+			<a class="nav-link" id="bug_report" href="./bug_report.php">Bug Report</a>
 		</nav>
 	</div>
 	<div class="container">
