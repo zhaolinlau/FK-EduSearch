@@ -25,17 +25,33 @@ require "./Middleware/Authenticate.php";
 			<div style="width: 900px; margin:0 auto; border:1px solid; border-color:lightgrey"><br>
 	&nbsp &nbsp<label class="text2">File A Complaint</label>
 	<hr>
+
+	<?php
+require "./config/db.php";
+
+try{
+	$UserID = $_SESSION["user_id"];
+	$query = "SELECT UserName From User where UserID=$UserID";
+	$stmt = $conn->prepare($query);
+	$stmt->execute();
+	while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+		$UserName= $row["UserName"];
+	}
+	}catch(PDOException $e){
+	echo $e->getMessage();
+	}
+	?>
   <form action="AfterFileComplaint.php" method="post">
   <div class="form-group row">
     <label for="UserID" class="col-sm-2 col-form-label">User ID</label>
     <div class="col-sm-8">
-      <input type="text" class="form-control" id="UserID" placeholder="UserID">
+      <input type="text" class="form-control" id="UserID" name="UserID" placeholder="UserID">
     </div>
   </div>
   <div class="form-group row">
     <label for="Username" class="col-sm-2 col-form-label">Username</label>
     <div class="col-sm-8">
-      <input type="text" class="form-control" id="Username" placeholder="Username">
+      <input type="text" class="form-control" id="Username" name="Username" placeholder="Username">
     </div>
   </div>
   <div class="form-group row">
@@ -47,7 +63,7 @@ require "./Middleware/Authenticate.php";
   <div class="form-group row">
     <label for="Feedback" class="col-sm-2 col-form-label">Expert Feedback</label>
     <div class="col-sm-8">
-      <input type="text" class="form-control" id="Feedback" placeholder="Expert Feedback">
+      <input type="text" class="form-control" id="Feedback"  placeholder="Expert Feedback">
     </div>
   </div>
   <div class="form-group row">
@@ -68,10 +84,38 @@ require "./Middleware/Authenticate.php";
   </div>
   <div class="form-group row">
   <div class="col-sm-8 offset-sm-4">
-  <input class="btn btn-primary" type="submit" value="Submit">
+  <input class="btn btn-primary" type="submit" name="submit"value="Submit">
     </div>
   </div>
 </form>
+<?php
+require "./config/db.php";
+
+try{
+	$UserID = $_SESSION["user_id"];
+	if(isset($_POST["submit"])){
+	$ComplaintType=$_POST["ComplaintType"];
+	$ComplaintDescription=$_POST["ComplaintDescription"];
+	$ComplaintStatus="In Investigation";
+	$ComplaintCreatedDate=date('Y/m/d H:i:s');
+	$expertFeedback=$_POST["ExpertFeedback"];
+	$stmt = $conn->prepare("SELECT FeedbackID FROM feedback WHERE ExpertFeedback = :expertFeedback");
+	$stmt->bindParam(':expertFeedback', $expertFeedback);
+	$stmt->execute();
+
+	if ($stmt->rowCount() > 0) {
+			$row = $stmt->fetch(PDO::FETCH_ASSOC);
+			$feedbackID = $row['FeedbackID'];
+
+			echo "The feedback ID for the expert feedback '$expertFeedback' is: $feedbackID";
+	} else {
+			echo "No feedback found for the given expert feedback.";
+	}
+	}
+	}catch(PDOException $e){
+	echo $e->getMessage();
+	}
+	?>
 </div>
 	</div>
 </div>
