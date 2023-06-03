@@ -3,7 +3,7 @@ try {
 	require "../config/db.php";
 
 	$username = $_POST["username"];
-	$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+	$password = password_hash($_POST['password'], PASSWORD_BCRYPT);
 	$email = $_POST["email"];
 	$role = $_POST["role"];
 	$student_id = $_POST["student_id"];
