@@ -69,8 +69,9 @@
 			</div>
 		</div>
 	</div>
-	<script>
-		const year = new Date().getFullYear()
-		document.getElementById('year').innerHTML = year;
-	</script>
 </div>
+
+<script>
+const year = new Date().getFullYear()
+document.getElementById('year').innerHTML = year;
+</script>
