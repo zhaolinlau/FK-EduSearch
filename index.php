@@ -32,7 +32,10 @@ require './config/db.php';
 					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 				</div>
 			</div>
-		<?php endif; ?>
+			<?php
+			unset($_SESSION['posted']);
+			endif;
+			?>
 
 			<div class="col-12">
 				<button class="float-end btn btn-primary rounded-5" data-bs-toggle="modal" data-bs-target="#post_form">
@@ -77,7 +80,7 @@ require './config/db.php';
 									<ul class="dropdown-menu dropdown-menu-end shadow-sm">
 										<li><a class="dropdown-item" href="#">Edit</a></li>
 										<li><a class="dropdown-item" href="#">Resolved</a></li>
-										<li><a class="dropdown-item" href="#">Delete</a></li>
+										<li><a class="dropdown-item" href="./Controllers/DeletePostController.php?post_id=<?php echo $row->PostID; ?>" onclick="return confirm('Are you sure to delete the post?')">Delete</a></li>
 									</ul>
 								</div>
 							</div>
