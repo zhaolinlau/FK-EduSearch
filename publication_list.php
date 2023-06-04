@@ -10,7 +10,7 @@ require "./Middleware/ExpertAuth.php";
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>FK-EduSearch | User List</title>
+	<title>FK-EduSearch | Publication List</title>
 	<link rel="shortcut icon" href="./resources/img/favicon.ico" type="image/x-icon">
 	<link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="./node_modules/@fortawesome/fontawesome-free/css/all.min.css">
@@ -28,7 +28,7 @@ require "./Middleware/ExpertAuth.php";
 				<h3>Publication List</h3>
 			</div>
 			<div class="col-12">
-				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#user_form">
+				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_form">
 					Add Publication
 				</button>
 			</div>
@@ -37,32 +37,53 @@ require "./Middleware/ExpertAuth.php";
 					<table class="table table-hover table-bordered w-100" id="user_table">
 						<thead>
 							<tr>
+								<th style="width:10%;">Publication ID</th>
 								<th style="width:20%;">Publication Date</th>
 								<th style="width:50%;">Publication Title</th>
 								<th style="width:20%;">Deletion</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>Date</td>
-								<td>Title</td>
-								<td class="text-center"><a class="btn btn-danger">Delete</a></td>
-							</tr>
+							<?php
+							try {
+								require "./config/db.php";
+								$user_id = $_SESSION['user_id'];
+								$stmt = $conn->prepare("SELECT * FROM publication WHERE UserID = :user_id ORDER BY PublicationID ASC");
+								$stmt->bindParam(':user_id', $user_id);
+								$stmt->execute();
+								$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+								foreach ($results as $row) :
+							?>
+									<tr>
+										<td><?php echo $row['PublicationID']; ?></td>
+										<td><?php echo $row['PublicationDate']; ?></td>
+										<td><?php echo $row['PublicationTitle']; ?></td>
+										<td class="text-center">
+											<a class="btn btn-danger" href="./Controllers/deletePublication.php?PublicationID=<?php echo $row["PublicationID"]; ?>" onclick="return confirm('Are you sure to delete <?php echo $row['PublicationTitle']; ?>?')">Delete</a>
+										</td>
 
+									</tr>
+							<?php endforeach;
+							} catch (PDOException $e) {
+								echo $e->getMessage();
+							}
+							?>
 						</tbody>
 					</table>
 				</div>
 			</div>
+
+
 		</div>
 	</div>
 
-	<div class="modal fade" id="user_form" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
+	<div class="modal fade" id="add_form" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content px-5 py-3">
 				<div class="modal-header">
 					<h5 class="modal-title">Add Publication</h5>
 				</div>
-				<form action="" class="needs-validation" method="post" novalidate>
+				<form action="./Controllers/addPublication.php" class="needs-validation" method="post" novalidate>
 					<div>
 						<label for="PublicationDate" class="form-label">Publication Date</label>
 						<input type="text" class="form-control" name="PublicationDate" id="PublicationDate" required>
@@ -72,7 +93,7 @@ require "./Middleware/ExpertAuth.php";
 					</div>
 					<div>
 						<label for="PublicationTitle">Publication Title</label>
-						<input type="password" class="form-control" name="PublicationTitle" id="PublicationTitle" required>
+						<input type="text" class="form-control" name="PublicationTitle" id="PublicationTitle" required>
 						<div class="invalid-feedback">
 							Please enter the title.
 						</div>

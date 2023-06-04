@@ -1,6 +1,7 @@
 <?php
 session_start();
 require "./Middleware/Authenticate.php";
+include "./controllers/ReturnProfile.php";
 ?>
 
 <!DOCTYPE html>
@@ -18,6 +19,7 @@ require "./Middleware/Authenticate.php";
 	if (isset($_SESSION["expert"])) :
 	?>
 		<link rel="stylesheet" href="./custom_css/custom.css">
+
 	<?php
 	endif;
 	?>
@@ -44,20 +46,30 @@ require "./Middleware/Authenticate.php";
 				<table class="table table-borderless">
 					<tr>
 						<td rowspan="5" style="width: 20%; position: relative;">
-							<!-- Placeholder div with red background color and border -->
+							<!-- Placeholder div  -->
 							<div style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; background-color: gray; border: 1px solid white;"></div>
 						</td>
 						<td style="width: 15%;" class="text-center align-middle"><b>Name</b></td>
-						<td style="width: 60%;"><input type="text" class="form-control" value="UserName" disabled>
+						<td style="width: 60%;"><input type="text" class="form-control" value="<?php echo $userData['UserName']; ?>" disabled>
 						</td>
 					</tr>
 					<tr>
 						<td class="text-center align-middle"><b>Email</b></td>
-						<td><input type="text" class="form-control" value="UserEmail" disabled></td>
+						<td><input type="text" class="form-control" value="<?php echo $userData['UserEmail']; ?>" disabled></td>
 					</tr>
 					<tr>
 						<td class="text-center align-middle"><b>Role</b></td>
-						<td><input type="text" class="form-control" value="UserRole" disabled></td>
+						<td><input type="text" class="form-control" value="<?php
+																			if ($userData["UserRole"] == 0) :
+																				echo "Admin";
+																			elseif ($userData["UserRole"] == 1) :
+																				echo "Expert";
+																			elseif ($userData["UserRole"] == 2) :
+																				echo "Staff";
+																			elseif ($userData["UserRole"] == 3) :
+																				echo "Student";
+																			endif;
+																			?>" disabled></td>
 					</tr>
 					<tr>
 						<td colspan="2" class="text-center">
@@ -68,7 +80,7 @@ require "./Middleware/Authenticate.php";
 					<tr class="text-center align-middle">
 						<td><i class="fa fa-rss" aria-hidden="true"></i>
 						</td>
-						<td><input type="text" class="form-control" value="Social Media" disabled></td>
+						<td><input type="text" class="form-control" value="<?php echo $userData['UserSocialMedia']; ?>" disabled></td>
 					</tr>
 
 				</table>
@@ -82,7 +94,7 @@ require "./Middleware/Authenticate.php";
 						</h2>
 						<div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
 							<div class="accordion-body">
-								<span id="UserResearchArea">user research area</span>
+								<span id="UserResearchArea"><?php echo $userData['UserResearchArea']; ?></span>
 							</div>
 						</div>
 					</div>
@@ -94,7 +106,7 @@ require "./Middleware/Authenticate.php";
 						</h2>
 						<div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
 							<div class="accordion-body">
-								<span id="ExpertAreaOfExpertise">expert area of expertise</span>
+								<span id="ExpertAreaOfExpertise"><?php echo $userData['ExpertAreaOfExpertise']; ?></span>
 							</div>
 						</div>
 					</div>
@@ -107,14 +119,33 @@ require "./Middleware/Authenticate.php";
 						<div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
 							<div class="accordion-body">
 								<table class="table table-bordered">
-									<tr>
-										<td style="width: 30%;"><b>Publication Date</b></td>
-										<td style="width: 70%;"><b>Publication Title<b></td>
-									</tr>
-									<tr>
-										<td style="width: 30%;">Example</td>
-										<td style="width: 70%;">Example</td>
-									</tr>
+									<thead>
+										<tr>
+											<td style="width: 30%;"><b>Publication Date</b></td>
+											<td style="width: 70%;"><b>Publication Title<b></td>
+										</tr>
+									</thead>
+									<tbody>
+										<?php
+										try {
+											require "./config/db.php";
+											$user_id = $_SESSION['user_id'];
+											$stmt = $conn->prepare("SELECT * FROM publication WHERE UserID = :user_id ORDER BY PublicationID ASC");
+											$stmt->bindParam(':user_id', $user_id);
+											$stmt->execute();
+											$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+											foreach ($results as $row) :
+										?>
+												<tr>
+													<td><?php echo $row['PublicationDate']; ?></td>
+													<td><?php echo $row['PublicationTitle']; ?></td>
+												</tr>
+										<?php endforeach;
+										} catch (PDOException $e) {
+											echo $e->getMessage();
+										}
+										?>
+									</tbody>
 								</table>
 							</div>
 						</div>
@@ -127,7 +158,7 @@ require "./Middleware/Authenticate.php";
 						</h2>
 						<div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
 							<div class="accordion-body">
-								<span id="expertCV"> placeholder </span>
+								<span id="expertCV"> <?php echo $userData['ExpertCV']; ?> </span>
 							</div>
 						</div>
 					</div>
@@ -136,9 +167,9 @@ require "./Middleware/Authenticate.php";
 				<div class="card" style="margin-bottom: 50px;">
 					<div class="card-body" id="expertRatings">
 						<h5 class="card-title">Account status:</h5>
-						<p class="card-text"><span id="ExpertAccountStatus">Active </span> (<span id="daysRemaining">X</span> days until inactive)</p>
+						<p class="card-text"><span id="ExpertAccountStatus"><?php echo $userData['ExpertAccountStatus']; ?> </span> (<span id="daysRemaining">X</span> days until inactive)</p>
 						<h5 class="card-title">Ratings:</h5>
-						<p class="card-text"><span id="averageRatings">X.X</span>★</p>
+						<p class="card-text"><span id="averageRatings"><?php echo $userData['ExpertRatings']; ?></span>★</p>
 					</div>
 				</div>
 			</div>
@@ -146,7 +177,6 @@ require "./Middleware/Authenticate.php";
 	<?php
 	endif;
 	?>
-
 
 	<script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="./resources/js/livechat.js"></script>
