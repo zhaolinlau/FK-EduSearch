@@ -160,7 +160,9 @@ if(isset($_POST["UpdateStatus"])){
 
 		<script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 		<script src="./resources/js/livechat.js"></script>
-		
+		<script>
+			document.getElementById("complaint_list").classList.add("active");
+		</script>
 </body>
 
 </html>
