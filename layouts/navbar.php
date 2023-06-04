@@ -56,10 +56,11 @@
 				<a class="nav-link" id="complaint" href="./ComplaintDashBoard.php">Complaint</a>
 				<a class="nav-link" id="assigned_posts" href="./assignedPost.php">Assigned Posts</a>
 				<a class="nav-link" id="expert_statistics" href="./expertStatistics.php">Your Report</a>
-			<?php
-			endif;
+			<?php else:
 			?>
-			<a class="nav-link" id="bug_report" href="./bug_report.php">Bug Report</a>
+					<a class="nav-link" id="complaint" href="./ComplaintDashBoard.php">Complaint</a>
+		<?php endif ?>
+					<a class="nav-link" id="bug_report" href="./bug_report.php">Bug Report</a>
 		</nav>
 	</div>
 	<div class="container">

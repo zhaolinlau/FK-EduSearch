@@ -27,19 +27,10 @@ require "./Middleware/Authenticate.php";
  </div>
 		</div>
 	</div>
-<<<<<<< HEAD
 	<script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
 	<script src="./resources/js/livechat.js"></script>
 	<script src="./resources/js/form_validate.js"></script>
 
-
-=======
-	<script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="./resources/js/livechat.js"></script>
-	<script>
-		document.getElementById("complaint").classList.add("active");
-	</script>
->>>>>>> c0cca0d636111fd58194967dbeae38f90f136453
 </body>
 
 </html>
