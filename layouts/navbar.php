@@ -13,10 +13,10 @@
 		</form>
 
 		<div class="nav-item dropdown">
-			<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+			<button class="nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
 				<i class="fa-solid fa-user fa-xl"></i>
 				<span><?php echo $_SESSION["id"] ?></span>
-			</a>
+			</button>
 			<ul class="dropdown-menu dropdown-menu-end shadow-sm">
 				<li><a class="dropdown-item" href="./profile.php">My Profile</a></li>
 				<li><a class="dropdown-item" href="./posts.php">My Posts</a></li>
