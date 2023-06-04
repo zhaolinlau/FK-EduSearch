@@ -1,4 +1,4 @@
 <?php
 if (!isset($_SESSION["expert"])) {
-	header("location: ./");
+	echo "<script>alert('You are disallowed to access this page!'); window.location.href='./';</script>";
 }

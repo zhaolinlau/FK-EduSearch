@@ -1,6 +1,7 @@
 <?php
 session_start();
 require "./Middleware/Authenticate.php";
+require './Middleware/AdminAuth.php';
 ?>
 <!DOCTYPE html>
 <html lang="en" class="h-100">
