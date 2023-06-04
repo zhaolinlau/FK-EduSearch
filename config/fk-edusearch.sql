@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 03, 2023 at 08:56 PM
+-- Generation Time: Jun 04, 2023 at 12:13 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -124,6 +124,14 @@ CREATE TABLE `publication` (
   `UserID` bigint(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `publication`
+--
+
+INSERT INTO `publication` (`PublicationID`, `PublicationTitle`, `PublicationDate`, `UserID`) VALUES
+(6, '\"Web Development Best Practices\"', '2023-03-17', 2),
+(7, '\"Internet of Things (IoT) Revolutionizing Industries\"', '2023-04-21', 2);
+
 -- --------------------------------------------------------
 
 --
@@ -169,9 +177,9 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`UserID`, `UserName`, `UserPassword`, `UserEmail`, `UserSocialMedia`, `UserResearchArea`, `StaffID`, `StudentID`, `ExpertID`, `UserRole`, `ResearchTopic`, `ExpertAreaOfExpertise`, `ExpertCV`, `ExpertAccountStatus`, `ExpertRatings`, `PublicationID`, `created_at`, `updated_at`) VALUES
 (1, 'admin', '$2y$10$KNL1l8BZGYGbtA63C.ikpuevRBo3OIsZQ3ITuZ2LkACh8B5mxptSy', 'admin@gmail.com', '', '', 'STA001', '0', '', 0, '', '', '', 0, 0, 0, '2023-04-21 04:33:09.909294', '2023-05-14 01:51:35.645232'),
-(2, 'expert', '$2y$10$oqnJGRxriBE8NJli9yice.P4..48apl7fH2EmuC0rxljahoD3mey6', 'expert@gmail.com', '', '', '', '0', 'EXB023', 1, '', '', '', 0, 0, 0, '2023-04-21 04:40:21.719293', '2023-05-20 13:09:09.951685'),
+(2, 'expert', '$2y$10$oqnJGRxriBE8NJli9yice.P4..48apl7fH2EmuC0rxljahoD3mey6', 'expert999@gmail.com', '@expert99ab', 'AI Industry', '', '0', 'EXB023', 1, '', 'Data Structure & Algorithm', '', 0, 0, 0, '2023-04-21 04:40:21.719293', '2023-06-04 10:04:16.296259'),
 (3, 'lecturer', '$2y$10$u3lUUWPNcQD3a5rz3IhkfeNg1asAuRe766JDH4bJGtlWj524jUyEq', 'lecturer@gmail.com', '', '', 'STH750', '0', '', 2, '', '', '', 0, 0, 0, '2023-04-21 04:48:28.248413', '2023-05-14 01:51:35.650834'),
-(4, 'student', '$2y$10$DhERISDlz/5dIwsWnn/bNO3TrHu3ET9uALXWwjaLRzaI2mlITvtLW', 'student@gmail.com', '', '', '0', 'CB22039', '', 3, '', '', '', 0, 0, 0, '2023-04-21 04:49:40.980236', '2023-05-14 01:51:35.653402');
+(9, 'test', '$2y$10$guyiZpDKPMOMozYRcC8xluKeJQyi/NsmJhH8uAxGeiZGNHM53sKky', 'test@gmail.com', '@testerr', 'Data Science ', '', '', '', 3, 'Machine Learning', '', '', 0, 0, 0, '2023-06-03 22:06:03.090213', '2023-06-04 10:08:36.731812');
 
 --
 -- Indexes for dumped tables
@@ -192,7 +200,7 @@ ALTER TABLE `comment`
   ADD PRIMARY KEY (`CommentID`),
   ADD UNIQUE KEY `CommentID` (`CommentID`),
   ADD KEY `PostID` (`PostID`,`UserID`),
-  ADD KEY `comment_ibfk_1` (`UserID`);
+  ADD KEY `UserID` (`UserID`);
 
 --
 -- Indexes for table `complaint`
@@ -208,9 +216,8 @@ ALTER TABLE `complaint`
 --
 ALTER TABLE `feedback`
   ADD PRIMARY KEY (`FeedbackID`),
-  ADD UNIQUE KEY `PostID` (`FeedbackID`),
-  ADD KEY `FeedbackID` (`PostID`),
-  ADD KEY `PostID_2` (`PostID`);
+  ADD UNIQUE KEY `FeedbackID` (`FeedbackID`),
+  ADD KEY `PostID` (`PostID`);
 
 --
 -- Indexes for table `likes`
@@ -218,7 +225,8 @@ ALTER TABLE `feedback`
 ALTER TABLE `likes`
   ADD PRIMARY KEY (`LikeID`),
   ADD UNIQUE KEY `LikeID` (`LikeID`),
-  ADD KEY `UserID` (`UserID`,`PostID`);
+  ADD KEY `UserID` (`UserID`,`PostID`),
+  ADD KEY `PostID` (`PostID`);
 
 --
 -- Indexes for table `post`
@@ -232,7 +240,9 @@ ALTER TABLE `post`
 -- Indexes for table `publication`
 --
 ALTER TABLE `publication`
-  ADD PRIMARY KEY (`PublicationID`);
+  ADD PRIMARY KEY (`PublicationID`),
+  ADD UNIQUE KEY `PublicationID` (`PublicationID`),
+  ADD KEY `UserID` (`UserID`);
 
 --
 -- Indexes for table `rating`
@@ -247,10 +257,9 @@ ALTER TABLE `rating`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`UserID`),
-  ADD UNIQUE KEY `UserName` (`UserName`),
   ADD UNIQUE KEY `UserID` (`UserID`),
-  ADD UNIQUE KEY `UserEmail` (`UserEmail`),
-  ADD UNIQUE KEY `StaffID` (`StaffID`,`StudentID`,`ExpertID`);
+  ADD UNIQUE KEY `StaffID` (`StaffID`,`StudentID`,`ExpertID`),
+  ADD UNIQUE KEY `UserName` (`UserName`,`UserEmail`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -296,7 +305,7 @@ ALTER TABLE `post`
 -- AUTO_INCREMENT for table `publication`
 --
 ALTER TABLE `publication`
-  MODIFY `PublicationID` bigint(255) NOT NULL AUTO_INCREMENT;
+  MODIFY `PublicationID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `rating`
@@ -308,43 +317,62 @@ ALTER TABLE `rating`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `UserID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `UserID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables
 --
 
 --
+-- Constraints for table `bug`
+--
+ALTER TABLE `bug`
+  ADD CONSTRAINT `bug_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`UserID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `comment`
 --
 ALTER TABLE `comment`
-  ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`UserID`),
-  ADD CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`PostID`) REFERENCES `post` (`PostID`);
+  ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`UserID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`PostID`) REFERENCES `post` (`PostID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `complaint`
 --
 ALTER TABLE `complaint`
-  ADD CONSTRAINT `complaint_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`UserID`),
-  ADD CONSTRAINT `complaint_ibfk_2` FOREIGN KEY (`FeedbackID`) REFERENCES `feedback` (`FeedbackID`);
+  ADD CONSTRAINT `complaint_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`UserID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `complaint_ibfk_2` FOREIGN KEY (`FeedbackID`) REFERENCES `feedback` (`FeedbackID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `feedback`
 --
 ALTER TABLE `feedback`
-  ADD CONSTRAINT `feedback_ibfk_1` FOREIGN KEY (`PostID`) REFERENCES `post` (`PostID`);
+  ADD CONSTRAINT `feedback_ibfk_1` FOREIGN KEY (`PostID`) REFERENCES `post` (`PostID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `likes`
+--
+ALTER TABLE `likes`
+  ADD CONSTRAINT `likes_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`UserID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `likes_ibfk_2` FOREIGN KEY (`PostID`) REFERENCES `post` (`PostID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `post`
 --
 ALTER TABLE `post`
-  ADD CONSTRAINT `post_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`UserID`);
+  ADD CONSTRAINT `post_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`UserID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `publication`
+--
+ALTER TABLE `publication`
+  ADD CONSTRAINT `publication_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`UserID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `rating`
 --
 ALTER TABLE `rating`
-  ADD CONSTRAINT `rating_ibfk_1` FOREIGN KEY (`CommentID`) REFERENCES `comment` (`CommentID`);
+  ADD CONSTRAINT `rating_ibfk_1` FOREIGN KEY (`CommentID`) REFERENCES `comment` (`CommentID`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
