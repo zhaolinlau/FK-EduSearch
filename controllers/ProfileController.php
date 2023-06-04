@@ -18,15 +18,15 @@ class ProfileController
             die();
         }
     }
-
-    public function updateProfileData($userID, $userName, $userEmail, $userSocialMedia, $userResearchArea, $expertAreaOfExpertise)
+    public function updateProfileData($userID, $userName, $userEmail, $userSocialMedia, $userResearchArea, $expertAreaOfExpertise, $ResearchTopic)
     {
         try {
             global $conn;
-            $stmt = $conn->prepare("UPDATE user SET UserName = :userName, UserEmail = :userEmail, UserSocialMedia = :userSocialMedia, UserResearchArea = :userResearchArea, ExpertAreaOfExpertise = :expertAreaOfExpertise WHERE UserID = :userID");
+            $stmt = $conn->prepare("UPDATE user SET UserName = :userName, UserEmail = :userEmail, UserSocialMedia = :userSocialMedia, UserResearchArea = :userResearchArea, ExpertAreaOfExpertise = :expertAreaOfExpertise, ResearchTopic = :ResearchTopic WHERE UserID = :userID");
             $stmt->bindParam(':userName', $userName);
             $stmt->bindParam(':userEmail', $userEmail);
             $stmt->bindParam(':userSocialMedia', $userSocialMedia);
+            $stmt->bindParam(':ResearchTopic', $ResearchTopic);
             $stmt->bindParam(':userResearchArea', $userResearchArea);
             $stmt->bindParam(':expertAreaOfExpertise', $expertAreaOfExpertise);
             $stmt->bindParam(':userID', $userID);

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 04, 2023 at 11:36 AM
+-- Generation Time: Jun 04, 2023 at 12:13 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -129,7 +129,6 @@ CREATE TABLE `publication` (
 --
 
 INSERT INTO `publication` (`PublicationID`, `PublicationTitle`, `PublicationDate`, `UserID`) VALUES
-(5, '\"The Rise of Artificial Intelligence in Healthcare\"	', '2023-03-16', 2),
 (6, '\"Web Development Best Practices\"', '2023-03-17', 2),
 (7, '\"Internet of Things (IoT) Revolutionizing Industries\"', '2023-04-21', 2);
 
@@ -178,9 +177,9 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`UserID`, `UserName`, `UserPassword`, `UserEmail`, `UserSocialMedia`, `UserResearchArea`, `StaffID`, `StudentID`, `ExpertID`, `UserRole`, `ResearchTopic`, `ExpertAreaOfExpertise`, `ExpertCV`, `ExpertAccountStatus`, `ExpertRatings`, `PublicationID`, `created_at`, `updated_at`) VALUES
 (1, 'admin', '$2y$10$KNL1l8BZGYGbtA63C.ikpuevRBo3OIsZQ3ITuZ2LkACh8B5mxptSy', 'admin@gmail.com', '', '', 'STA001', '0', '', 0, '', '', '', 0, 0, 0, '2023-04-21 04:33:09.909294', '2023-05-14 01:51:35.645232'),
-(2, 'Mr. Expertss', '$2y$10$oqnJGRxriBE8NJli9yice.P4..48apl7fH2EmuC0rxljahoD3mey6', 'expert@gmail.com', '@expert99', 'AI Industry', '', '0', 'EXB023', 1, '', 'Data Structure & Algorithm', '', 0, 0, 0, '2023-04-21 04:40:21.719293', '2023-06-04 09:34:45.161744'),
+(2, 'expert', '$2y$10$oqnJGRxriBE8NJli9yice.P4..48apl7fH2EmuC0rxljahoD3mey6', 'expert999@gmail.com', '@expert99ab', 'AI Industry', '', '0', 'EXB023', 1, '', 'Data Structure & Algorithm', '', 0, 0, 0, '2023-04-21 04:40:21.719293', '2023-06-04 10:04:16.296259'),
 (3, 'lecturer', '$2y$10$u3lUUWPNcQD3a5rz3IhkfeNg1asAuRe766JDH4bJGtlWj524jUyEq', 'lecturer@gmail.com', '', '', 'STH750', '0', '', 2, '', '', '', 0, 0, 0, '2023-04-21 04:48:28.248413', '2023-05-14 01:51:35.650834'),
-(9, 'test', '$2y$10$guyiZpDKPMOMozYRcC8xluKeJQyi/NsmJhH8uAxGeiZGNHM53sKky', 'test@gmail.com', '', '', '', '', '', 3, '', '', '', 0, 0, 0, '2023-06-03 22:06:03.090213', '2023-06-03 22:06:03.090213');
+(9, 'test', '$2y$10$guyiZpDKPMOMozYRcC8xluKeJQyi/NsmJhH8uAxGeiZGNHM53sKky', 'test@gmail.com', '@testerr', 'Data Science ', '', '', '', 3, 'Machine Learning', '', '', 0, 0, 0, '2023-06-03 22:06:03.090213', '2023-06-04 10:08:36.731812');
 
 --
 -- Indexes for dumped tables
@@ -306,7 +305,7 @@ ALTER TABLE `post`
 -- AUTO_INCREMENT for table `publication`
 --
 ALTER TABLE `publication`
-  MODIFY `PublicationID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `PublicationID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `rating`

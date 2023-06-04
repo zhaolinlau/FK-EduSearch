@@ -12,9 +12,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$userSocialMedia = $_POST['userSocialMedia'];
 		$userResearchArea = $_POST['userResearchArea'];
 		$expertAreaOfExpertise = $_POST['expertAreaOfExpertise'];
-
+		$ResearchTopic = $_POST['ResearchTopic'];
 		$profileController = new ProfileController();
-		$profileController->updateProfileData($userID, $userName, $userEmail, $userSocialMedia, $userResearchArea, $expertAreaOfExpertise);
+		$profileController->updateProfileData($userID, $userName, $userEmail, $userSocialMedia, $userResearchArea, $expertAreaOfExpertise, $ResearchTopic);
 
 		header("Location: profile.php");
 		exit();
@@ -45,7 +45,7 @@ try {
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>FK-EduSearch | Edit Expert Profile</title>
+	<title>FK-EduSearch | Edit Profile</title>
 	<link rel="shortcut icon" href="./resources/img/favicon.ico" type="image/x-icon">
 	<link rel="stylesheet" href="./node_modules/@fortawesome/fontawesome-free/css/all.min.css">
 	<link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
@@ -63,7 +63,7 @@ try {
 		<div class="col-9 mx-auto" style="margin-right: 0;">
 			<br>
 			<div class="d-flex justify-content-between align-items-center">
-				<span class="text2">Edit Expert Profile Page</span>
+				<span class="text2">Edit Profile Page</span>
 				<div>
 					<span class="btn btn-light btn-sm me-2" onclick="history.back()">Back</span>
 					<a href="#" class="btn btn-light btn-sm" onclick="document.getElementById('profileForm').submit()">Save Changes</a>
@@ -117,6 +117,22 @@ try {
 				</table>
 
 				<div class="accordion" id="accordionExpertPage">
+					<?php if (isset($_SESSION["student"]) || isset($_SESSION["staff"])) : ?>
+
+						<div class="accordion-item">
+							<h2 class="accordion-header" id="researchtopic">
+								<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRT" aria-expanded="true" aria-controls="collapseRT">
+									<b>Research Topic</b>
+								</button>
+							</h2>
+							<div id="collapseRT" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+								<div class="accordion-body">
+									<input type="text" class="form-control border-0" name="ResearchTopic" value="<?php echo $userData['ResearchTopic']; ?>">
+								</div>
+							</div>
+						</div>
+					<?php endif; ?>
+
 					<div class="accordion-item">
 						<h2 class="accordion-header" id="researchArea">
 							<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -129,45 +145,48 @@ try {
 							</div>
 						</div>
 					</div>
-					<div class="accordion-item">
-						<h2 class="accordion-header" id="areaOfExpertise">
-							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-								<b>Area of Expertise</b>
-							</button>
-						</h2>
-						<div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-							<div class="accordion-body">
-								<input type="text" class="form-control border-0" name="expertAreaOfExpertise" value="<?php echo $userData['ExpertAreaOfExpertise']; ?>">
+					<?php if (isset($_SESSION["expert"])) : ?>
+						<div class="accordion-item">
+							<h2 class="accordion-header" id="areaOfExpertise">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+									<b>Area of Expertise</b>
+								</button>
+							</h2>
+							<div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+								<div class="accordion-body">
+									<input type="text" class="form-control border-0" name="expertAreaOfExpertise" value="<?php echo $userData['ExpertAreaOfExpertise']; ?>">
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="accordion-item">
-						<h2 class="accordion-header" id="publicationList">
-							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-								<b>Publication List</b>
-							</button>
-						</h2>
-						<div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-							<div class="accordion-body">
-								<a href="./publication_list.php" style="text-decoration:none;">Click here to edit publication lists.</a>
+						<div class="accordion-item">
+							<h2 class="accordion-header" id="publicationList">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+									<b>Publication List</b>
+								</button>
+							</h2>
+							<div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+								<div class="accordion-body">
+									<a href="./publication_list.php" style="text-decoration:none;">Click here to edit publication lists.</a>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="accordion-item">
-						<h2 class="accordion-header" id="cv">
-							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
-								<b>Curriculum Vitae</b>
-							</button>
-						</h2>
-						<div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
-							<div class="accordion-body">
-								<label for="fileInput" style="cursor: pointer; color:blue;">
-									Click here to select a file
-									<input type="file" id="expertCV" style="width: 100%; opacity: 0; cursor: pointer;">
-								</label>
+						<div class="accordion-item">
+							<h2 class="accordion-header" id="cv">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
+									<b>Curriculum Vitae</b>
+								</button>
+							</h2>
+							<div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+								<div class="accordion-body">
+									<label for="fileInput" style="cursor: pointer; color:blue;">
+										Click here to select a file
+										<input type="file" id="expertCV" style="width: 100%; opacity: 0; cursor: pointer;">
+									</label>
+								</div>
 							</div>
 						</div>
-					</div>
+					<?php endif; ?>
+
 				</div>
 				<br>
 			</form>
