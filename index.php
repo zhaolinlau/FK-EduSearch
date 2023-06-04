@@ -53,7 +53,7 @@ require './config/db.php';
 			</div>
 
 			<?php
-			$stmt = $conn->prepare('SELECT * FROM post');
+			$stmt = $conn->prepare('SELECT * FROM post ORDER BY PostID DESC');
 			$stmt->execute();
 
 			$result = $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -67,6 +67,8 @@ require './config/db.php';
 							<div class="col-11">
 								<h5 class="card-title fw-semibold"><?php echo $row->PostTitle; ?></h5>
 							</div>
+							<?php
+							if($_SESSION['user_id'] == $row->UserID) : ?>
 							<div class="col-1 d-flex justify-content-end">
 								<div class="dropdown">
 									<button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -79,6 +81,7 @@ require './config/db.php';
 									</ul>
 								</div>
 							</div>
+						<?php endif; ?>
 						</div>
 					</div>
 					<div class="card-body">
@@ -92,7 +95,6 @@ require './config/db.php';
 				</div>
 			</div>
 		<?php endforeach; ?>
-
 		</div>
 	</div>
 
@@ -105,15 +107,6 @@ require './config/db.php';
 				</div>
 				<div class="modal-body">
 					<form action="./Controllers/CreatePostController.php" class="needs-validation row g-3" method="post" enctype="multipart/form-data" novalidate>
-
-						<div class="col-12 d-none">
-							<label for="user_id" class="form-label">User ID</label>
-							<input type="text" class="form-control" value="<?php echo $_SESSION['user_id']; ?>" name="user_id" id="user_id" required>
-							<div class="invalid-feedback">
-								You are disallowed to modify this field.
-							</div>
-						</div>
-
 						<div class="col-12">
 							<label for="post_title" class="form-label">Post Title</label>
 							<input type="text" class="form-control" name="post_title" id="post_title" required>

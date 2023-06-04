@@ -5,7 +5,7 @@ require '../config/db.php';
 try {
   session_start();
 
-  $user_id = $_POST['user_id'];
+  $user_id = $_SESSION['user_id'];
   $post_title = $_POST['post_title'];
   $post_content = $_POST['post_content'];
   $post_category = $_POST['post_category'];
