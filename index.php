@@ -1,6 +1,7 @@
 <?php
 session_start();
 require "./Middleware/Authenticate.php";
+require './config/db.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,53 +52,46 @@ require "./Middleware/Authenticate.php";
 				</div>
 			</div>
 
-			<div class="col-12">
-				<div class="card border-0 shadow">
-					<div class="card-header bg-white">
-						<h5 class="card-title fw-semibold">Post Title</h5>
-					</div>
-					<div class="card-body">
-						<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugiat, eos non commodi obcaecati molestias qui ab? Sed inventore, nam consequuntur dicta dignissimos eaque doloremque, tempore qui necessitatibus, sequi assumenda ducimus?</p>
-					</div>
-					<div class="card-footer bg-white">
-						<button class="btn btn-outline-primary"><i class="fa-solid fa-thumbs-up"></i> Like</button>
-						<button class="btn btn-light"><i class="fa-solid fa-comment"></i> Comment</button>
-						<span class="badge bg-info fs-6">Post Status: Placeholder</span>
-					</div>
-				</div>
-			</div>
+			<?php
+			$stmt = $conn->prepare('SELECT * FROM post');
+			$stmt->execute();
 
-			<div class="col-12">
-				<div class="card border-0 shadow">
-					<div class="card-header bg-white">
-						<h5 class="card-title fw-semibold">Post Title</h5>
-					</div>
-					<div class="card-body">
-						<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugiat, eos non commodi obcaecati molestias qui ab? Sed inventore, nam consequuntur dicta dignissimos eaque doloremque, tempore qui necessitatibus, sequi assumenda ducimus?</p>
-					</div>
-					<div class="card-footer bg-white">
-						<button class="btn btn-outline-primary"><i class="fa-solid fa-thumbs-up"></i> Like</button>
-						<button class="btn btn-light"><i class="fa-solid fa-comment"></i> Comment</button>
-						<span class="badge bg-info fs-6">Post Status: Placeholder</span>
-					</div>
-				</div>
-			</div>
+			$result = $stmt->fetchAll(PDO::FETCH_OBJ);
 
+			foreach($result as $row) :
+			?>
 			<div class="col-12">
 				<div class="card border-0 shadow">
 					<div class="card-header bg-white">
-						<h5 class="card-title fw-semibold">Post Title</h5>
+						<div class="row">
+							<div class="col-11">
+								<h5 class="card-title fw-semibold"><?php echo $row->PostTitle; ?></h5>
+							</div>
+							<div class="col-1 d-flex justify-content-end">
+								<div class="dropdown">
+									<button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+										<i class="fa-solid fa-ellipsis"></i>
+									</button>
+									<ul class="dropdown-menu dropdown-menu-end shadow-sm">
+										<li><a class="dropdown-item" href="#">Edit</a></li>
+										<li><a class="dropdown-item" href="#">Resolved</a></li>
+										<li><a class="dropdown-item" href="#">Delete</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
 					</div>
 					<div class="card-body">
-						<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugiat, eos non commodi obcaecati molestias qui ab? Sed inventore, nam consequuntur dicta dignissimos eaque doloremque, tempore qui necessitatibus, sequi assumenda ducimus?</p>
+						<p><?php echo $row->PostContent; ?></p>
 					</div>
 					<div class="card-footer bg-white">
-						<button class="btn btn-outline-primary"><i class="fa-solid fa-thumbs-up"></i> Like</button>
-						<button class="btn btn-light"><i class="fa-solid fa-comment"></i> Comment</button>
-						<span class="badge bg-info fs-6">Post Status: Placeholder</span>
+						<a class="btn btn-outline-primary" href=""><i class="fa-solid fa-thumbs-up"></i> Like</a>
+						<a class="btn btn-light" href=""><i class="fa-solid fa-comment"></i> Comment</a>
+						<span class="badge bg-info fs-6">Post Status: <?php echo $row->PostStatus; ?></span>
 					</div>
 				</div>
 			</div>
+		<?php endforeach; ?>
 
 		</div>
 	</div>
@@ -110,7 +104,7 @@ require "./Middleware/Authenticate.php";
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<form action="./Controllers/PostController.php" class="needs-validation row g-3" method="post" enctype="multipart/form-data" novalidate>
+					<form action="./Controllers/CreatePostController.php" class="needs-validation row g-3" method="post" enctype="multipart/form-data" novalidate>
 
 						<div class="col-12 d-none">
 							<label for="user_id" class="form-label">User ID</label>
