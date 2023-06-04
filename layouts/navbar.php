@@ -1,4 +1,4 @@
-<nav class="navbar shadow-sm sticky-top bg-white">
+<nav class="navbar shadow-sm fixed-top bg-white">
 	<div class="container-fluid">
 		<button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive"><i class="fa-solid fa-bars fa-xl"></i></button>
 		<a class="navbar-brand d-none d-lg-flex" href="./">

@@ -19,7 +19,7 @@ require './config/db.php';
 <body>
 	<?php require "layouts/navbar.php" ?>
 
-	<div class="container mt-5">
+	<div class="container p-5 m-5 mx-auto">
 		<div class="row g-5">
 			<div class="col-12">
 				<h3>Discussion Board</h3>
@@ -56,7 +56,7 @@ require './config/db.php';
 			</div>
 
 			<?php
-			$stmt = $conn->prepare('SELECT * FROM post ORDER BY PostID DESC');
+			$stmt = $conn->prepare('SELECT * FROM post JOIN user ON post.UserID = user.UserID ORDER BY post.PostID DESC');
 			$stmt->execute();
 
 			$result = $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -67,6 +67,10 @@ require './config/db.php';
 				<div class="card border-0 shadow">
 					<div class="card-header bg-white">
 						<div class="row">
+							<div class="col-12">
+								<span class="badge bg-secondary fs-6">Category: <?php echo $row->PostCategory; ?></span>
+								Posted by <?php echo $row->UserName; ?> on <?php echo $row->PostCreated; ?>
+							</div>
 							<div class="col-11">
 								<h5 class="card-title fw-semibold"><?php echo $row->PostTitle; ?></h5>
 							</div>
@@ -74,11 +78,11 @@ require './config/db.php';
 							if($_SESSION['user_id'] == $row->UserID) : ?>
 							<div class="col-1 d-flex justify-content-end">
 								<div class="dropdown">
-									<button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-										<i class="fa-solid fa-ellipsis"></i>
+									<button class="btn circle-1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+										<i class="fa-solid fa-ellipsis fa-xl"></i>
 									</button>
 									<ul class="dropdown-menu dropdown-menu-end shadow-sm">
-										<li><a class="dropdown-item" href="#">Edit</a></li>
+										<li><a class="dropdown-item" href="./EditPost.php?post_id=<?php echo $row->PostID; ?>">Edit</a></li>
 										<li><a class="dropdown-item" href="#">Resolved</a></li>
 										<li><a class="dropdown-item" href="./Controllers/DeletePostController.php?post_id=<?php echo $row->PostID; ?>" onclick="return confirm('Are you sure to delete the post?')">Delete</a></li>
 									</ul>
@@ -91,9 +95,25 @@ require './config/db.php';
 						<p><?php echo $row->PostContent; ?></p>
 					</div>
 					<div class="card-footer bg-white">
-						<a class="btn btn-outline-primary" href=""><i class="fa-solid fa-thumbs-up"></i> Like</a>
-						<a class="btn btn-light" href=""><i class="fa-solid fa-comment"></i> Comment</a>
-						<span class="badge bg-info fs-6">Post Status: <?php echo $row->PostStatus; ?></span>
+						<a class="btn btn-outline-primary position-relative">
+							<i class="fa-solid fa-thumbs-up"></i>
+						  Like
+						  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+						    99+
+						    <span class="visually-hidden">Likes</span>
+						  </span>
+						</a>
+
+						<a class="btn btn-light position-relative ms-4" href="./comments.php?post_id=<?php echo $row->PostID; ?>">
+							<i class="fa-solid fa-comment"></i>
+						  Comment
+						  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+						    99+
+						    <span class="visually-hidden">Comments</span>
+						  </span>
+						</a>
+
+						<span class="badge bg-info fs-6 ms-4">Status: <?php echo $row->PostStatus; ?></span>
 					</div>
 				</div>
 			</div>
@@ -109,7 +129,7 @@ require './config/db.php';
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<form action="./Controllers/CreatePostController.php" class="needs-validation row g-3" method="post" enctype="multipart/form-data" novalidate>
+					<form action="./Controllers/CreatePostController.php" class="needs-validation row g-3" method="post" novalidate>
 						<div class="col-12">
 							<label for="post_title" class="form-label">Post Title</label>
 							<input type="text" class="form-control" name="post_title" id="post_title" required>
@@ -122,10 +142,10 @@ require './config/db.php';
 							<label for="post_category">Category</label>
 							<select class="form-select" name="post_category" id="post_category" required>
 								<option value="" hidden selected></option>
-								<option value="qna">QNA</option>
-								<option value="announcement">Annoucement</option>
-								<option value="sharing">Sharing</option>
-								<option value="others">Others</option>
+								<option value="QNA">QNA</option>
+								<option value="Annoucement">Annoucement</option>
+								<option value="Sharing">Sharing</option>
+								<option value="Others">Others</option>
 							</select>
 							<div class="invalid-feedback">
 								Please select a category.
