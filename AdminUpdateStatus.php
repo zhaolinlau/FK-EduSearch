@@ -2,6 +2,29 @@
 session_start();
 require "./Middleware/Authenticate.php";
 require "./Middleware/AdminAuth.php";
+
+if(isset($_POST["UpdateStatus"])){
+	try {
+		require "./config/db.php";
+    $Status = $_POST["ComplaintStatus"];
+    $ComplaintID = $_POST["ComplaintID"];
+	  $stmt = $conn->prepare("UPDATE complaint SET ComplaintStatus = :status WHERE ComplaintID = :complaintID");
+    $stmt->bindParam(":status", $Status);
+    $stmt->bindParam(":complaintID", $ComplaintID);
+    $stmt->execute();
+    echo ' <script>
+		document.addEventListener("DOMContentLoaded", function() {
+				const alertContainer = document.getElementById("alertContainer");
+				const successAlert = document.createElement("div");
+				successAlert.classList.add("alert", "alert-success", "alert-dismissible", "fade", "show");
+				successAlert.innerHTML = `The complaint record is successfully edited! <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>`;
+				alertContainer.appendChild(successAlert);
+		});
+	</script>';
+  } catch (PDOException $e) {
+    echo $e->getMessage();
+  }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en" class="h-100">
@@ -40,109 +63,104 @@ require "./Middleware/AdminAuth.php";
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<th scope="row">1</th>
-								<td>Mingkang</td>
-								<td>Unsatisfied Expert’s Feedback</td>
-								<td>The feedback doesn't provide me a clear direction</td>
-								<td>4/5/2023</td>
-								<td>7:48pm</td>
-								<td>
-									<select class="form-select" aria-label="Complaint Status">
-										<option selected>Select Complaint Status</option>
-										<option value="1">In Investigation</option>
-										<option value="2">On Hold</option>
-										<option value="3">Resolved</option>
-									</select>
-								</td>
-								<td>
-									<ul class="list-inline">
-										<li class="list-inline-item">
-											<button type="button" class="btn btn-primary" onclick="showAlert()">Update</button>
-										</li>
-									</ul>
-								</td>
-							</tr>
+                            <?php
+                            try {
+                                require "./config/db.php";
+                                $stmt = $conn->prepare("SELECT c.ComplaintID, u.UserName, c.ComplaintType, c.ComplaintDescription, c.ComplaintStatus, c.ComplaintCreatedDate
+                                                    FROM complaint c
+                                                    JOIN user u ON c.UserID = u.UserID");
+                                $stmt->execute();
+                                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+                                $page = isset($_GET['page']) ? $_GET['page'] : 1;
+                                $complaintsPerPage = 3;
+                                $totalComplaints = count($result);
+                                $totalPages = ceil($totalComplaints / $complaintsPerPage);
+                                $startIndex = ($page - 1) * $complaintsPerPage;
+                                $complaints = array_slice($result, $startIndex, $complaintsPerPage);
 
-							<th scope="row">2</th>
-							<td>William</td>
-							<td>Wrongly Assigned Research Area</td>
-							<td>The feedback provided is out of my research area</td>
-							<td>5/5/2023</td>
-							<td>11:48am</td>
-							<td><select class="form-select" aria-label="Complaint Status">
-									<option selected>Select Complaint Status</option>
-									<option value="1">In Investigation</option>
-									<option value="2">On Hold</option>
-									<option value="3">Resolved</option>
-								</select></td>
-							<td>
-								<ul class="list-inline">
-									<li class="list-inline-item">
-										<button type="button" class="btn btn-primary" onclick="showAlert()">Update</button>
-									</li>
-									</li>
-									</li>
-								</ul>
-							</td>
-							</tr>
-							<tr>
-								<th scope="row">3</th>
-								<td>Sit Wei Min</td>
-								<td>Wrongly Assigned Research Area</td>
-								<td>The feedback provided is not related to my reseaarch area</td>
-								<td>5/4/2023</td>
-								<td>1:48pm</td>
-								<td><select class="form-select" aria-label="Complaint Status">
-										<option selected>Select Complaint Status</option>
-										<option value="1">In Investigation</option>
-										<option value="2">On Hold</option>
-										<option value="3">Resolved</option>
-									</select></td>
-								<td>
-									<ul class="list-inline">
-										<li class="list-inline-item">
-											<button type="button" class="btn btn-primary" onclick="showAlert()">Update</button>
-										</li>
-									</ul>
-								</td>
-							</tr>
-						</tbody>
+                                if (!empty($complaints)) {
+                                    foreach ($complaints as $complaint) {
+                                        $timestamp = strtotime($complaint['ComplaintCreatedDate']);
+                            ?>
+														<form method="post" action="">
+                                        <tr>
+                                            <th scope="row">
+																							<input type="hidden" name="ComplaintID" value="<?php echo $complaint['ComplaintID']; ?>">
+																							<?php echo $complaint['ComplaintID']; ?></th>
+                                            <td><?php echo $complaint['UserName']; ?></td>
+                                            <td><?php echo $complaint['ComplaintType']; ?></td>
+                                            <td><?php echo $complaint['ComplaintDescription']; ?></td>
+                                            <td><?php echo date("Y-m-d", $timestamp); ?></td>
+                                            <td><?php echo date("H:i:s", $timestamp); ?></td>
+                                            <td>
+                                                <select class="form-select" aria-label="Complaint Status" name="ComplaintStatus">
+                                                    <option>Select Complaint Status</option>
+                                                    <option value="In Investigation" <?php if ($complaint['ComplaintStatus'] == 'In Investigation') echo 'selected'; ?>>In Investigation</option>
+                                                    <option value="On Hold" <?php if ($complaint['ComplaintStatus'] == 'On Hold') echo 'selected'; ?>>On Hold</option>
+                                                    <option value="Resolved" <?php if ($complaint['ComplaintStatus'] == 'Resolved') echo 'selected'; ?>>Resolved</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <ul class="list-inline">
+                                                    <li class="list-inline-item">
+                                                        <button type="submit" class="btn btn-primary" name="UpdateStatus">Update</button>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+																				</form>
+                                <?php
+                                    }
+                                } else {
+                                ?>
+                                    <tr>
+                                        <td colspan="8">No complaints found.</td>
+                                    </tr>
+                                <?php
+                                }
+                            } catch (PDOException $e) {
+                                echo $e->getMessage();
+                            }
+                                ?>
+                        </tbody>
 					</table>
 					<nav aria-label="Page navigation" class="justify-content-end d-flex">
-						<ul class="pagination">
-							<li class="page-item disabled">
-								<a class="page-link" href="#" tabindex="-1">Previous</a>
-							</li>
-							<li class="page-item"><a class="page-link" href="#">1</a></li>
-							<li class="page-item"><a class="page-link" href="#">2</a></li>
-							<li class="page-item"><a class="page-link" href="#">3</a></li>
-							<li class="page-item">
-								<a class="page-link" href="#">Next</a>
-							</li>
-						</ul>
-					</nav>
+                        <ul class="pagination">
+                            <?php
+                            if ($totalPages > 1) {
+                                if ($page > 1) {
+                                    $prevPage = $page - 1;
+                                    echo "<li class='page-item'><a class='page-link' href='?page=$prevPage'>Previous</a></li>";
+                                } else {
+                                    echo "<li class='page-item disabled'><a class='page-link' href='#'>Previous</a></li>";
+                                }
+
+                                for ($i = 1; $i <= $totalPages; $i++) {
+                                    if ($i == $page) {
+                                        echo "<li class='page-item active'><a class='page-link' href='?page=$i'>$i</a></li>";
+                                    } else {
+                                        echo "<li class='page-item'><a class='page-link' href='?page=$i'>$i</a></li>";
+                                    }
+                                }
+
+                                if ($page < $totalPages) {
+                                    $nextPage = $page + 1;
+                                    echo "<li class='page-item'><a class='page-link' href='?page=$nextPage'>Next</a></li>";
+                                } else {
+                                    echo "<li class='page-item disabled'><a class='page-link' href='#'>Next</a></li>";
+                                }
+                            }
+                            ?>
+                        </ul>
+                    </nav>
 				</div>
 			</div>
 		</div>
 
 		<script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 		<script src="./resources/js/livechat.js"></script>
-		<script>
-			function showAlert() {
-				var alertContainer = document.getElementById("alertContainer");
-				var alertHTML = `
-      <div class="alert alert-success alert-dismissible fade show" role="alert">
-        Complaint status updated!
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-    `;
-				alertContainer.innerHTML = alertHTML;
-			}
-			document.getElementById("complaint_list").classList.add("active");
-		</script>
-
+		
 </body>
 
 </html>

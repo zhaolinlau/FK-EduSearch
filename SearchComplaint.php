@@ -132,7 +132,6 @@ require "./Middleware/Authenticate.php";
         </nav>
     </div>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
-    <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
          function deleteComplaint(complaintID) {

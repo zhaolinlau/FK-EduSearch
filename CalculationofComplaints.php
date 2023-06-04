@@ -20,7 +20,7 @@ require "./Middleware/Authenticate.php";
 </head>
 
 <body class="h-100">
-<?php require "layouts/navbar.php"?>
+<?php require "./layouts/navbar.php"; ?>
 		<div class="col" >
 			<div style="width: 900px; border:1px solid; border-color:lightgrey; padding-left:20px;padding-right:20px; margin:0 auto; margin-top:75px; margin-bottom:20px;"><br>
 	&nbsp &nbsp<label class="text2">Calculation of Complaints</label>
