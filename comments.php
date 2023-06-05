@@ -2,6 +2,7 @@
 session_start();
 require "./Middleware/Authenticate.php";
 require './config/db.php';
+$post_id = $_GET['post_id'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +26,6 @@ require './config/db.php';
         <a class="btn btn-danger rounded-5" href="./"><i class="fa-solid fa-xmark"></i> Close</a>
       </div>
 			<?php
-      $post_id = $_GET['post_id'];
 			$stmt = $conn->prepare('SELECT * FROM post JOIN user ON post.UserID = user.UserID WHERE post.PostID = :post_id');
       $stmt->bindParam(':post_id', $post_id);
 			$stmt->execute();
@@ -38,12 +38,9 @@ require './config/db.php';
 				<div class="card border-0 shadow">
 					<div class="card-header bg-white">
 						<div class="row">
-              <div class="col-12">
-								<span class="badge bg-secondary fs-6">Category: <?php echo $row->PostCategory; ?></span>
-								Posted by <?php echo $row->UserName; ?> on <?php echo $row->PostCreated; ?>
-							</div>
 							<div class="col-11">
-								<h5 class="card-title fw-semibold"><?php echo $row->PostTitle; ?></h5>
+								<span class="badge bg-secondary fs-6"><i class="fa-solid fa-tag"></i> <?php echo $row->PostCategory; ?></span>
+								Posted by <?php echo $row->UserName; ?> on <?php echo $row->PostCreated; ?>
 							</div>
 							<?php
 							if($_SESSION['user_id'] == $row->UserID) : ?>
@@ -53,13 +50,20 @@ require './config/db.php';
 										<i class="fa-solid fa-ellipsis fa-xl"></i>
 									</button>
 									<ul class="dropdown-menu dropdown-menu-end shadow-sm">
-										<li><a class="dropdown-item" href="./EditPost.php?post_id=<?php echo $row->PostID; ?>">Edit</a></li>
-										<li><a class="dropdown-item" href="#">Resolved</a></li>
-										<li><a class="dropdown-item" href="./Controllers/DeletePostController.php?post_id=<?php echo $row->PostID; ?>" onclick="return confirm('Are you sure to delete the post?')">Delete</a></li>
+										<li><a class="dropdown-item" href="./EditPost.php?post_id=<?php echo $row->PostID; ?>"><i class="fa-solid fa-pen-to-square text-info"></i> Edit</a></li>
+										<li><a class="dropdown-item" href="#"><i class="fa-solid fa-check text-success"></i> Resolved</a></li>
+										<li>
+											<a class="dropdown-item" href="./Controllers/DeletePostController.php?post_id=<?php echo $row->PostID; ?>" onclick="return confirm('Are you sure to delete the post?')">
+											<i class="fa-solid fa-trash text-danger"></i> Delete
+										</a>
+										</li>
 									</ul>
 								</div>
 							</div>
 						<?php endif; ?>
+							<div class="col-12">
+								<h5 class="card-title fw-semibold"><?php echo $row->PostTitle; ?></h5>
+							</div>
 						</div>
 					</div>
 					<div class="card-body">
@@ -79,7 +83,18 @@ require './config/db.php';
 							<i class="fa-solid fa-comment"></i>
 						  Comment
 						  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-						    99+
+								<?php
+								$stmt = $conn->prepare('SELECT COUNT(*) AS total_comments FROM comment JOIN post ON comment.PostID = post.PostID WHERE comment.PostID = :post_id');
+								$stmt->bindParam(':post_id', $post_id);
+								$stmt->execute();
+								$comments = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+								if ($comments[0]->total_comments > 99) {
+								    echo "99+";
+								} else {
+								    echo $comments[0]->total_comments;
+								}
+								?>
 						    <span class="visually-hidden">Comments</span>
 						  </span>
 						</a>
@@ -94,7 +109,7 @@ require './config/db.php';
       <form class="row g-3 needs-validation" action="./Controllers/CommentController.php" method="post" novalidate>
         <div class="col-12 d-none">
           <label for="post_id" class="form-label">Post ID</label>
-          <input name="post_id" id="post_id" class="form-control" value="<?php echo $_GET['post_id'] ?>" readonly required>
+          <input name="post_id" id="post_id" class="form-control" value="<?php echo $post_id; ?>" readonly required>
           <div class="invalid-feedback">
             You are disallowed to modify this field.
           </div>
@@ -115,8 +130,7 @@ require './config/db.php';
     <div class="col-12">
       <ul class="list-group list-group-flush">
         <?php
-        $post_id = $_GET['post_id'];
-        $stmt = $conn->prepare('SELECT * FROM comment JOIN user ON comment.UserID = user.UserID WHERE comment.PostID = :post_id');
+        $stmt = $conn->prepare('SELECT * FROM comment JOIN user ON comment.UserID = user.UserID WHERE comment.PostID = :post_id ORDER BY comment.CommentID ASC');
         $stmt->bindParam(':post_id', $post_id);
         $stmt->execute();
         $comments = $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -124,7 +138,30 @@ require './config/db.php';
         ?>
         <li class="list-group-item row">
           <div class="col-12">
-              <b><?php echo $comment->UserName; ?></b> commented on <?php echo $comment->CommentCreated; ?>
+						<div class="row">
+							<div class="col-11">
+								<b><?php echo $comment->UserName; ?></b> commented on <?php echo $comment->CommentCreated; ?>
+							</div>
+							<?php
+							if($_SESSION['user_id'] == $comment->UserID) : ?>
+							<div class="col-1 d-flex justify-content-end">
+								<div class="dropdown">
+									<button class="btn circle-1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+										<i class="fa-solid fa-ellipsis fa-xl"></i>
+									</button>
+									<ul class="dropdown-menu dropdown-menu-end shadow-sm">
+										<li><a class="dropdown-item" href="./EditComment.php?comment_id=<?php echo $comment->CommentID; ?>"><i class="fa-solid fa-pen-to-square text-info"></i> Edit</a></li>
+										<li>
+											<a class="dropdown-item" href="./Controllers/DeleteCommentController.php?comment_id=<?php echo $comment->CommentID; ?>" onclick="return confirm('Confirm delete this comment?')">
+											<i class="fa-solid fa-trash text-danger"></i> Delete
+										</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						<?php endif; ?>
+						</div>
+
           </div>
 
           <div class="col-12">
