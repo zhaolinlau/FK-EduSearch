@@ -71,7 +71,7 @@ require './config/db.php';
 
           <div class="col-12">
             <input type="submit" class="btn btn-primary" name="update_post" value="Update" onclick="return confirm('Are you sure to update the post?');">
-            <a class="btn btn-danger" href="./">Cancel</a>
+            <button type="button" class="btn btn-danger" onclick="history.back();">Cancel</button>
           </div>
         </form>
       <?php endforeach; ?>

@@ -17,7 +17,7 @@ try {
 
     $stmt->execute();
 
-    echo "<script>alert('You have updated the post successfully!'); window.location.href='../';</script>";
+    echo "<script>alert('You have updated the post!'); history.back();</script>";
   }
 } catch (PDOException $e) {
   echo $e->getMessage();
