@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 04, 2023 at 12:13 PM
+-- Generation Time: Jun 05, 2023 at 02:27 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -46,9 +46,21 @@ CREATE TABLE `comment` (
   `PostID` bigint(255) NOT NULL,
   `UserID` bigint(255) NOT NULL,
   `CommentDetails` varchar(255) NOT NULL,
-  `CommentCreated` timestamp(6) NOT NULL DEFAULT current_timestamp(6),
-  `CommentUpdated` timestamp(6) NOT NULL DEFAULT current_timestamp(6) ON UPDATE current_timestamp(6)
+  `CommentCreated` timestamp NOT NULL DEFAULT current_timestamp(),
+  `CommentUpdated` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `comment`
+--
+
+INSERT INTO `comment` (`CommentID`, `PostID`, `UserID`, `CommentDetails`, `CommentCreated`, `CommentUpdated`) VALUES
+(6, 9, 3, 'hyjkghjkghjk', '2023-06-04 22:34:23', '2023-06-04 22:34:23'),
+(7, 9, 3, 'ghjkghyjkghjkghjk', '2023-06-04 22:34:26', '2023-06-04 22:34:26'),
+(24, 13, 1, 'aaaaaaaaaaaaaa', '2023-06-05 00:14:43', '2023-06-05 00:14:43'),
+(26, 14, 1, 'hahahahhehehehehe', '2023-06-05 00:18:32', '2023-06-05 00:18:32'),
+(27, 14, 15, 'oioioioioioioioioi', '2023-06-05 00:18:48', '2023-06-05 00:18:48'),
+(28, 14, 15, 'bbbbbbbbbbbbbbbbbbb', '2023-06-05 00:18:54', '2023-06-05 00:18:54');
 
 -- --------------------------------------------------------
 
@@ -63,8 +75,8 @@ CREATE TABLE `complaint` (
   `ComplaintType` varchar(25) NOT NULL,
   `ComplaintDescription` varchar(255) NOT NULL,
   `ComplaintStatus` tinyint(1) NOT NULL,
-  `ComplaintCreatedDate` timestamp(6) NOT NULL DEFAULT current_timestamp(6),
-  `ComplaintEditedDate` timestamp(6) NOT NULL DEFAULT current_timestamp(6) ON UPDATE current_timestamp(6)
+  `ComplaintCreatedDate` timestamp NOT NULL DEFAULT current_timestamp(),
+  `ComplaintEditedDate` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -103,13 +115,22 @@ CREATE TABLE `likes` (
 CREATE TABLE `post` (
   `PostID` bigint(255) NOT NULL,
   `UserID` bigint(255) NOT NULL,
-  `PostStatus` tinyint(1) NOT NULL,
+  `PostStatus` varchar(9) NOT NULL,
   `PostTitle` varchar(25) NOT NULL,
   `PostContent` varchar(255) NOT NULL,
   `PostCategory` varchar(25) NOT NULL,
-  `PostCreated` timestamp(6) NOT NULL DEFAULT current_timestamp(6),
-  `PostUpdated` timestamp(6) NOT NULL DEFAULT current_timestamp(6) ON UPDATE current_timestamp(6)
+  `PostCreated` timestamp NOT NULL DEFAULT current_timestamp(),
+  `PostUpdated` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `post`
+--
+
+INSERT INTO `post` (`PostID`, `UserID`, `PostStatus`, `PostTitle`, `PostContent`, `PostCategory`, `PostCreated`, `PostUpdated`) VALUES
+(9, 3, 'Null', 'asdasd', 'asdasd', 'Annoucement', '2023-06-04 21:28:47', '2023-06-04 21:29:50'),
+(13, 1, 'Null', 'aaaaaaaaaaa', 'aaaaaaaaaaaaaaa', 'QNA', '2023-06-05 00:14:35', '2023-06-05 00:14:35'),
+(14, 1, 'Null', 'hehe', 'hahahaha', 'Others', '2023-06-05 00:17:58', '2023-06-05 00:17:58');
 
 -- --------------------------------------------------------
 
@@ -123,14 +144,6 @@ CREATE TABLE `publication` (
   `PublicationDate` varchar(255) NOT NULL,
   `UserID` bigint(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `publication`
---
-
-INSERT INTO `publication` (`PublicationID`, `PublicationTitle`, `PublicationDate`, `UserID`) VALUES
-(6, '\"Web Development Best Practices\"', '2023-03-17', 2),
-(7, '\"Internet of Things (IoT) Revolutionizing Industries\"', '2023-04-21', 2);
 
 -- --------------------------------------------------------
 
@@ -167,19 +180,19 @@ CREATE TABLE `user` (
   `ExpertAccountStatus` tinyint(4) NOT NULL,
   `ExpertRatings` float NOT NULL,
   `PublicationID` bigint(255) NOT NULL,
-  `created_at` timestamp(6) NOT NULL DEFAULT current_timestamp(6),
-  `updated_at` timestamp(6) NOT NULL DEFAULT current_timestamp(6) ON UPDATE current_timestamp(6)
+  `UserCreated` timestamp NOT NULL DEFAULT current_timestamp(),
+  `UserUpdated` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`UserID`, `UserName`, `UserPassword`, `UserEmail`, `UserSocialMedia`, `UserResearchArea`, `StaffID`, `StudentID`, `ExpertID`, `UserRole`, `ResearchTopic`, `ExpertAreaOfExpertise`, `ExpertCV`, `ExpertAccountStatus`, `ExpertRatings`, `PublicationID`, `created_at`, `updated_at`) VALUES
-(1, 'admin', '$2y$10$KNL1l8BZGYGbtA63C.ikpuevRBo3OIsZQ3ITuZ2LkACh8B5mxptSy', 'admin@gmail.com', '', '', 'STA001', '0', '', 0, '', '', '', 0, 0, 0, '2023-04-21 04:33:09.909294', '2023-05-14 01:51:35.645232'),
-(2, 'expert', '$2y$10$oqnJGRxriBE8NJli9yice.P4..48apl7fH2EmuC0rxljahoD3mey6', 'expert999@gmail.com', '@expert99ab', 'AI Industry', '', '0', 'EXB023', 1, '', 'Data Structure & Algorithm', '', 0, 0, 0, '2023-04-21 04:40:21.719293', '2023-06-04 10:04:16.296259'),
-(3, 'lecturer', '$2y$10$u3lUUWPNcQD3a5rz3IhkfeNg1asAuRe766JDH4bJGtlWj524jUyEq', 'lecturer@gmail.com', '', '', 'STH750', '0', '', 2, '', '', '', 0, 0, 0, '2023-04-21 04:48:28.248413', '2023-05-14 01:51:35.650834'),
-(9, 'test', '$2y$10$guyiZpDKPMOMozYRcC8xluKeJQyi/NsmJhH8uAxGeiZGNHM53sKky', 'test@gmail.com', '@testerr', 'Data Science ', '', '', '', 3, 'Machine Learning', '', '', 0, 0, 0, '2023-06-03 22:06:03.090213', '2023-06-04 10:08:36.731812');
+INSERT INTO `user` (`UserID`, `UserName`, `UserPassword`, `UserEmail`, `UserSocialMedia`, `UserResearchArea`, `StaffID`, `StudentID`, `ExpertID`, `UserRole`, `ResearchTopic`, `ExpertAreaOfExpertise`, `ExpertCV`, `ExpertAccountStatus`, `ExpertRatings`, `PublicationID`, `UserCreated`, `UserUpdated`) VALUES
+(1, 'admin', '$2y$10$KNL1l8BZGYGbtA63C.ikpuevRBo3OIsZQ3ITuZ2LkACh8B5mxptSy', 'admin@gmail.com', '', '', 'STA001', '0', '', 0, '', '', '', 0, 0, 0, '2023-06-04 21:32:22', '2023-06-04 21:32:53'),
+(2, 'expert', '$2y$10$oqnJGRxriBE8NJli9yice.P4..48apl7fH2EmuC0rxljahoD3mey6', 'expert@gmail.com', '', '', '', '0', 'EXB023', 1, '', '', '', 0, 0, 0, '2023-06-04 21:32:22', '2023-06-04 21:32:53'),
+(3, 'lecturer', '$2y$10$u3lUUWPNcQD3a5rz3IhkfeNg1asAuRe766JDH4bJGtlWj524jUyEq', 'lecturer@gmail.com', '', '', 'STH750', '0', '', 2, '', '', '', 0, 0, 0, '2023-06-04 21:32:22', '2023-06-04 21:32:53'),
+(15, 'student', '$2y$10$JD3I5mBarXmeIu9RdTM.R.Xw8vNYJUPKtS97M2raOeHlTXTsamizW', 'student@gmail.com', '', '', '', 'cb22039', '', 3, '', '', '', 0, 0, 0, '2023-06-04 22:41:48', '2023-06-04 22:41:48');
 
 --
 -- Indexes for dumped tables
@@ -275,7 +288,7 @@ ALTER TABLE `bug`
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `CommentID` bigint(255) NOT NULL AUTO_INCREMENT;
+  MODIFY `CommentID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `complaint`
@@ -299,13 +312,13 @@ ALTER TABLE `likes`
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
-  MODIFY `PostID` bigint(255) NOT NULL AUTO_INCREMENT;
+  MODIFY `PostID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `publication`
 --
 ALTER TABLE `publication`
-  MODIFY `PublicationID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `PublicationID` bigint(255) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `rating`
@@ -317,7 +330,7 @@ ALTER TABLE `rating`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `UserID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `UserID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Constraints for dumped tables
