@@ -99,11 +99,40 @@ require './config/db.php';
 						<p><?php echo $row->PostContent; ?></p>
 					</div>
 					<div class="card-footer bg-white">
-						<a class="btn btn-outline-primary position-relative">
+						<a class="btn btn-outline-primary position-relative
+						<?php
+						$user_id = $_SESSION['user_id'];
+						$post_id = $row->PostID;
+
+						$stmt = $conn->prepare('SELECT * FROM likes WHERE UserID = :user_id AND PostID = :post_id');
+						$stmt->bindParam(':user_id', $user_id);
+						$stmt->bindParam(':post_id', $post_id);
+						$stmt->execute();
+
+						$result = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+						if($stmt->rowCount() > 0) {
+							echo 'active';
+						} else {
+							echo '';
+						}
+						 ?>" href="./Controllers/LikeController.php?post_id=<?php echo $row->PostID ?>">
 							<i class="fa-solid fa-thumbs-up"></i>
 						  Like
 						  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-						    99+
+								<?php
+								$post_id = $row->PostID;
+								$stmt = $conn->prepare('SELECT COUNT(*) AS total_likes FROM likes JOIN post ON likes.PostID = post.PostID WHERE likes.PostID = :post_id');
+								$stmt->bindParam(':post_id', $post_id);
+								$stmt->execute();
+								$likes = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+								if ($likes[0]->total_likes > 99) {
+								    echo "99+";
+								} else {
+								    echo $likes[0]->total_likes;
+								}
+								?>
 						    <span class="visually-hidden">Likes</span>
 						  </span>
 						</a>
@@ -133,7 +162,10 @@ require './config/db.php';
 					</div>
 				</div>
 			</div>
-		<?php endforeach; ?>
+		<?php
+	endforeach;
+	$conn = null;
+	?>
 		</div>
 	</div>
 
