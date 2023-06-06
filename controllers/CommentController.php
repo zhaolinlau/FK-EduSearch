@@ -14,9 +14,7 @@ try {
     $stmt->bindParam(':comment', $comment);
     $stmt->execute();
 
-    $_SESSION['commented'] = 'You have commented successfully!';
-
-    header('location: ../comments.php?post_id='.$post_id);
+    echo "<script>history.back();</script>";
   }
 } catch (PDOException $e) {
   echo $e->getMessage();
