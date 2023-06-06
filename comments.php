@@ -23,7 +23,7 @@ $post_id = $_GET['post_id'];
 	<div class="container p-5 m-5 mx-auto">
 		<div class="row g-5">
       <div class="col-12 justify-content-end d-flex">
-        <a class="btn btn-danger rounded-5" href="./"><i class="fa-solid fa-xmark"></i> Close</a>
+        <button class="btn btn-danger rounded-5" onclick="history.back();"><i class="fa-solid fa-xmark"></i> Close</button>
       </div>
 			<?php
 			$stmt = $conn->prepare('SELECT * FROM post JOIN user ON post.UserID = user.UserID WHERE post.PostID = :post_id');
