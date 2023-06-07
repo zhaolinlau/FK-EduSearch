@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 07, 2023 at 03:58 PM
+-- Generation Time: Jun 07, 2023 at 08:12 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -58,7 +58,10 @@ INSERT INTO `comment` (`CommentID`, `PostID`, `UserID`, `CommentDetails`, `Comme
 (44, 22, 2, 'hgjkfghjfghj', '2023-06-06 22:30:31', '2023-06-06 22:30:31'),
 (45, 23, 15, 'ddddddddddddd', '2023-06-07 02:44:44', '2023-06-07 02:44:44'),
 (46, 23, 15, 'fffffffffffffffffff', '2023-06-07 02:44:47', '2023-06-07 02:44:47'),
-(47, 23, 2, 'fff', '2023-06-07 02:46:31', '2023-06-07 02:46:31');
+(47, 23, 2, 'fff', '2023-06-07 02:46:31', '2023-06-07 02:46:31'),
+(48, 25, 2, 'fghjfghjf', '2023-06-07 17:27:56', '2023-06-07 17:27:56'),
+(50, 26, 21, 'asdasd', '2023-06-07 17:59:09', '2023-06-07 17:59:09'),
+(51, 26, 21, 'sdfsdf', '2023-06-07 18:00:15', '2023-06-07 18:00:15');
 
 -- --------------------------------------------------------
 
@@ -86,10 +89,26 @@ CREATE TABLE `complaint` (
 CREATE TABLE `feedback` (
   `FeedbackID` bigint(255) NOT NULL,
   `PostID` bigint(255) NOT NULL,
+  `ExpertID` varchar(10) NOT NULL,
   `ExpertFeedback` varchar(255) NOT NULL,
   `UserRating` tinyint(1) NOT NULL,
-  `UserFeedback` varchar(255) NOT NULL
+  `UserFeedback` varchar(255) NOT NULL,
+  `FeedbackCreated` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `feedback`
+--
+
+INSERT INTO `feedback` (`FeedbackID`, `PostID`, `ExpertID`, `ExpertFeedback`, `UserRating`, `UserFeedback`, `FeedbackCreated`) VALUES
+(1, 25, 'EXB023', 'sadfasdf', 0, '', '2023-06-07 17:39:51'),
+(2, 25, 'EXB023', 'ddddddddddd', 0, '', '2023-06-07 17:39:58'),
+(3, 25, 'EXB023', 'fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff', 0, '', '2023-06-07 17:40:05'),
+(4, 25, 'EXB023', 'sdsd', 0, '', '2023-06-07 17:42:36'),
+(5, 25, 'EXB023', 'ddd', 0, '', '2023-06-07 17:42:47'),
+(6, 26, 'EXB023', 'asdfasdf', 0, '', '2023-06-07 17:50:09'),
+(7, 26, 'EXB023', 'ffffffffffffff', 0, '', '2023-06-07 17:50:14'),
+(8, 26, 'EXB023', 'close?', 0, '', '2023-06-07 18:00:52');
 
 -- --------------------------------------------------------
 
@@ -128,7 +147,10 @@ CREATE TABLE `post` (
 
 INSERT INTO `post` (`PostID`, `UserID`, `PostStatus`, `PostTitle`, `PostContent`, `PostCategory`, `ExpertID`, `PostCreated`, `PostUpdated`) VALUES
 (22, 15, 'Revised', 'sdfgsdfg', 'sdefgsdfg', 'Others', 'EXB023', '2023-06-06 22:14:10', '2023-06-06 22:30:31'),
-(23, 15, 'Revised', 'ggg', 'ggg', 'QNA', 'EXB023', '2023-06-07 02:41:03', '2023-06-07 02:46:31');
+(23, 15, 'Revised', 'ggg', 'ggg', 'QNA', 'EXB023', '2023-06-07 02:41:03', '2023-06-07 02:46:31'),
+(24, 2, 'Pending', 'asdfasdf', 'asdfasdf', 'Annoucement', '', '2023-06-07 17:03:06', '2023-06-07 17:03:06'),
+(25, 15, 'Revised', 'aaa', 'aaa', 'Sharing', 'EXB023', '2023-06-07 17:22:14', '2023-06-07 17:39:51'),
+(26, 15, 'Revised', 'fff', 'fff', 'Annoucement', 'EXB023', '2023-06-07 17:43:14', '2023-06-07 17:50:09');
 
 -- --------------------------------------------------------
 
@@ -239,7 +261,8 @@ ALTER TABLE `complaint`
 ALTER TABLE `feedback`
   ADD PRIMARY KEY (`FeedbackID`),
   ADD UNIQUE KEY `FeedbackID` (`FeedbackID`),
-  ADD KEY `PostID` (`PostID`);
+  ADD KEY `PostID` (`PostID`),
+  ADD KEY `ExpertID` (`ExpertID`);
 
 --
 -- Indexes for table `likes`
@@ -302,7 +325,7 @@ ALTER TABLE `bug`
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `CommentID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `CommentID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `complaint`
@@ -314,7 +337,7 @@ ALTER TABLE `complaint`
 -- AUTO_INCREMENT for table `feedback`
 --
 ALTER TABLE `feedback`
-  MODIFY `FeedbackID` bigint(255) NOT NULL AUTO_INCREMENT;
+  MODIFY `FeedbackID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `likes`
@@ -326,7 +349,7 @@ ALTER TABLE `likes`
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
-  MODIFY `PostID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `PostID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `publication`
