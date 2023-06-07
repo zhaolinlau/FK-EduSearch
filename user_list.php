@@ -143,7 +143,7 @@ require "./Middleware/AdminAuth.php";
 
 					<div class="col-6">
 						<label for="staff_id">Expert ID</label>
-						<input type="text" value="<?php echo $row["ExpertID"]; ?>" class="form-control" name="expert_id" id="expert_id">
+						<input type="text" class="form-control" name="expert_id" id="expert_id">
 						<div class="invalid-feedback">
 							Please enter a expert id.
 						</div>
