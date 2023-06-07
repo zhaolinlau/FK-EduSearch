@@ -22,7 +22,7 @@ require './Middleware/UserAuth.php';
 			<div style="width: 800px;  margin: 0 auto; margin-top:80px"><br>
 	&nbsp &nbsp<label class="text2">Complaint</label>
 	<hr>
-	<button type="button" class="btn btn-primary btn-1g" style="padding:30px 30px; margin-right:30px;" onclick="window.location.href='SearchComplaint.php'">All Complaint Information</button>
+	<button type="button" class="btn btn-primary btn-1g" style="padding:30px 30px; margin-right:30px;" onclick="window.location.href='ComplaintList.php'">All Complaint Information</button>
   <button type="button" class="btn btn-secondary btn-1g" style="padding:30px 30px; margin-right:30px;"onclick="window.location.href='CalculationofComplaints.php'">Calculation of Complaints</button>
 	<button type="button" class="btn btn-info btn-1g" style="padding:30px 30px; margin-right:30px;"onclick="window.location.href='ReportofComplaints.php'">Report of Complaints</button>
  </div>

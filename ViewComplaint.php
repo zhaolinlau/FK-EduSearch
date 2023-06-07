@@ -110,7 +110,7 @@ require "./Middleware/Authenticate.php";
   <div class="form-group row">
   <div class="col-sm-8">
 	<input class="btn btn-primary" type="button" value="Edit" style="margin-left: 100px; padding:10px 30px;" onclick="window.location.href='EditComplaint.php?ComplaintID=<?php $feedback['ComplaintID'];?>'">
-  <input class="btn btn-primary" type="button" value="Back" style="margin-left: 250px;padding:10px 30px;" onclick="window.location.href='SearchComplaint.php'">
+  <input class="btn btn-primary" type="button" value="Back" style="margin-left: 250px;padding:10px 30px;" onclick="window.location.href='ComplaintList.php'">
   </div>
   </div>
 </form method="post">

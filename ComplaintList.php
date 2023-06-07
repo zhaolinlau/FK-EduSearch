@@ -8,7 +8,7 @@ require "./Middleware/Authenticate.php";
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FK-EduSearch | Search Complaint</title>
+    <title>FK-EduSearch | Complaint List</title>
     <link rel="shortcut icon" href="./src/img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="./node_modules/@fortawesome/fontawesome-free/css/all.min.css">
@@ -20,17 +20,6 @@ require "./Middleware/Authenticate.php";
         <br>
         &nbsp &nbsp<label class="text2">View Complaint</label>
         <hr>
-        <div class="row" style="margin-top:20px">
-            <div class="col-md-3">
-                <button type="button" class="btn btn-primary btn-1g" onclick="window.location.href='FileComplaint.php'">File A Complaint</button>
-            </div>
-            <div class="col-md-5">
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Enter Complaint ID:" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-            </div>
-        </div>
         <div style="width: 1000px;">
             <br>
             &nbsp &nbsp<label class="text3"><b><u>Complaint List</u></b></label>
