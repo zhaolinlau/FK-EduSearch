@@ -167,7 +167,7 @@ require './config/db.php';
 	<script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="./recources/js/livechat.js"></script>
 	<script>
-		document.getElementById("my_posts").classList.add("active");
+		document.getElementById("assigned_posts").classList.add("active");
 	</script>
 </body>
 
