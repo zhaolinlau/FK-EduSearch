@@ -2,7 +2,6 @@
 session_start();
 require "./Middleware/Authenticate.php";
 require './config/db.php';
-$post_id = $_GET['post_id'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,19 +20,76 @@ $post_id = $_GET['post_id'];
 	<?php require "layouts/navbar.php" ?>
 
 	<div class="container p-5 m-5 mx-auto">
-		<div class="row g-5">
+		<div class="row g-4">
       <div class="col-12 justify-content-end d-flex">
         <button class="btn btn-danger rounded-5" onclick="history.back();"><i class="fa-solid fa-xmark"></i> Close</button>
       </div>
+			<div class="col-3">
 			<?php
-			$stmt = $conn->prepare('SELECT * FROM post JOIN user ON post.UserID = user.UserID WHERE post.PostID = :post_id');
+			$post_id = $_GET['post_id'];
+			$stmt = $conn->prepare('SELECT * FROM user JOIN post ON user.UserID = post.UserID WHERE post.PostID = :post_id');
       $stmt->bindParam(':post_id', $post_id);
 			$stmt->execute();
 
 			$result = $stmt->fetchAll(PDO::FETCH_OBJ);
 
 			foreach($result as $row) :
+				if($row->ExpertID) :
 			?>
+					<h4>Assigned Expert:
+					<?php
+					if($_SESSION['id'] == $row->ExpertID) :
+						echo 'You';
+					elseif($_SESSION['id'] != $row->ExpertID) :
+						echo $row->ExpertID;
+					endif;
+					?>
+					</h4>
+					<?php if($_SESSION['id'] != $row->ExpertID) : ?>
+					<form class="needs-validation row g-3" action="./Controllers/RateController.php" method="post" novalidate>
+						<div class="col-12 d-none">
+		          <label for="post_id" class="form-label">Post ID</label>
+		          <input name="post_id" id="post_id" class="form-control" value="<?php echo $post_id; ?>" readonly required>
+		          <div class="invalid-feedback">
+		            You are disallowed to modify this field.
+		          </div>
+		        </div>
+
+						<div class="col-12 d-none">
+		          <label for="expert_id" class="form-label">Expert ID</label>
+		          <input name="expert_id" id="expert_id" class="form-control" value="<?php echo $row->ExpertID; ?>" readonly required>
+		          <div class="invalid-feedback">
+		            You are disallowed to modify this field.
+		          </div>
+		        </div>
+
+						<div class="col-12">
+							<label for="rating">Rating</label>
+							<select class="form-select" name="rating" id="rating" required>
+								<option value="" hidden selected></option>
+								<option value="1">1 Star</option>
+								<option value="2">2 Stars</option>
+								<option value="3">3 Stars</option>
+								<option value="4">4 Stars</option>
+								<option value="5">5 Stars</option>
+							</select>
+							<div class="invalid-feedback">
+								Please rate a value.
+							</div>
+						</div>
+						<div class="col-12">
+							<label for="feedback" class="form-label">Feedback</label>
+							<textarea name="feedback" id="feedback" class="form-control"></textarea>
+						</div>
+						<div class="col-12">
+							<button type="submit" class="btn btn-primary" name="submit">Submit</button>
+						</div>
+					</form>
+				<?php endif; ?>
+			<?php elseif($row->ExpertID == '') : ?>
+				<h4>Assigned Expert: None</h4>
+			<?php endif; ?>
+		</div>
 			<div class="col-12">
 				<div class="card border-0 shadow">
 					<div class="card-header bg-white">
@@ -205,7 +261,7 @@ $post_id = $_GET['post_id'];
 
 	<script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="./resources/js/form_validate.js"></script>
-	<script src="./recources/js/livechat.js"></script>
+	<script src="./resources/js/livechat.js"></script>
 	<script>
 		document.getElementById("discussion").classList.add("active");
 	</script>

@@ -1,8 +1,8 @@
 <?php
 
 try {
+  session_start();
   if (isset($_POST['add_comment'])) {
-    session_start();
     require '../config/db.php';
 
     $user_id = $_SESSION['user_id'];
@@ -14,8 +14,17 @@ try {
     $stmt->bindParam(':comment', $comment);
     $stmt->execute();
 
-    echo "<script>history.back();</script>";
+    if (isset($_SESSION['expert'])) {
+      $expert_id = $_SESSION['id'];
+      $post_status = 'Revised';
+      $stmt = $conn->prepare('UPDATE post SET PostStatus = :post_status, ExpertID = :expert_id WHERE PostID = :post_id');
+      $stmt->bindParam(':post_id', $post_id);
+      $stmt->bindParam(':expert_id', $expert_id);
+      $stmt->bindParam(':post_status', $post_status);
+      $stmt->execute();
+    }
   }
+  header('location: ../comments.php?post_id=' . $post_id);
 } catch (PDOException $e) {
   echo $e->getMessage();
 }
