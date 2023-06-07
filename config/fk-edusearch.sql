@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 07, 2023 at 08:12 PM
+-- Generation Time: Jun 08, 2023 at 12:40 AM
 -- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- PHP Version: 8.1.17
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -61,7 +61,9 @@ INSERT INTO `comment` (`CommentID`, `PostID`, `UserID`, `CommentDetails`, `Comme
 (47, 23, 2, 'fff', '2023-06-07 02:46:31', '2023-06-07 02:46:31'),
 (48, 25, 2, 'fghjfghjf', '2023-06-07 17:27:56', '2023-06-07 17:27:56'),
 (50, 26, 21, 'asdasd', '2023-06-07 17:59:09', '2023-06-07 17:59:09'),
-(51, 26, 21, 'sdfsdf', '2023-06-07 18:00:15', '2023-06-07 18:00:15');
+(51, 26, 21, 'sdfsdf', '2023-06-07 18:00:15', '2023-06-07 18:00:15'),
+(52, 24, 15, 'hekk', '2023-06-07 19:00:16', '2023-06-07 19:00:16'),
+(53, 24, 15, '', '2023-06-07 19:00:16', '2023-06-07 19:00:16');
 
 -- --------------------------------------------------------
 
@@ -73,12 +75,25 @@ CREATE TABLE `complaint` (
   `ComplaintID` bigint(255) NOT NULL,
   `UserID` bigint(255) NOT NULL,
   `FeedbackID` bigint(255) NOT NULL,
-  `ComplaintType` varchar(25) NOT NULL,
+  `ComplaintType` varchar(40) NOT NULL,
   `ComplaintDescription` varchar(255) NOT NULL,
-  `ComplaintStatus` tinyint(1) NOT NULL,
+  `ComplaintStatus` varchar(40) NOT NULL,
   `ComplaintCreatedDate` timestamp NOT NULL DEFAULT current_timestamp(),
   `ComplaintEditedDate` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `complaint`
+--
+
+INSERT INTO `complaint` (`ComplaintID`, `UserID`, `FeedbackID`, `ComplaintType`, `ComplaintDescription`, `ComplaintStatus`, `ComplaintCreatedDate`, `ComplaintEditedDate`) VALUES
+(1, 15, 6, 'Unsatisfied Expert’s Feedback', 'fffffff', 'In Investigation', '2023-06-07 21:45:20', '2023-06-07 21:45:20'),
+(2, 15, 6, 'Unsatisfied Expert’s Feedback', 'fffffff', 'In Investigation', '2023-06-07 21:46:13', '2023-06-07 21:46:13'),
+(4, 15, 6, 'Unsatisfied Expert’s Feedback', 'fffffffff', 'In Investigation', '2023-06-07 22:08:21', '2023-06-07 22:08:21'),
+(5, 15, 6, 'Unsatisfied Expert’s Feedback', 'fffffffff', 'In Investigation', '2023-06-07 22:08:59', '2023-06-07 22:08:59'),
+(6, 15, 6, 'Unsatisfied Expert’s Feedback', 'fffffffff', 'In Investigation', '2023-06-07 22:09:06', '2023-06-07 22:09:06'),
+(7, 15, 6, 'Wrongly Assigned Research Area', 'vvvvv', 'In Investigation', '2023-06-07 22:10:31', '2023-06-07 22:10:31'),
+(8, 15, 6, 'Wrongly Assigned Research Area', 'cfgfgfgf', 'In Investigation', '2023-06-07 22:12:43', '2023-06-07 22:12:43');
 
 -- --------------------------------------------------------
 
@@ -108,7 +123,9 @@ INSERT INTO `feedback` (`FeedbackID`, `PostID`, `ExpertID`, `ExpertFeedback`, `U
 (5, 25, 'EXB023', 'ddd', 0, '', '2023-06-07 17:42:47'),
 (6, 26, 'EXB023', 'asdfasdf', 0, '', '2023-06-07 17:50:09'),
 (7, 26, 'EXB023', 'ffffffffffffff', 0, '', '2023-06-07 17:50:14'),
-(8, 26, 'EXB023', 'close?', 0, '', '2023-06-07 18:00:52');
+(8, 26, 'EXB023', 'close?', 0, '', '2023-06-07 18:00:52'),
+(9, 26, 'EXB023', 'hello\r\n', 0, '', '2023-06-07 18:33:56'),
+(10, 26, 'EXB023', 'ffffff', 0, '', '2023-06-07 19:27:25');
 
 -- --------------------------------------------------------
 
@@ -325,19 +342,19 @@ ALTER TABLE `bug`
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `CommentID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `CommentID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `complaint`
 --
 ALTER TABLE `complaint`
-  MODIFY `ComplaintID` bigint(255) NOT NULL AUTO_INCREMENT;
+  MODIFY `ComplaintID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `feedback`
 --
 ALTER TABLE `feedback`
-  MODIFY `FeedbackID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `FeedbackID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `likes`

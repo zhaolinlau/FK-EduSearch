@@ -8,12 +8,11 @@ try {
     $post_id = $_POST['post_id'];
     $answer = $_POST['answer'];
 		$expert_id = $_SESSION['id'];
-    $user_id = $_SESSION['user_id'];
-    $stmt = $conn->prepare('INSERT INTO feedback (PostID, ExpertID, ExpertFeedback, UserID) VALUES (:post_id, :expert_id, :answer,:user_id)');
+
+    $stmt = $conn->prepare('INSERT INTO feedback (PostID, ExpertID, ExpertFeedback) VALUES (:post_id, :expert_id, :answer)');
     $stmt->bindParam(':post_id', $post_id);
     $stmt->bindParam(':expert_id', $expert_id);
 		$stmt->bindParam(':answer', $answer);
-    $stmt->bindParam(':user_id', $user_id);
     $stmt->execute();
 
     if (isset($_SESSION['expert'])) {
