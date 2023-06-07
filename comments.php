@@ -45,7 +45,18 @@ require './config/db.php';
 					endif;
 					?>
 					</h4>
-					<?php if($_SESSION['id'] != $row->ExpertID) : ?>
+					<?php
+					if($_SESSION['id'] != $row->ExpertID) :
+						$expert_id = $row->ExpertID;
+						$stmt = $conn->prepare('SELECT * FROM rating WHERE PostID = :post_id AND ExpertID = :expert_id');
+						$stmt->bindParam(':post_id', $post_id);
+						$stmt->bindParam(':expert_id', $expert_id);
+						$stmt->execute();
+
+						$rating = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+						if($stmt->rowCount() == 0) :
+					?>
 					<form class="needs-validation row g-3" action="./Controllers/RateController.php" method="post" novalidate>
 						<div class="col-12 d-none">
 		          <label for="post_id" class="form-label">Post ID</label>
@@ -82,11 +93,22 @@ require './config/db.php';
 							<textarea name="feedback" id="feedback" class="form-control"></textarea>
 						</div>
 						<div class="col-12">
-							<button type="submit" class="btn btn-primary" name="submit">Submit</button>
+							<button type="submit" class="btn btn-primary" name="submit" onclick="return confirm('Confirm rate?')">Submit</button>
 						</div>
 					</form>
-				<?php endif; ?>
-			<?php elseif($row->ExpertID == '') : ?>
+				<?php
+				elseif($stmt->rowCount() > 0) :
+					foreach($rating as $rate) :
+						echo '<p>Rated Stars:' . $rate->UserRating . '</p>';
+						if($rate->UserFeedback) :
+							echo '<p>Feedback:' . $rate->UserFeedback . '</p>';
+						elseif($rate->UserFeedback == '') :
+							echo '';
+						endif;
+					endforeach;
+				endif;
+				endif;
+			 elseif($row->ExpertID == '') : ?>
 				<h4>Assigned Expert: None</h4>
 			<?php endif; ?>
 		</div>
