@@ -20,6 +20,9 @@
 			<ul class="dropdown-menu dropdown-menu-end shadow-sm">
 				<li><a class="dropdown-item" href="./profile.php">My Profile</a></li>
 				<li><a class="dropdown-item" id="my_posts" href="./myposts.php">My Posts</a></li>
+				<?php if(isset($_SESSION['expert'])) : ?>
+				<li><a class="dropdown-item" id="assigned_posts" href="./assignedPost.php">Assigned Posts</a></li>
+			<?php endif; ?>
 				<li><a class="dropdown-item" href="./Controllers/LogoutController.php">Logout</a></li>
 			</ul>
 		</div>

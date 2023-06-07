@@ -88,18 +88,28 @@ require './config/db.php';
 			        </div>
 
 			        <div class="col-1 d-flex justify-content-end">
-			          <?php if($_SESSION['expert']) : ?>
-			            <?php if($row->PostStatus == "Pending") : ?>
-			              <form class="needs-validation" action="./Controllers/AcceptPostController.php" method="post" novalidate>
-			                <div class="col d-none">
+			          <?php if(isset($_SESSION['expert'])) : ?>
+			            <?php if(($row->PostStatus == "Pending") && ($row->UserID != $_SESSION['user_id'])) : ?>
+			              <form class="needs-validation row g-3" action="./Controllers/AcceptPostController.php" method="post" novalidate>
+			                <div class="col-12 d-none">
 			                  <input type="text" name="post_id" class="form-control" value="<?php echo $row->PostID; ?>" readonly required>
 			                  <div class="invalid-feedback">
 			                    You are disallowed to modify this field.
 			                  </div>
 			                </div>
-			                <button class="btn" type="submit" onclick="return confirm('')"><i class="fa-solid fa-marker"></i></button>
+											<div class="col-12 d-none">
+			                  <input type="text" name="expert_id" class="form-control" value="<?php echo $_SESSION['id']; ?>" readonly required>
+			                  <div class="invalid-feedback">
+			                    You are disallowed to modify this field.
+			                  </div>
+			                </div>
+			                <div class="col-12">
+			                	<button class="btn" type="submit" onclick="return confirm('Confirm self assign?')"><i class="fa-solid fa-marker"></i></button>
+			                </div>
 			              </form>
-			            <?php  else : echo "Assigned";
+									<?php
+			            else :
+										echo "";
 			             endif;
 			          endif; ?>
 			        <?php if($_SESSION['user_id'] == $row->UserID) : ?>
