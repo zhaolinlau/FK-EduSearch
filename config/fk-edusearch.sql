@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 05, 2023 at 02:27 AM
+-- Generation Time: Jun 07, 2023 at 03:58 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -55,12 +55,10 @@ CREATE TABLE `comment` (
 --
 
 INSERT INTO `comment` (`CommentID`, `PostID`, `UserID`, `CommentDetails`, `CommentCreated`, `CommentUpdated`) VALUES
-(6, 9, 3, 'hyjkghjkghjk', '2023-06-04 22:34:23', '2023-06-04 22:34:23'),
-(7, 9, 3, 'ghjkghyjkghjkghjk', '2023-06-04 22:34:26', '2023-06-04 22:34:26'),
-(24, 13, 1, 'aaaaaaaaaaaaaa', '2023-06-05 00:14:43', '2023-06-05 00:14:43'),
-(26, 14, 1, 'hahahahhehehehehe', '2023-06-05 00:18:32', '2023-06-05 00:18:32'),
-(27, 14, 15, 'oioioioioioioioioi', '2023-06-05 00:18:48', '2023-06-05 00:18:48'),
-(28, 14, 15, 'bbbbbbbbbbbbbbbbbbb', '2023-06-05 00:18:54', '2023-06-05 00:18:54');
+(44, 22, 2, 'hgjkfghjfghj', '2023-06-06 22:30:31', '2023-06-06 22:30:31'),
+(45, 23, 15, 'ddddddddddddd', '2023-06-07 02:44:44', '2023-06-07 02:44:44'),
+(46, 23, 15, 'fffffffffffffffffff', '2023-06-07 02:44:47', '2023-06-07 02:44:47'),
+(47, 23, 2, 'fff', '2023-06-07 02:46:31', '2023-06-07 02:46:31');
 
 -- --------------------------------------------------------
 
@@ -119,6 +117,7 @@ CREATE TABLE `post` (
   `PostTitle` varchar(25) NOT NULL,
   `PostContent` varchar(255) NOT NULL,
   `PostCategory` varchar(25) NOT NULL,
+  `ExpertID` varchar(10) NOT NULL,
   `PostCreated` timestamp NOT NULL DEFAULT current_timestamp(),
   `PostUpdated` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -127,10 +126,9 @@ CREATE TABLE `post` (
 -- Dumping data for table `post`
 --
 
-INSERT INTO `post` (`PostID`, `UserID`, `PostStatus`, `PostTitle`, `PostContent`, `PostCategory`, `PostCreated`, `PostUpdated`) VALUES
-(9, 3, 'Null', 'asdasd', 'asdasd', 'Annoucement', '2023-06-04 21:28:47', '2023-06-04 21:29:50'),
-(13, 1, 'Null', 'aaaaaaaaaaa', 'aaaaaaaaaaaaaaa', 'QNA', '2023-06-05 00:14:35', '2023-06-05 00:14:35'),
-(14, 1, 'Null', 'hehe', 'hahahaha', 'Others', '2023-06-05 00:17:58', '2023-06-05 00:17:58');
+INSERT INTO `post` (`PostID`, `UserID`, `PostStatus`, `PostTitle`, `PostContent`, `PostCategory`, `ExpertID`, `PostCreated`, `PostUpdated`) VALUES
+(22, 15, 'Revised', 'sdfgsdfg', 'sdefgsdfg', 'Others', 'EXB023', '2023-06-06 22:14:10', '2023-06-06 22:30:31'),
+(23, 15, 'Revised', 'ggg', 'ggg', 'QNA', 'EXB023', '2023-06-07 02:41:03', '2023-06-07 02:46:31');
 
 -- --------------------------------------------------------
 
@@ -153,9 +151,19 @@ CREATE TABLE `publication` (
 
 CREATE TABLE `rating` (
   `RatingID` bigint(255) NOT NULL,
-  `CommentID` bigint(255) NOT NULL,
-  `RatingStar` tinyint(1) NOT NULL
+  `PostID` bigint(255) NOT NULL,
+  `UserID` bigint(255) NOT NULL,
+  `ExpertID` varchar(10) NOT NULL,
+  `UserRating` tinyint(1) NOT NULL,
+  `UserFeedback` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `rating`
+--
+
+INSERT INTO `rating` (`RatingID`, `PostID`, `UserID`, `ExpertID`, `UserRating`, `UserFeedback`) VALUES
+(1, 23, 15, 'EXB023', 3, 'test');
 
 -- --------------------------------------------------------
 
@@ -189,10 +197,11 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`UserID`, `UserName`, `UserPassword`, `UserEmail`, `UserSocialMedia`, `UserResearchArea`, `StaffID`, `StudentID`, `ExpertID`, `UserRole`, `ResearchTopic`, `ExpertAreaOfExpertise`, `ExpertCV`, `ExpertAccountStatus`, `ExpertRatings`, `PublicationID`, `UserCreated`, `UserUpdated`) VALUES
-(1, 'admin', '$2y$10$KNL1l8BZGYGbtA63C.ikpuevRBo3OIsZQ3ITuZ2LkACh8B5mxptSy', 'admin@gmail.com', '', '', 'STA001', '0', '', 0, '', '', '', 0, 0, 0, '2023-06-04 21:32:22', '2023-06-04 21:32:53'),
+(1, 'admin', '$2y$10$KNL1l8BZGYGbtA63C.ikpuevRBo3OIsZQ3ITuZ2LkACh8B5mxptSy', 'admin@gmail.com', '', '', 'STA001', '0', '', 0, '', '', '', 0, 0, 0, '2023-06-04 21:32:22', '2023-06-06 22:43:11'),
 (2, 'expert', '$2y$10$oqnJGRxriBE8NJli9yice.P4..48apl7fH2EmuC0rxljahoD3mey6', 'expert@gmail.com', '', '', '', '0', 'EXB023', 1, '', '', '', 0, 0, 0, '2023-06-04 21:32:22', '2023-06-04 21:32:53'),
 (3, 'lecturer', '$2y$10$u3lUUWPNcQD3a5rz3IhkfeNg1asAuRe766JDH4bJGtlWj524jUyEq', 'lecturer@gmail.com', '', '', 'STH750', '0', '', 2, '', '', '', 0, 0, 0, '2023-06-04 21:32:22', '2023-06-04 21:32:53'),
-(15, 'student', '$2y$10$JD3I5mBarXmeIu9RdTM.R.Xw8vNYJUPKtS97M2raOeHlTXTsamizW', 'student@gmail.com', '', '', '', 'cb22039', '', 3, '', '', '', 0, 0, 0, '2023-06-04 22:41:48', '2023-06-04 22:41:48');
+(15, 'student', '$2y$10$JD3I5mBarXmeIu9RdTM.R.Xw8vNYJUPKtS97M2raOeHlTXTsamizW', 'student@gmail.com', '', '', '', 'cb22039', '', 3, '', '', '', 0, 0, 0, '2023-06-04 22:41:48', '2023-06-06 23:21:46'),
+(21, 'expert2', '$2y$10$6r5EDLfDCMatheREHyo6EuOkp61YBo9e4vaqCsNJqlP7AdkekaaWi', 'expert2@gmail.com', '', '', '', '', 'EXP222', 1, '', '', '', 0, 0, 0, '2023-06-07 03:18:48', '2023-06-07 03:18:48');
 
 --
 -- Indexes for dumped tables
@@ -247,7 +256,8 @@ ALTER TABLE `likes`
 ALTER TABLE `post`
   ADD PRIMARY KEY (`PostID`),
   ADD UNIQUE KEY `PostID` (`PostID`),
-  ADD KEY `UserID` (`UserID`);
+  ADD KEY `UserID` (`UserID`),
+  ADD KEY `ExpertID` (`ExpertID`);
 
 --
 -- Indexes for table `publication`
@@ -263,7 +273,9 @@ ALTER TABLE `publication`
 ALTER TABLE `rating`
   ADD PRIMARY KEY (`RatingID`),
   ADD UNIQUE KEY `RatingID` (`RatingID`),
-  ADD KEY `CommentID` (`CommentID`);
+  ADD KEY `PostID` (`PostID`,`UserID`),
+  ADD KEY `ExpertID` (`ExpertID`),
+  ADD KEY `UserID` (`UserID`);
 
 --
 -- Indexes for table `user`
@@ -272,7 +284,9 @@ ALTER TABLE `user`
   ADD PRIMARY KEY (`UserID`),
   ADD UNIQUE KEY `UserID` (`UserID`),
   ADD UNIQUE KEY `StaffID` (`StaffID`,`StudentID`,`ExpertID`),
-  ADD UNIQUE KEY `UserName` (`UserName`,`UserEmail`);
+  ADD UNIQUE KEY `UserName` (`UserName`,`UserEmail`),
+  ADD KEY `ExpertID` (`ExpertID`),
+  ADD KEY `StaffID_2` (`StaffID`,`StudentID`,`ExpertID`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -288,7 +302,7 @@ ALTER TABLE `bug`
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `CommentID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `CommentID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `complaint`
@@ -306,13 +320,13 @@ ALTER TABLE `feedback`
 -- AUTO_INCREMENT for table `likes`
 --
 ALTER TABLE `likes`
-  MODIFY `LikeID` bigint(255) NOT NULL AUTO_INCREMENT;
+  MODIFY `LikeID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
-  MODIFY `PostID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `PostID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `publication`
@@ -324,13 +338,13 @@ ALTER TABLE `publication`
 -- AUTO_INCREMENT for table `rating`
 --
 ALTER TABLE `rating`
-  MODIFY `RatingID` bigint(255) NOT NULL AUTO_INCREMENT;
+  MODIFY `RatingID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `UserID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `UserID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- Constraints for dumped tables
@@ -373,7 +387,8 @@ ALTER TABLE `likes`
 -- Constraints for table `post`
 --
 ALTER TABLE `post`
-  ADD CONSTRAINT `post_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`UserID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `post_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`UserID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `post_ibfk_2` FOREIGN KEY (`ExpertID`) REFERENCES `user` (`ExpertID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `publication`
@@ -385,7 +400,9 @@ ALTER TABLE `publication`
 -- Constraints for table `rating`
 --
 ALTER TABLE `rating`
-  ADD CONSTRAINT `rating_ibfk_1` FOREIGN KEY (`CommentID`) REFERENCES `comment` (`CommentID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `rating_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`UserID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `rating_ibfk_2` FOREIGN KEY (`PostID`) REFERENCES `post` (`PostID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `rating_ibfk_3` FOREIGN KEY (`ExpertID`) REFERENCES `user` (`ExpertID`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
