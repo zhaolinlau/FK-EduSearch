@@ -129,7 +129,7 @@ require './config/db.php';
 									</button>
 									<ul class="dropdown-menu dropdown-menu-end shadow-sm">
 										<li><a class="dropdown-item" href="./EditPost.php?post_id=<?php echo $row->PostID; ?>"><i class="fa-solid fa-pen-to-square text-info"></i> Edit</a></li>
-										<li><a class="dropdown-item" href="#"><i class="fa-solid fa-check text-success"></i> Resolved</a></li>
+										<li><a class="dropdown-item" href="./Controllers/ResolveController.php?post_id=<?php echo $row->PostID; ?>"><i class="fa-solid fa-check text-success"></i> Resolved</a></li>
 										<li>
 											<a class="dropdown-item" href="./Controllers/DeletePostController.php?post_id=<?php echo $row->PostID; ?>" onclick="return confirm('Are you sure to delete the post?')">
 											<i class="fa-solid fa-trash text-danger"></i> Delete
