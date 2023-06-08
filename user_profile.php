@@ -93,7 +93,7 @@ require "./Middleware/Authenticate.php";
 									<?php if (($row->UserRole == 0) || ($row->UserRole == 2)) : ?>
 										<div class="col-6">
 											<label for="staff_id">Staff ID</label>
-											<input type="text" class="form-control" value="<?php echo $row->StaffID; ?>" disabled name="staff_id" id="staff_id" required>
+											<input type="text" class="form-control" value="<?php echo $row->StaffID; ?>" name="staff_id" id="staff_id" required>
 											<div class="invalid-feedback">
 												Please enter a staff id.
 											</div>
@@ -102,7 +102,7 @@ require "./Middleware/Authenticate.php";
 									<?php elseif ($row->UserRole == 1) : ?>
 										<div class="col-6">
 											<label for="staff_id">Expert ID</label>
-											<input type="text" value="<?php echo $row->ExpertID; ?>" disabled class="form-control" name="expert_id" id="expert_id" required>
+											<input type="text" value="<?php echo $row->ExpertID; ?>" class="form-control" name="expert_id" id="expert_id" required>
 											<div class="invalid-feedback">
 												Please enter a expert id.
 											</div>
