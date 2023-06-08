@@ -7,14 +7,13 @@ require "./Middleware/Authenticate.php";
 	$UserID = $_SESSION["user_id"];
 
 	$stmt=$conn->prepare("SELECT u.UserID, u.UserName,c.FeedbackID, c.ComplaintStatus,c.ComplaintDescription,c.ComplaintType,c.ComplaintCreatedDate FROM user u
-	                      JOIN complaint c ON u.UserID = c.UserID
+	                      JOIN complaint c ON c.UserID = u.UserID
 	                      WHERE ComplaintID = :complaintID;");
 	 $stmt->bindParam(':complaintID', $complaintID);
 	 $stmt->execute();
 	 $complaint = $stmt->fetch(PDO::FETCH_ASSOC);
 	 $timestamp=strtotime($complaint['ComplaintCreatedDate']);
 	 $feedbackID=$complaint["FeedbackID"];
-	 var_dump($complaint);
 	 $stmt=$conn->prepare("SELECT c.ComplaintID, f.ExpertFeedback, f.FeedbackID, p.PostTitle
 	 											FROM complaint c
 	 											JOIN feedback f ON c.FeedbackID = f.FeedbackID
@@ -62,31 +61,31 @@ require "./Middleware/Authenticate.php";
   <div class="form-group row">
     <label for="Username" class="col-sm-2 col-form-label">Username</label>
     <div class="col-sm-8">
-      <input type="text" class="form-control" id="Username" placeholder="Username" value="<?php echo $complaint["UserName"]?>" disabled>
+      <input type="text" class="form-control" id="Username" placeholder="Username" value="<?php echo $complaint['UserName']?>" disabled>
     </div>
   </div>
   <div class="form-group row">
     <label for="PostTitle" class="col-sm-2 col-form-label">Post Title</label>
     <div class="col-sm-8">
-      <input type="text" class="form-control" id="Post Title" placeholder="Post Title" value="<?php echo $feedback["PostTitle"]?>" disabled>
+      <input type="text" class="form-control" id="Post Title" placeholder="Post Title" value="<?php echo $feedback['PostTitle']?>" disabled>
     </div>
   </div>
   <div class="form-group row">
     <label for="Feedback" class="col-sm-2 col-form-label">Feedback</label>
     <div class="col-sm-8">
-      <input type="text" class="form-control" id="Feedback" placeholder="Expert Feedback" value="<?php echo $feedback["FeedbackID"]?>" disabled>
+      <input type="text" class="form-control" id="Feedback" placeholder="Expert Feedback" value="<?php echo $feedback['FeedbackID']?>" disabled>
     </div>
   </div>
   <div class="form-group row">
     <label for="ComplaintType" class="col-sm-2 col-form-label">Complaint Type</label>
     <div class="col-sm-8">
-      <input type="text" class="form-control" id="ComplaintType" placeholder="Complaint Type" value="<?php echo $complaint["ComplaintType"]?>" disabled>
+      <input type="text" class="form-control" id="ComplaintType" placeholder="Complaint Type" value="<?php echo $complaint['ComplaintType']?>" disabled>
     </div>
   </div>
   <div class="form-group row">
     <label for="ComplaintDescription" class="col-sm-2 col-form-label">Complaint Description</label>
     <div class="col-sm-8">
-      <textarea class="form-control" id="ComplaintDescription" placeholder="Complaint Description" disabled><?php echo $complaint["ComplaintDescription"]?></textarea>
+      <textarea class="form-control" id="ComplaintDescription" placeholder="Complaint Description" disabled><?php echo $complaint['ComplaintDescription']?></textarea>
     </div>
   </div>
   <div class="form-group row">
@@ -104,12 +103,12 @@ require "./Middleware/Authenticate.php";
   <div class="form-group row">
   <label for="ComplaintStatus" class="col-sm-2 col-form-label">Complaint Status</label>
   <div class="col-sm-8">
-     <input type="text" class="form-control" id="ComplaintStatus" placeholder="Complaint Status" value="<?php echo $complaint["ComplaintStatus"];?>"disabled>
+     <input type="text" class="form-control" id="ComplaintStatus" placeholder="Complaint Status" value="<?php echo $complaint['ComplaintStatus'];?>"disabled>
   </div>
   </div>
   <div class="form-group row">
   <div class="col-sm-8">
-	<input class="btn btn-primary" type="button" value="Edit" style="margin-left: 100px; padding:10px 30px;" onclick="window.location.href='EditComplaint.php?ComplaintID=<?php $feedback['ComplaintID'];?>'">
+	<input class="btn btn-primary" type="button" value="Edit" style="margin-left: 100px; padding:10px 30px;" onclick="window.location.href='EditComplaint.php?ComplaintID=<?php echo $complaintID;?>'">
   <input class="btn btn-primary" type="button" value="Back" style="margin-left: 250px;padding:10px 30px;" onclick="window.location.href='ComplaintList.php'">
   </div>
   </div>

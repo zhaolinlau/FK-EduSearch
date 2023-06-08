@@ -26,15 +26,14 @@ require "./Middleware/Authenticate.php";
                 });
             </script>';
 	}
-
 	$stmt=$conn->prepare("SELECT u.UserID, u.UserName,c.FeedbackID, c.ComplaintStatus,c.ComplaintDescription,c.ComplaintType,c.ComplaintCreatedDate FROM user u
-	                      JOIN complaint c ON u.UserID = c.UserID
+	                      JOIN complaint c ON c.UserID = u.UserID
 	                      WHERE ComplaintID = :complaintID;");
 	 $stmt->bindParam(':complaintID', $complaintID);
 	 $stmt->execute();
 	 $complaint = $stmt->fetch(PDO::FETCH_ASSOC);
 	 $timestamp=strtotime($complaint['ComplaintCreatedDate']);
-	 $feedbackID=$complaint["FeedbackID"];
+	 $feedbackID=$complaint['FeedbackID'];
 	 $stmt=$conn->prepare("SELECT c.ComplaintID, f.ExpertFeedback, f.FeedbackID, p.PostTitle
 	 											FROM complaint c
 	 											JOIN feedback f ON c.FeedbackID = f.FeedbackID
@@ -77,37 +76,37 @@ require "./Middleware/Authenticate.php";
   <div class="form-group row">
     <label for="ComplaintID" class="col-sm-2 col-form-label">Complaint ID</label>
     <div class="col-sm-8">
-      <input type="text" class="form-control" id="ComplaintID" placeholder="ComplaintID" value="<?php echo $feedback["ComplaintID"]?>" disabled>
+      <input type="text" class="form-control" id="ComplaintID" placeholder="ComplaintID" value="<?php echo $feedback['ComplaintID']?>" disabled>
     </div>
   </div>
   <div class="form-group row">
     <label for="Username" class="col-sm-2 col-form-label">Username</label>
     <div class="col-sm-8">
-      <input type="text" class="form-control" id="Username" placeholder="Username" value="<?php echo $complaint["UserName"]?>" disabled>
+      <input type="text" class="form-control" id="Username" placeholder="Username" value="<?php echo $complaint['UserName']?>" disabled>
     </div>
   </div>
   <div class="form-group row">
     <label for="PostTitle" class="col-sm-2 col-form-label">Post Title</label>
     <div class="col-sm-8">
-      <input type="text" class="form-control" id="PostTitle" placeholder="Post Title" value="<?php echo $feedback["PostTitle"]?>"disabled>
+      <input type="text" class="form-control" id="PostTitle" placeholder="Post Title" value="<?php echo $feedback['PostTitle']?>"disabled>
     </div>
   </div>
   <div class="form-group row">
     <label for="Feedback" class="col-sm-2 col-form-label">Expert Feedback</label>
     <div class="col-sm-8">
-      <input type="text" class="form-control" id="Feedback" placeholder="Expert Feedback" value="<?php echo $feedback["ExpertFeedback"]?>" disabled>
+      <input type="text" class="form-control" id="Feedback" placeholder="Expert Feedback" value="<?php echo $feedback['ExpertFeedback']?>" disabled>
     </div>
   </div>
   <div class="form-group row">
     <label for="ComplaintType" class="col-sm-2 col-form-label">Complaint Type</label>
     <div class="col-sm-8">
-      <input type="text" class="form-control" id="ComplaintType" name="ComplaintType" placeholder="Complaint Type" value="<?php echo $complaint["ComplaintType"]?>">
+      <input type="text" class="form-control" id="ComplaintType" name="ComplaintType" placeholder="Complaint Type" value="<?php echo $complaint['ComplaintType']?>">
     </div>
   </div>
   <div class="form-group row">
     <label for="ComplaintDescription" class="col-sm-2 col-form-label">Complaint Description</label>
     <div class="col-sm-8 ">
-      <textarea class="form-control" id="ComplaintDescription" name="ComplaintDescription" placeholder="Complaint Description"><?php echo $complaint["ComplaintDescription"]?></textarea>
+      <textarea class="form-control" id="ComplaintDescription" name="ComplaintDescription" placeholder="Complaint Description"><?php echo $complaint['ComplaintDescription']?></textarea>
     </div>
   </div>
   <div class="form-group row">

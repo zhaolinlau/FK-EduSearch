@@ -41,7 +41,7 @@ require "./Middleware/Authenticate.php";
                     try {
                         require "./config/db.php";
 												$UserID = $_SESSION["user_id"];
-                        $stmt = $conn->prepare("SELECT c.ComplaintID, u.UserName, c.ComplaintType, c.ComplaintDescription, c.ComplaintStatus,c.ComplaintCreatedDate
+                        $stmt = $conn->prepare("SELECT c.ComplaintID, c.FeedbackID, u.UserName, c.ComplaintType, c.ComplaintDescription, c.ComplaintStatus,c.ComplaintCreatedDate
                         												FROM complaint c
                         												JOIN user u ON c.UserID = u.UserID
                         												WHERE c.UserID = :UserID");
@@ -50,7 +50,7 @@ require "./Middleware/Authenticate.php";
                         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         if ($stmt->rowCount() > 0) :
                             foreach ($result as $complaint) :
-															$timestamp=strtotime($complaint['ComplaintCreatedDate']);
+									$timestamp=strtotime($complaint['ComplaintCreatedDate']);
                     ?>
                                 <tr>
                                     <th scope="row"><?php echo $complaint['ComplaintID']; ?></th>

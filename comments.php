@@ -308,11 +308,7 @@ require './config/db.php';
 		<div class="col-12">
 			<ul class="list-group list-group-flush">
 				<?php
-<<<<<<< HEAD
 				$stmt = $conn->prepare('SELECT * FROM feedback JOIN user ON feedback.ExpertID=user.ExpertID WHERE feedback.PostID = :post_id ORDER BY feedback.FeedbackID ASC');
-=======
-				$stmt = $conn->prepare('SELECT * FROM feedback JOIN user ON feedback.ExpertID = user.ExpertID WHERE feedback.PostID = :post_id ORDER BY feedback.FeedbackID ASC');
->>>>>>> 1aea649c715212431d3230170b9671a6a6242a5e
 				$stmt->bindParam(':post_id', $post_id);
 				$stmt->execute();
 				$feedbacks = $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -325,31 +321,21 @@ require './config/db.php';
 									<b><?php echo $feedback->UserName; ?></b> answered on <?php echo $feedback->FeedbackCreated; ?>
 								</div>
 								<?php
-<<<<<<< HEAD
 								if ($_SESSION['id'] == $feedback->ExpertID) : ?>
-=======
-								if ($_SESSION['id'] == $feedback->UserID) : ?>
->>>>>>> 1aea649c715212431d3230170b9671a6a6242a5e
+
 									<div class="col-1 d-flex justify-content-end">
 										<div class="dropdown">
 											<button class="btn circle-1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
 												<i class="fa-solid fa-ellipsis fa-xl"></i>
 											</button>
 											<ul class="dropdown-menu dropdown-menu-end shadow-sm">
-<<<<<<< HEAD
-												<li><a class="dropdown-item" href="./EditFeedbackController.php?feedback_id=<?php echo $feedback->FeedbackID; ?>"><i class="fa-solid fa-pen-to-square text-info"></i> Edit</a></li>
-												<li>
-													<a class="dropdown-item" href="./Controllers/DeleteFeedbackController.php?feedback_id=<?php echo $feedback->FeedbackID; ?>" onclick="return confirm('Confirm delete this answer?')">
-=======
 												<li><a class="dropdown-item" href="./EditFeedbackController.php?feedback_id=<?php echo $feedback->feedbackID; ?>"><i class="fa-solid fa-pen-to-square text-info"></i> Edit</a></li>
 												<li>
 													<a class="dropdown-item" href="./Controllers/DeleteFeedbackController.php?feedback_id=<?php echo $feedback->feedbackID; ?>" onclick="return confirm('Confirm delete this answer?')">
->>>>>>> 1aea649c715212431d3230170b9671a6a6242a5e
 														<i class="fa-solid fa-trash text-danger"></i> Delete
 													</a>
 												</li>
 											</ul>
-<<<<<<< HEAD
 											<?php else:?>
 												<?php if ($_SESSION['user_id'] == $row->UserID):?>
 												<div class="col-1 d-flex justify-content-end">
@@ -361,21 +347,13 @@ require './config/db.php';
 												<li><a href="#" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#post_form" data-feedback-id="<?php echo $feedback->FeedbackID; ?>">
   											Create Complaint
 												</a></li>
-											
+										
 												<?php endif; ?>
-=======
->>>>>>> 1aea649c715212431d3230170b9671a6a6242a5e
 										</div>
 									</div>
 								<?php endif; ?>
 							</div>
-<<<<<<< HEAD
 						</div>
-=======
-
-						</div>
-
->>>>>>> 1aea649c715212431d3230170b9671a6a6242a5e
 						<div class="col-12">
 							<?php echo $feedback->ExpertFeedback; ?>
 						</div>
