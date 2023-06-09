@@ -1,6 +1,7 @@
 <?php
 session_start();
 require "./Middleware/Authenticate.php";
+require "./controllers/CountRatingController.php";
 include "./controllers/ReturnProfile.php";
 ?>
 
@@ -178,9 +179,17 @@ include "./controllers/ReturnProfile.php";
 				<div class="card" style="margin-bottom: 50px;">
 					<div class="card-body" id="expertRatings">
 						<h5 class="card-title">Account status:</h5>
-						<p class="card-text"><span id="ExpertAccountStatus"><?php echo $userData['ExpertAccountStatus']; ?> </span> (<span id="daysRemaining">X</span> days until inactive)</p>
-						<h5 class="card-title">Ratings:</h5>
-						<p class="card-text"><span id="averageRatings"><?php echo $userData['ExpertRatings']; ?></span>★</p>
+						<p class="card-text"><span id="ExpertAccountStatus"><?php
+																			if ($userData["ExpertAccountStatus"] == 0) :
+																				echo "Active";
+																			elseif ($userData["ExpertAccountStatus"] == 1) :
+																				echo "Disabled";
+																			endif;
+																			?></span> (<span id="daysRemaining">X</span> days until inactive)</p>
+						<h5 class="card-title">Average Ratings:</h5>
+						<p class="card-text"><span id="averageRatings"><?php echo $averageUserRating; ?></span>★</p>
+
+
 					</div>
 				</div>
 			<?php endif; ?>

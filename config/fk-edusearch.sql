@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 08, 2023 at 12:40 AM
+-- Generation Time: Jun 09, 2023 at 10:23 AM
 -- Server version: 10.4.28-MariaDB
--- PHP Version: 8.1.17
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -62,8 +62,8 @@ INSERT INTO `comment` (`CommentID`, `PostID`, `UserID`, `CommentDetails`, `Comme
 (48, 25, 2, 'fghjfghjf', '2023-06-07 17:27:56', '2023-06-07 17:27:56'),
 (50, 26, 21, 'asdasd', '2023-06-07 17:59:09', '2023-06-07 17:59:09'),
 (51, 26, 21, 'sdfsdf', '2023-06-07 18:00:15', '2023-06-07 18:00:15'),
-(52, 24, 15, 'hekk', '2023-06-07 19:00:16', '2023-06-07 19:00:16'),
-(53, 24, 15, '', '2023-06-07 19:00:16', '2023-06-07 19:00:16');
+(54, 27, 2, 'afsdfasdf', '2023-06-09 05:58:49', '2023-06-09 05:58:49'),
+(55, 27, 15, 'sdfgsdfgsdfg', '2023-06-09 05:59:15', '2023-06-09 05:59:15');
 
 -- --------------------------------------------------------
 
@@ -118,14 +118,20 @@ CREATE TABLE `feedback` (
 INSERT INTO `feedback` (`FeedbackID`, `PostID`, `ExpertID`, `ExpertFeedback`, `UserRating`, `UserFeedback`, `FeedbackCreated`) VALUES
 (1, 25, 'EXB023', 'sadfasdf', 0, '', '2023-06-07 17:39:51'),
 (2, 25, 'EXB023', 'ddddddddddd', 0, '', '2023-06-07 17:39:58'),
-(3, 25, 'EXB023', 'fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff', 0, '', '2023-06-07 17:40:05'),
+(3, 25, 'EXB023', 'fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff', 5, '', '2023-03-07 17:40:05'),
 (4, 25, 'EXB023', 'sdsd', 0, '', '2023-06-07 17:42:36'),
 (5, 25, 'EXB023', 'ddd', 0, '', '2023-06-07 17:42:47'),
 (6, 26, 'EXB023', 'asdfasdf', 0, '', '2023-06-07 17:50:09'),
 (7, 26, 'EXB023', 'ffffffffffffff', 0, '', '2023-06-07 17:50:14'),
 (8, 26, 'EXB023', 'close?', 0, '', '2023-06-07 18:00:52'),
 (9, 26, 'EXB023', 'hello\r\n', 0, '', '2023-06-07 18:33:56'),
-(10, 26, 'EXB023', 'ffffff', 0, '', '2023-06-07 19:27:25');
+(10, 26, 'EXB023', 'ffffff', 0, '', '2023-06-07 19:27:25'),
+(11, 27, 'EXB023', 'afasdfasdfasdf', 0, '', '2023-06-09 05:58:43'),
+(12, 29, 'EXB023', 'Cloud computing refers to the delivery of computing resources, such as servers, storage, databases, software, and applications, over the internet. Instead of hosting and managing these resources locally, they are provided by a third-party provider and acc', 0, '', '2023-06-09 06:02:15'),
+(13, 28, 'EXB023', ' A firewall is a security device or software that monitors and controls incoming and outgoing network traffic based on predetermined security rules. It acts as a barrier between a trusted internal network and an untrusted external network (such as the int', 0, '', '2023-06-09 06:02:27'),
+(14, 32, 'EXB023', ' Cloud computing allows users to access and use resources and applications stored on remote servers over the internet, providing flexibility and scalability.\r\n\r\n\r\n\r\n\r\n', 0, '', '2023-06-09 08:19:42'),
+(15, 31, 'EXB023', 'Install antivirus software, update your system regularly, be cautious with email attachments and links, enable a firewall, practice safe browsing, and back up your files.', 0, '', '2023-06-09 08:19:58'),
+(16, 30, 'EXB023', 'HTTPS adds an extra layer of security by encrypting data, while HTTP does not.', 0, '', '2023-06-09 08:20:09');
 
 -- --------------------------------------------------------
 
@@ -165,9 +171,14 @@ CREATE TABLE `post` (
 INSERT INTO `post` (`PostID`, `UserID`, `PostStatus`, `PostTitle`, `PostContent`, `PostCategory`, `ExpertID`, `PostCreated`, `PostUpdated`) VALUES
 (22, 15, 'Revised', 'sdfgsdfg', 'sdefgsdfg', 'Others', 'EXB023', '2023-06-06 22:14:10', '2023-06-06 22:30:31'),
 (23, 15, 'Revised', 'ggg', 'ggg', 'QNA', 'EXB023', '2023-06-07 02:41:03', '2023-06-07 02:46:31'),
-(24, 2, 'Pending', 'asdfasdf', 'asdfasdf', 'Annoucement', '', '2023-06-07 17:03:06', '2023-06-07 17:03:06'),
 (25, 15, 'Revised', 'aaa', 'aaa', 'Sharing', 'EXB023', '2023-06-07 17:22:14', '2023-06-07 17:39:51'),
-(26, 15, 'Revised', 'fff', 'fff', 'Annoucement', 'EXB023', '2023-06-07 17:43:14', '2023-06-07 17:50:09');
+(26, 15, 'Revised', 'fff', 'fff', 'Annoucement', 'EXB023', '2023-06-07 17:43:14', '2023-06-07 17:50:09'),
+(27, 15, 'Completed', 'sdfgsdfg', 'sdfgsdfg', 'Annoucement', 'EXB023', '2023-06-09 05:58:17', '2023-06-09 05:59:22'),
+(28, 15, 'Revised', 'What is a firewall?', 'What is a firewall?', 'QNA', 'EXB023', '2023-06-09 06:01:32', '2023-06-09 06:02:27'),
+(29, 15, 'Revised', 'What is cloud computing?', 'What is cloud computing ?  What is  cloud computing?', 'QNA', 'EXB023', '2023-06-09 06:01:41', '2023-06-09 06:02:15'),
+(30, 15, 'Revised', 'HTTP and HTTPS?', ' What is the difference between HTTP and HTTPS?', 'QNA', 'EXB023', '2023-06-09 08:18:14', '2023-06-09 08:20:09'),
+(31, 15, 'Revised', 'malware and viruses?', 'Question: How can I protect my computer from malware and viruses?\r\n', 'QNA', 'EXB023', '2023-06-09 08:19:04', '2023-06-09 08:19:58'),
+(32, 15, 'Revised', 'cloud computing', 'Question: What is cloud computing and how does it work?\r\n', 'QNA', 'EXB023', '2023-06-09 08:19:18', '2023-06-09 08:19:42');
 
 -- --------------------------------------------------------
 
@@ -202,7 +213,13 @@ CREATE TABLE `rating` (
 --
 
 INSERT INTO `rating` (`RatingID`, `PostID`, `UserID`, `ExpertID`, `UserRating`, `UserFeedback`) VALUES
-(1, 23, 15, 'EXB023', 3, 'test');
+(1, 23, 15, 'EXB023', 3, 'test'),
+(2, 27, 15, 'EXB023', 2, 'dsadfgsdfg'),
+(3, 29, 15, 'EXB023', 4, 'NICE'),
+(4, 28, 15, 'EXB023', 5, 'CONCISE ANSWER'),
+(5, 30, 15, 'EXB023', 3, 'good'),
+(6, 31, 15, 'EXB023', 5, 'nvrce'),
+(7, 32, 15, 'EXB023', 4, 'xd');
 
 -- --------------------------------------------------------
 
@@ -342,7 +359,7 @@ ALTER TABLE `bug`
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `CommentID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `CommentID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `complaint`
@@ -354,7 +371,7 @@ ALTER TABLE `complaint`
 -- AUTO_INCREMENT for table `feedback`
 --
 ALTER TABLE `feedback`
-  MODIFY `FeedbackID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `FeedbackID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `likes`
@@ -366,7 +383,7 @@ ALTER TABLE `likes`
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
-  MODIFY `PostID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `PostID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `publication`
@@ -378,7 +395,7 @@ ALTER TABLE `publication`
 -- AUTO_INCREMENT for table `rating`
 --
 ALTER TABLE `rating`
-  MODIFY `RatingID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `RatingID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `user`
