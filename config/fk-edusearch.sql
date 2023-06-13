@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 09, 2023 at 10:23 AM
+-- Generation Time: Jun 13, 2023 at 05:50 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -131,7 +131,8 @@ INSERT INTO `feedback` (`FeedbackID`, `PostID`, `ExpertID`, `ExpertFeedback`, `U
 (13, 28, 'EXB023', ' A firewall is a security device or software that monitors and controls incoming and outgoing network traffic based on predetermined security rules. It acts as a barrier between a trusted internal network and an untrusted external network (such as the int', 0, '', '2023-06-09 06:02:27'),
 (14, 32, 'EXB023', ' Cloud computing allows users to access and use resources and applications stored on remote servers over the internet, providing flexibility and scalability.\r\n\r\n\r\n\r\n\r\n', 0, '', '2023-06-09 08:19:42'),
 (15, 31, 'EXB023', 'Install antivirus software, update your system regularly, be cautious with email attachments and links, enable a firewall, practice safe browsing, and back up your files.', 0, '', '2023-06-09 08:19:58'),
-(16, 30, 'EXB023', 'HTTPS adds an extra layer of security by encrypting data, while HTTP does not.', 0, '', '2023-06-09 08:20:09');
+(16, 30, 'EXB023', 'HTTPS adds an extra layer of security by encrypting data, while HTTP does not.', 0, '', '2023-06-09 08:20:09'),
+(17, 33, 'EXP111', 'yeah', 0, '', '2023-03-13 03:20:22');
 
 -- --------------------------------------------------------
 
@@ -178,7 +179,8 @@ INSERT INTO `post` (`PostID`, `UserID`, `PostStatus`, `PostTitle`, `PostContent`
 (29, 15, 'Revised', 'What is cloud computing?', 'What is cloud computing ?  What is  cloud computing?', 'QNA', 'EXB023', '2023-06-09 06:01:41', '2023-06-09 06:02:15'),
 (30, 15, 'Revised', 'HTTP and HTTPS?', ' What is the difference between HTTP and HTTPS?', 'QNA', 'EXB023', '2023-06-09 08:18:14', '2023-06-09 08:20:09'),
 (31, 15, 'Revised', 'malware and viruses?', 'Question: How can I protect my computer from malware and viruses?\r\n', 'QNA', 'EXB023', '2023-06-09 08:19:04', '2023-06-09 08:19:58'),
-(32, 15, 'Revised', 'cloud computing', 'Question: What is cloud computing and how does it work?\r\n', 'QNA', 'EXB023', '2023-06-09 08:19:18', '2023-06-09 08:19:42');
+(32, 15, 'Revised', 'cloud computing', 'Question: What is cloud computing and how does it work?\r\n', 'QNA', 'EXB023', '2023-06-09 08:19:18', '2023-06-09 08:19:42'),
+(33, 22, 'Revised', 'test for old', 'yes?', 'QNA', 'EXP111', '2023-03-13 03:20:01', '2023-03-13 03:20:22');
 
 -- --------------------------------------------------------
 
@@ -219,7 +221,8 @@ INSERT INTO `rating` (`RatingID`, `PostID`, `UserID`, `ExpertID`, `UserRating`, 
 (4, 28, 15, 'EXB023', 5, 'CONCISE ANSWER'),
 (5, 30, 15, 'EXB023', 3, 'good'),
 (6, 31, 15, 'EXB023', 5, 'nvrce'),
-(7, 32, 15, 'EXB023', 4, 'xd');
+(7, 32, 15, 'EXB023', 4, 'xd'),
+(8, 33, 22, 'EXP111', 4, 'amazing');
 
 -- --------------------------------------------------------
 
@@ -253,11 +256,13 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`UserID`, `UserName`, `UserPassword`, `UserEmail`, `UserSocialMedia`, `UserResearchArea`, `StaffID`, `StudentID`, `ExpertID`, `UserRole`, `ResearchTopic`, `ExpertAreaOfExpertise`, `ExpertCV`, `ExpertAccountStatus`, `ExpertRatings`, `PublicationID`, `UserCreated`, `UserUpdated`) VALUES
-(1, 'admin', '$2y$10$KNL1l8BZGYGbtA63C.ikpuevRBo3OIsZQ3ITuZ2LkACh8B5mxptSy', 'admin@gmail.com', '', '', 'STA001', '0', '', 0, '', '', '', 0, 0, 0, '2023-06-04 21:32:22', '2023-06-06 22:43:11'),
+(1, 'admin', '$2y$10$KNL1l8BZGYGbtA63C.ikpuevRBo3OIsZQ3ITuZ2LkACh8B5mxptSy', 'admin@gmail.com', '', '', 'STA001', '0', '', 0, '', '', '', 1, 0, 0, '2023-06-04 21:32:22', '2023-06-13 03:36:22'),
 (2, 'expert', '$2y$10$oqnJGRxriBE8NJli9yice.P4..48apl7fH2EmuC0rxljahoD3mey6', 'expert@gmail.com', '', '', '', '0', 'EXB023', 1, '', '', '', 0, 0, 0, '2023-06-04 21:32:22', '2023-06-04 21:32:53'),
-(3, 'lecturer', '$2y$10$u3lUUWPNcQD3a5rz3IhkfeNg1asAuRe766JDH4bJGtlWj524jUyEq', 'lecturer@gmail.com', '', '', 'STH750', '0', '', 2, '', '', '', 0, 0, 0, '2023-06-04 21:32:22', '2023-06-04 21:32:53'),
-(15, 'student', '$2y$10$JD3I5mBarXmeIu9RdTM.R.Xw8vNYJUPKtS97M2raOeHlTXTsamizW', 'student@gmail.com', '', '', '', 'cb22039', '', 3, '', '', '', 0, 0, 0, '2023-06-04 22:41:48', '2023-06-06 23:21:46'),
-(21, 'expert2', '$2y$10$6r5EDLfDCMatheREHyo6EuOkp61YBo9e4vaqCsNJqlP7AdkekaaWi', 'expert2@gmail.com', '', '', '', '', 'EXP222', 1, '', '', '', 0, 0, 0, '2023-06-07 03:18:48', '2023-06-07 03:18:48');
+(3, 'lecturer', '$2y$10$u3lUUWPNcQD3a5rz3IhkfeNg1asAuRe766JDH4bJGtlWj524jUyEq', 'lecturer@gmail.com', '', '', 'STH750', '0', '', 2, '', '', '', 1, 0, 0, '2023-06-04 21:32:22', '2023-06-13 03:50:03'),
+(15, 'student', '$2y$10$JD3I5mBarXmeIu9RdTM.R.Xw8vNYJUPKtS97M2raOeHlTXTsamizW', 'student@gmail.com', '', '', '', 'cb22039', '', 3, '', '', '', 1, 0, 0, '2023-06-04 22:41:48', '2023-06-13 03:34:18'),
+(21, 'expert2', '$2y$10$6r5EDLfDCMatheREHyo6EuOkp61YBo9e4vaqCsNJqlP7AdkekaaWi', 'expert2@gmail.com', '', '', '', '', 'EXP222', 1, '', '', '', 0, 0, 0, '2023-06-07 03:18:48', '2023-06-07 03:18:48'),
+(22, 'oldstd', '$2y$10$Fgim9OSL.ZThNlDgSdwcMOjliW6b10k8CCtzBWHh6JwKg1nVe248.', 'oldstudent@gmail.com', '', '', '', 'CA16112', '', 3, '', '', '', 0, 0, 0, '2023-06-13 03:16:16', '2023-06-13 03:50:12'),
+(23, 'oldexp', '$2y$10$Qd5K8QHJ4iStewf6oEubZOQ9CNq9lVmKMJvDBD443AykdEcsjA8hm', 'oldExpert@gmail.com', '', '', '', '', 'EXP111', 1, '', '', '', 1, 0, 0, '2023-06-13 03:16:28', '2023-06-13 03:50:17');
 
 --
 -- Indexes for dumped tables
@@ -371,7 +376,7 @@ ALTER TABLE `complaint`
 -- AUTO_INCREMENT for table `feedback`
 --
 ALTER TABLE `feedback`
-  MODIFY `FeedbackID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `FeedbackID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `likes`
@@ -383,7 +388,7 @@ ALTER TABLE `likes`
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
-  MODIFY `PostID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `PostID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `publication`
@@ -395,13 +400,13 @@ ALTER TABLE `publication`
 -- AUTO_INCREMENT for table `rating`
 --
 ALTER TABLE `rating`
-  MODIFY `RatingID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `RatingID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `UserID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `UserID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- Constraints for dumped tables

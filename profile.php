@@ -3,6 +3,7 @@ session_start();
 require "./Middleware/Authenticate.php";
 require "./controllers/CountRatingController.php";
 include "./controllers/ReturnProfile.php";
+include "./controllers/UpdateStatusController.php";
 ?>
 
 <!DOCTYPE html>
@@ -181,11 +182,13 @@ include "./controllers/ReturnProfile.php";
 						<h5 class="card-title">Account status:</h5>
 						<p class="card-text"><span id="ExpertAccountStatus"><?php
 																			if ($userData["ExpertAccountStatus"] == 0) :
-																				echo "Active";
+																				echo "<span style=\"color:green;\">Active</span>";
 																			elseif ($userData["ExpertAccountStatus"] == 1) :
-																				echo "Disabled";
+																				echo "<span style=\"color:red;\">Inactive</span>";
 																			endif;
-																			?></span> (<span id="daysRemaining">X</span> days until inactive)</p>
+																			?></span>
+						</p>
+
 						<h5 class="card-title">Average Ratings:</h5>
 						<p class="card-text"><span id="averageRatings"><?php echo $averageUserRating; ?></span>★</p>
 
@@ -200,7 +203,10 @@ include "./controllers/ReturnProfile.php";
 
 	<script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="./resources/js/livechat.js"></script>
-	<script></script>
+	<script>
+
+	</script>
+
 </body>
 
 </html>
