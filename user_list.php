@@ -188,17 +188,15 @@ require "./Middleware/AdminAuth.php";
         height: 128
       });
 
-      // Open the generated QR code in a new tab
       var imageSrc = document.getElementById("qrcode").toDataURL("image/png");
       var newTab = window.open();
       newTab.document.write("<img src='" + imageSrc + "'/>");
       newTab.document.close();
     }
 
-    // Attach the generateQRCode function to the click event of the QR code link
     document.getElementById("qrcode-link").addEventListener("click", function(event) {
-      event.preventDefault(); // Prevent the link from navigating to the href
-      generateQRCode(this.href); // Generate QR code using the link's href
+      event.preventDefault();
+      generateQRCode(this.href);
     });
 
     document.getElementById("user_list").classList.add("active");
