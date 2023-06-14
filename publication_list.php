@@ -59,7 +59,7 @@ require "./Middleware/ExpertAuth.php";
 										<td><?php echo $row['PublicationDate']; ?></td>
 										<td><?php echo $row['PublicationTitle']; ?></td>
 										<td class="text-center">
-											<a class="btn btn-danger" href="./Controllers/deletePublication.php?PublicationID=<?php echo $row["PublicationID"]; ?>" onclick="return confirm('Are you sure to delete <?php echo $row['PublicationTitle']; ?>?')">Delete</a>
+											<a class="btn btn-danger" href="./controllers/deletePublication.php?PublicationID=<?php echo $row["PublicationID"]; ?>" onclick="return confirm('Are you sure to delete <?php echo $row['PublicationTitle']; ?>?')">Delete</a>
 										</td>
 
 									</tr>
@@ -83,7 +83,7 @@ require "./Middleware/ExpertAuth.php";
 				<div class="modal-header">
 					<h5 class="modal-title">Add Publication</h5>
 				</div>
-				<form action="./Controllers/addPublication.php" class="needs-validation" method="post" novalidate>
+				<form action="./controllers/addPublication.php" class="needs-validation" method="post" novalidate>
 					<div>
 						<label for="PublicationDate" class="form-label">Publication Date</label>
 						<input type="text" class="form-control" name="PublicationDate" id="PublicationDate" required>

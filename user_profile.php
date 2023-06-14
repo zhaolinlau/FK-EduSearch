@@ -31,7 +31,7 @@ require "./Middleware/Authenticate.php";
 						if ($stmt->rowCount() > 0) :
 							foreach ($result as $row) :
 					?>
-								<form action="./Controllers/EditUserController.php" class="row g-3 needs-validation" method="post" novalidate>
+								<form action="./controllers/EditUserController.php" class="row g-3 needs-validation" method="post" novalidate>
 									<div class="row">
 										<div class="col-11">
 											<h3>Profile Information</h3>

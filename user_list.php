@@ -80,7 +80,7 @@ require "./Middleware/AdminAuth.php";
                       <a class="btn btn-info" href="./user_profile.php?UserID=<?php echo $row["UserID"]; ?>">View</a>
                     </td>
                     <td class="text-center">
-                      <a class="btn btn-danger" href="./Controllers/DeleteUserController.php?UserID=<?php echo $row["UserID"]; ?>" onclick="return confirm('Are you sure to delete <?php echo $row['UserName']; ?> ?')">Delete</a>
+                      <a class="btn btn-danger" href="./controllers/DeleteUserController.php?UserID=<?php echo $row["UserID"]; ?>" onclick="return confirm('Are you sure to delete <?php echo $row['UserName']; ?> ?')">Delete</a>
                     </td>
                   </tr>
               <?php
@@ -102,7 +102,7 @@ require "./Middleware/AdminAuth.php";
         <div class="modal-header">
           <h5 class="modal-title">Add User</h5>
         </div>
-        <form action="./Controllers/AddUserController.php" class="needs-validation" method="post" novalidate>
+        <form action="./controllers/AddUserController.php" class="needs-validation" method="post" novalidate>
           <div>
             <label for="username" class="form-label">Username</label>
             <input type="text" class="form-control" name="username" id="username" required>

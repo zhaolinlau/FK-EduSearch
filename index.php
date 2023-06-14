@@ -90,7 +90,7 @@ require './config/db.php';
 			        <div class="col-1 d-flex justify-content-end">
 			          <?php if(isset($_SESSION['expert'])) : ?>
 			            <?php if(($row->PostStatus == "Pending") && ($row->UserID != $_SESSION['user_id'])) : ?>
-			              <form class="needs-validation row g-3" action="./Controllers/AcceptPostController.php" method="post" novalidate>
+			              <form class="needs-validation row g-3" action="./controllers/AcceptPostController.php" method="post" novalidate>
 			                <div class="col-12 d-none">
 			                  <input type="text" name="post_id" class="form-control" value="<?php echo $row->PostID; ?>" readonly required>
 			                  <div class="invalid-feedback">
@@ -121,7 +121,7 @@ require './config/db.php';
 			              <li><a class="dropdown-item" href="./EditPost.php?post_id=<?php echo $row->PostID; ?>"><i class="fa-solid fa-pen-to-square text-info"></i> Edit</a></li>
 			              <li><a class="dropdown-item" href="#"><i class="fa-solid fa-check text-success"></i> Resolved</a></li>
 			              <li>
-			                <a class="dropdown-item" href="./Controllers/DeletePostController.php?post_id=<?php echo $row->PostID; ?>" onclick="return confirm('Are you sure to delete the post?')">
+			                <a class="dropdown-item" href="./controllers/DeletePostController.php?post_id=<?php echo $row->PostID; ?>" onclick="return confirm('Are you sure to delete the post?')">
 			                <i class="fa-solid fa-trash text-danger"></i> Delete
 			              </a>
 			              </li>
@@ -155,7 +155,7 @@ require './config/db.php';
 			      } else {
 			        echo '';
 			      }
-			       ?>" href="./Controllers/LikeController.php?post_id=<?php echo $row->PostID ?>">
+			       ?>" href="./controllers/LikeController.php?post_id=<?php echo $row->PostID ?>">
 			        <i class="fa-solid fa-thumbs-up"></i>
 			        Like
 			        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
@@ -217,7 +217,7 @@ require './config/db.php';
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<form action="./Controllers/CreatePostController.php" class="needs-validation row g-3" method="post" novalidate>
+					<form action="./controllers/CreatePostController.php" class="needs-validation row g-3" method="post" novalidate>
 						<div class="col-12">
 							<label for="post_title" class="form-label">Post Title</label>
 							<input type="text" class="form-control" name="post_title" id="post_title" required>
