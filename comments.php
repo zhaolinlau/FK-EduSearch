@@ -372,7 +372,7 @@ require './config/db.php';
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<form action="./controllers/CreateComplaintController.php" class="needs-validation row g-3" method="post" novalidate>
+					<form action="./controllers/CreateComplaintController.php" class="needs-validation row g-3" method="post" novalidate enctype="multipart/form-data">
 						<input type="hidden" id="feedback_id_input" name="feedback_id">
 
 						<div class="col-12">
@@ -391,6 +391,13 @@ require './config/db.php';
 							<textarea name="complaint_description" id="complaint_description" class="form-control" rows="5" required></textarea>
 							<div class="invalid-feedback">
 								Please enter complaint description.
+							</div>
+						</div>
+						<div class="col-12">
+						<label for="UploadImage">Please upload screenshot about expert feedback</label>
+						<input type="file" name="fileToUpload" id="fileToUpload">
+						<div class="invalid-feedback">
+								Please upload screenshot.
 							</div>
 						</div>
 
