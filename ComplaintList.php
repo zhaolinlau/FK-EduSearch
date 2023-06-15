@@ -12,18 +12,18 @@ require "./Middleware/Authenticate.php";
     <link rel="shortcut icon" href="./src/img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="./node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
+  <link href="https://cdn.datatables.net/v/bs5/jq-3.6.0/jszip-2.5.0/dt-1.13.4/b-2.3.6/b-colvis-2.3.6/b-html5-2.3.6/b-print-2.3.6/datatables.min.css" rel="stylesheet" />
 </head>
 
 <body class="h-100">
     <?php require "layouts/navbar.php"?>
     <div class="col" style="margin:0 auto;margin-top:40px; width:900px; ">
         <br>
-        &nbsp &nbsp<label class="text2">View Complaint</label>
+        &nbsp &nbsp<label class="text2">Complaint List</label>
         <hr>
         <div style="width: 1000px;">
-            <br>
-            &nbsp &nbsp<label class="text3"><b><u>Complaint List</u></b></label>
-            <table class="table">
+            <table class="table" id="complaint_table">
                 <thead>
                     <tr>
                         <th scope="col" style="width: 120px;">Complaint ID</th>
@@ -106,22 +106,15 @@ require "./Middleware/Authenticate.php";
                 </div>
             </div>
         </div>
-        <nav aria-label="Page navigation">
-            <ul class="pagination justify-content-end" style="margin-right:60px">
-                <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1">Previous</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
-                </li>
-            </ul>
-        </nav>
     </div>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+  <script src="https://cdn.datatables.net/v/bs5/jq-3.6.0/jszip-2.5.0/dt-1.13.4/b-2.3.6/b-colvis-2.3.6/b-html5-2.3.6/b-print-2.3.6/datatables.min.js"></script>
     <script>
          function deleteComplaint(complaintID) {
             const confirmed = confirm("Are you sure you want to delete this record?");
@@ -156,6 +149,23 @@ require "./Middleware/Authenticate.php";
                 $('[data-toggle="tooltip"]').tooltip();
             });
         })();
+        $.fn.dataTable.Buttons.defaults.dom.button.className = "btn btn-outline-primary";
+    $("#complaint_table").DataTable({
+      language: {
+        searchPlaceholder: "Search by a field...",
+      },
+      dom: "Bfrtip",
+      buttons: [
+        "colvis",
+        "pageLength",
+        {
+          extend: "collection",
+          text: "Export",
+          buttons: ["csv", "excel", "pdf"],
+        },
+        "print",
+      ],
+    });
     </script>
 </body>
 </html>
