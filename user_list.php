@@ -41,6 +41,7 @@ require "./Middleware/AdminAuth.php";
 								<th>Username</th>
 								<th>Email</th>
 								<th>Role</th>
+                <th>QR Code</th>
 								<th>Modification</th>
 								<th>Deletion</th>
 							</tr>
@@ -73,6 +74,9 @@ require "./Middleware/AdminAuth.php";
 											endif;
 											?>
 										</td>
+                    <td>
+											<a class="btn btn-dark" href="./qrcode.php?UserID=<?php echo $row["UserID"]; ?>" target="_blank">QR Code</a>
+                    </td>
 										<td class="text-center">
 											<a class="btn btn-info" href="./user_profile.php?UserID=<?php echo $row["UserID"]; ?>">View</a>
 										</td>
@@ -175,6 +179,7 @@ require "./Middleware/AdminAuth.php";
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
 	<script src="https://cdn.datatables.net/v/bs5/jq-3.6.0/jszip-2.5.0/dt-1.13.4/b-2.3.6/b-colvis-2.3.6/b-html5-2.3.6/b-print-2.3.6/datatables.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs@gh-pages/qrcode.min.js" charset="utf-8"></script>
 	<script>
 		document.getElementById("user_list").classList.add("active");
 		$.fn.dataTable.Buttons.defaults.dom.button.className =
@@ -195,6 +200,24 @@ require "./Middleware/AdminAuth.php";
 				"print",
 			],
 		});
+
+    function generateQRCode(url) {
+      var qrCode = new QRCode(document.getElementById("qrcode"), {
+        text: url,
+        width: 128,
+        height: 128
+      });
+
+      var imageSrc = document.getElementById("qrcode").toDataURL("image/png");
+      var newTab = window.open();
+      newTab.document.write("<img src='" + imageSrc + "'/>");
+      newTab.document.close();
+    }
+
+    document.getElementById("qrcode-link").addEventListener("click", function(event) {
+      event.preventDefault();
+      generateQRCode(this.href);
+    });
 	</script>
 </body>
 

@@ -30,7 +30,7 @@ require './config/db.php';
         $result = $stmt->fetchAll(PDO::FETCH_OBJ);
         foreach($result as $row) :
         ?>
-        <form action="./Controllers/EditPostController.php" class="needs-validation row g-3 shadow p-5 rounded-5" method="post" novalidate>
+        <form action="./controllers/EditPostController.php" class="needs-validation row g-3 shadow p-5 rounded-5" method="post" novalidate>
           <div class="col-12 d-none">
             <label for="post_id" class="form-label">Post ID</label>
             <input type="text" class="form-control" value="<?php echo $row->PostID; ?>" name="post_id" id="post_id" readonly required>

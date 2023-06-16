@@ -74,7 +74,7 @@ $conn = null;
   <div class="col">
     <div style="width: 1100px; border:1px solid; border-color:lightgrey; padding-left:20px;padding-right:20px; margin:0 auto; margin-top:75px; margin-bottom:20px;">
       <br>
-      <label class="text2">Calculation of Complaints based on day/week/month</label>
+      <label class="text2">Total Number of Complaints by type of complaints based on day/week/month</label>
       <hr>
       <br><br>
       <div class="container">

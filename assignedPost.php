@@ -77,7 +77,7 @@ require './config/db.php';
 										<li><a class="dropdown-item" href="./EditPost.php?post_id=<?php echo $row->PostID; ?>"><i class="fa-solid fa-pen-to-square text-info"></i> Edit</a></li>
 										<li><a class="dropdown-item" href="#"><i class="fa-solid fa-check text-success"></i> Resolved</a></li>
 										<li>
-											<a class="dropdown-item" href="./Controllers/DeletePostController.php?post_id=<?php echo $row->PostID; ?>" onclick="return confirm('Are you sure to delete the post?')">
+											<a class="dropdown-item" href="./controllers/DeletePostController.php?post_id=<?php echo $row->PostID; ?>" onclick="return confirm('Are you sure to delete the post?')">
 											<i class="fa-solid fa-trash text-danger"></i> Delete
 										</a>
 										</li>
@@ -111,7 +111,7 @@ require './config/db.php';
 						} else {
 							echo '';
 						}
-						 ?>" href="./Controllers/LikeController.php?post_id=<?php echo $row->PostID ?>">
+						 ?>" href="./controllers/LikeController.php?post_id=<?php echo $row->PostID ?>">
 							<i class="fa-solid fa-thumbs-up"></i>
 						  Like
 						  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">

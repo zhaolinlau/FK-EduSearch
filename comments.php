@@ -57,7 +57,7 @@ require './config/db.php';
 
 							if ($stmt->rowCount() == 0) :
 						?>
-								<form class="needs-validation row g-3" action="./Controllers/RateController.php" method="post" novalidate>
+								<form class="needs-validation row g-3" action="./controllers/RateController.php" method="post" novalidate>
 									<div class="col-12 d-none">
 										<label for="post_id" class="form-label">Post ID</label>
 										<input name="post_id" id="post_id" class="form-control" value="<?php echo $post_id; ?>" readonly required>
@@ -129,9 +129,9 @@ require './config/db.php';
 										</button>
 										<ul class="dropdown-menu dropdown-menu-end shadow-sm">
 											<li><a class="dropdown-item" href="./EditPost.php?post_id=<?php echo $row->PostID; ?>"><i class="fa-solid fa-pen-to-square text-info"></i> Edit</a></li>
-											<li><a class="dropdown-item" href="./Controllers/ResolveController.php?post_id=<?php echo $row->PostID; ?>"><i class="fa-solid fa-check text-success"></i> Resolved</a></li>
+											<li><a class="dropdown-item" href="./controllers/ResolveController.php?post_id=<?php echo $row->PostID; ?>"><i class="fa-solid fa-check text-success"></i> Resolved</a></li>
 											<li>
-												<a class="dropdown-item" href="./Controllers/DeletePostController.php?post_id=<?php echo $row->PostID; ?>" onclick="return confirm('Are you sure to delete the post?')">
+												<a class="dropdown-item" href="./controllers/DeletePostController.php?post_id=<?php echo $row->PostID; ?>" onclick="return confirm('Are you sure to delete the post?')">
 													<i class="fa-solid fa-trash text-danger"></i> Delete
 												</a>
 											</li>
@@ -165,7 +165,7 @@ require './config/db.php';
 						} else {
 							echo '';
 						}
-						?>" href="./Controllers/LikeController.php?post_id=<?php echo $row->PostID ?>">
+						?>" href="./controllers/LikeController.php?post_id=<?php echo $row->PostID ?>">
 							<i class="fa-solid fa-thumbs-up"></i>
 							Like
 							<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
@@ -214,7 +214,7 @@ require './config/db.php';
 
 		<h4 class="fw-semibold">Comments:</h4>
 		<div class="col-12">
-			<form class="row g-3 needs-validation" action="./Controllers/CommentController.php" method="post" novalidate>
+			<form class="row g-3 needs-validation" action="./controllers/CommentController.php" method="post" novalidate>
 				<div class="col-12 d-none">
 					<label for="post_id" class="form-label">Post ID</label>
 					<input name="post_id" id="post_id" class="form-control" value="<?php echo $post_id; ?>" readonly required>
@@ -260,7 +260,7 @@ require './config/db.php';
 											<ul class="dropdown-menu dropdown-menu-end shadow-sm">
 												<li><a class="dropdown-item" href="./EditComment.php?comment_id=<?php echo $comment->CommentID; ?>"><i class="fa-solid fa-pen-to-square text-info"></i> Edit</a></li>
 												<li>
-													<a class="dropdown-item" href="./Controllers/DeleteCommentController.php?comment_id=<?php echo $comment->CommentID; ?>" onclick="return confirm('Confirm delete this comment?')">
+													<a class="dropdown-item" href="./controllers/DeleteCommentController.php?comment_id=<?php echo $comment->CommentID; ?>" onclick="return confirm('Confirm delete this comment?')">
 														<i class="fa-solid fa-trash text-danger"></i> Delete
 													</a>
 												</li>
@@ -283,7 +283,7 @@ require './config/db.php';
 		<h4 class="fw-semibold">Expert Answers:</h4>
 		<?php if (isset($_SESSION['expert']) && ($_SESSION['id'] == $row->ExpertID)) : ?>
 			<div class="col-12">
-				<form class="row g-3 needs-validation" action="./Controllers/FeedbackController.php" method="post" novalidate>
+				<form class="row g-3 needs-validation" action="./controllers/FeedbackController.php" method="post" novalidate>
 					<div class="col-12 d-none">
 						<label for="post_id" class="form-label">Post ID</label>
 						<input name="post_id" id="post_id" class="form-control" value="<?php echo $post_id; ?>" readonly required>
@@ -331,7 +331,7 @@ require './config/db.php';
 											<ul class="dropdown-menu dropdown-menu-end shadow-sm">
 												<li><a class="dropdown-item" href="./EditFeedbackController.php?feedback_id=<?php echo $feedback->feedbackID; ?>"><i class="fa-solid fa-pen-to-square text-info"></i> Edit</a></li>
 												<li>
-													<a class="dropdown-item" href="./Controllers/DeleteFeedbackController.php?feedback_id=<?php echo $feedback->feedbackID; ?>" onclick="return confirm('Confirm delete this answer?')">
+													<a class="dropdown-item" href="./controllers/DeleteFeedbackController.php?feedback_id=<?php echo $feedback->feedbackID; ?>" onclick="return confirm('Confirm delete this answer?')">
 														<i class="fa-solid fa-trash text-danger"></i> Delete
 													</a>
 												</li>
@@ -347,7 +347,7 @@ require './config/db.php';
 												<li><a href="#" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#post_form" data-feedback-id="<?php echo $feedback->FeedbackID; ?>">
   											Create Complaint
 												</a></li>
-										
+
 												<?php endif; ?>
 										</div>
 									</div>
@@ -372,9 +372,9 @@ require './config/db.php';
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<form action="./Controllers/CreateComplaintController.php" class="needs-validation row g-3" method="post" novalidate>
+					<form action="./controllers/CreateComplaintController.php" class="needs-validation row g-3" method="post" novalidate enctype="multipart/form-data">
 						<input type="hidden" id="feedback_id_input" name="feedback_id">
-			
+
 						<div class="col-12">
 							<label for="complaint_type">Complaint Type</label>
 							<select class="form-select" name="complaint_type" id="complaint_type" required>
@@ -391,6 +391,13 @@ require './config/db.php';
 							<textarea name="complaint_description" id="complaint_description" class="form-control" rows="5" required></textarea>
 							<div class="invalid-feedback">
 								Please enter complaint description.
+							</div>
+						</div>
+						<div class="col-12">
+						<label for="UploadImage">Please upload screenshot about expert feedback</label>
+						<input type="file" name="fileToUpload" id="fileToUpload">
+						<div class="invalid-feedback">
+								Please upload screenshot.
 							</div>
 						</div>
 
