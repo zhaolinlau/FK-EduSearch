@@ -18,11 +18,11 @@ require "./Middleware/Authenticate.php";
 
 <body class="h-100">
     <?php require "layouts/navbar.php"?>
-    <div class="col" style="margin:0 auto;margin-top:40px; width:900px; ">
+    <div class="col-11" style="margin:0 auto;margin-top:40px;">
         <br>
         &nbsp &nbsp<label class="text2">Complaint List</label>
         <hr>
-        <div style="width: 1000px;">
+        <div>
             <table class="table" id="complaint_table">
                 <thead>
                     <tr>
