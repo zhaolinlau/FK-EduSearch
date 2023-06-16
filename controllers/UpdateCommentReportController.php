@@ -10,10 +10,9 @@ try {
   $newReportStatus = $_POST['ReportStatus'];
 
   // Prepare the update statement
-  $stmt = $conn->prepare('UPDATE comment_report SET ReportDescription = :newReportDescription, ReportStatus = :newReportStatus WHERE ReportID = :reportID');
+  $stmt = $conn->prepare('UPDATE comment_report SET ReportStatus = :newReportStatus WHERE ReportID = :reportID');
 
   // Bind the parameters
-  $stmt->bindParam(':newReportDescription', $newReportDescription);
   $stmt->bindParam(':newReportStatus', $newReportStatus);
   $stmt->bindParam(':reportID', $reportID);
 
