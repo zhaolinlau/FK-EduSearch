@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 16, 2023 at 09:36 PM
+-- Generation Time: Jun 17, 2023 at 12:23 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -30,8 +30,9 @@ SET time_zone = "+00:00";
 CREATE TABLE `bug` (
   `BugID` bigint(255) NOT NULL,
   `UserID` bigint(255) NOT NULL,
+  `Screenshot` varchar(255) NOT NULL,
   `Bug_Description` varchar(255) NOT NULL,
-  `Bug_Status` tinyint(1) NOT NULL,
+  `Bug_Status` varchar(25) NOT NULL,
   `Bug_Reported` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -386,7 +387,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `bug`
 --
 ALTER TABLE `bug`
-  MODIFY `BugID` bigint(255) NOT NULL AUTO_INCREMENT;
+  MODIFY `BugID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `comment`
