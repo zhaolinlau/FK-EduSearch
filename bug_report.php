@@ -18,15 +18,31 @@ require "./Middleware/Authenticate.php";
 <body class="h-100">
 	<?php require "./layouts/navbar.php"; ?>
 	<div class="container h-100 d-flex align-items-center justify-content-center">
-		<div class="row w-100 d-flex justify-content-center">
-			<div class="col-12">
-				<form action="#" class="row shadow p-5 rounded-5 g-3 needs-validation" method="post" novalidate>
+		<div class="row">
+			<div class="col-8 mx-auto">
+				<form action="./controllers/ReportBugController.php" class="row m-5 shadow p-5 rounded-5 g-3 needs-validation" method="post" enctype="multipart/form-data" novalidate>
+					<?php if (isset($_SESSION['reported'])) : ?>
+						<div class="col-12 alert alert-success alert-dismissible fade show" role="alert">
+							<i class="bi bi-exclamation-triangle-fill h5"></i> <?php echo $_SESSION['reported']; ?>
+							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+						</div>
+					<?php
+						unset($_SESSION['reported']);
+					endif;
+					?>
 					<div class="col-12">
 						<h3>Bug Report</h3>
 					</div>
 					<div class="col-12">
+						<label for="screenshot">Screenshot (JPG/PNG)</label>
+						<input type="file" class="form-control" name="screenshot" accept="image/jpeg,image/x-png" required>
+						<div class="invalid-feedback">
+							Please upload a screenshot of the bug.
+						</div>
+					</div>
+					<div class="col-12">
 						<label for="bug_description" class="form-label">Bug Description</label>
-						<textarea name="bug_description" class="form-control" id="bug_description" cols="100" rows="10" required></textarea>
+						<textarea name="bug_description" class="form-control" id="bug_description" maxlength="255" cols="100" rows="5" required></textarea>
 						<div class="invalid-feedback">
 							Please describe the bug.
 						</div>

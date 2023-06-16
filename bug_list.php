@@ -2,6 +2,7 @@
 session_start();
 require "./Middleware/Authenticate.php";
 require "./Middleware/AdminAuth.php";
+require './config/db.php';
 ?>
 <!DOCTYPE html>
 <html lang="en" class="h-100">
@@ -37,24 +38,18 @@ require "./Middleware/AdminAuth.php";
 							</tr>
 						</thead>
 						<tbody>
+							<?php
+							$stmt = $conn->prepare('SELECT * FROM user JOIN bug ON user.UserID = bug.UserID');
+							$stmt->execute();
+							$bugs = $stmt->fetchAll(PDO::FETCH_OBJ);
+							foreach($bugs as $bug) : ?>
 							<tr>
 								<td>1</td>
 								<td>Unable to create post.</td>
 								<td>UserID: 253</td>
 								<td><a href="#" class="btn btn-success" onclick="confirm('Are you sure the bug has been resolved?');">Resolved</a></td>
 							</tr>
-							<tr>
-								<td>2</td>
-								<td>Unable to view comments.</td>
-								<td>UserID: 123</td>
-								<td><a href="#" class="btn btn-success" onclick="confirm('Are you sure the bug has been resolved?');">Resolved</a></td>
-							</tr>
-							<tr>
-								<td>3</td>
-								<td>Security issue.</td>
-								<td>UserID: 765</td>
-								<td><a href="#" class="btn btn-success" onclick="confirm('Are you sure the bug has been resolved?');">Resolved</a></td>
-							</tr>
+						<?php endforeach; ?>
 						</tbody>
 					</table>
 				</div>
