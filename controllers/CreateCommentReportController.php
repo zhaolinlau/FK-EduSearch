@@ -23,7 +23,7 @@ try {
 
   $_SESSION['posted'] = 'You have created comment report ticket successfully!';
 
-  header('location: ../');
+  header('location: ../index.php');
 } catch (PDOException $e) {
 
   echo $e->getMessage();
