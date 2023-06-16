@@ -10,10 +10,9 @@ try {
   $newReportStatus = $_POST['ReportStatus'];
 
   // Prepare the update statement
-  $stmt = $conn->prepare('UPDATE comment_report SET ReportDescription = :newReportDescription, ReportStatus = :newReportStatus WHERE ReportID = :reportID');
+  $stmt = $conn->prepare('UPDATE comment_report SET ReportStatus = :newReportStatus WHERE ReportID = :reportID');
 
   // Bind the parameters
-  $stmt->bindParam(':newReportDescription', $newReportDescription);
   $stmt->bindParam(':newReportStatus', $newReportStatus);
   $stmt->bindParam(':reportID', $reportID);
 
@@ -25,9 +24,11 @@ try {
 
   if ($rowCount > 0) {
     // Update successful
-    $_SESSION['posted'] = 'Comment report ticket status updated successfully!';
+    echo "<script>alert('Comment report ticket status updated successfully!'); history.back();</script>";
+    
+    // $_SESSION['posted'] = 'Comment report ticket status updated successfully!';
 
-    header('location: ../CommentReportList.php');
+    // header('location: ../CommentReportList.php');
   } else {
     // No rows updated
     echo "No records found or no changes made.";

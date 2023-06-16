@@ -63,15 +63,18 @@ require './config/db.php';
                       <input type="text" class="d-none" name="ReportID" value="<?php echo $row['ReportID'] ?>" required readonly>
                       <select class="form-select" aria-label="Complaint Status" name="ReportStatus">
                         <option value="">Select Report Status</option>
-                        <option <?php if($row['ReportStatus'] == 1) echo 'selected'; ?> value="1">In Investigation</option>
-                        <option <?php if($row['ReportStatus'] == 2) echo 'selected'; ?> value="2">On Hold</option>
-                        <option <?php if($row['ReportStatus'] == 3) echo 'selected'; ?> value="3">Resolved</option>
+                        <option <?php if ($row['ReportStatus'] == 1) echo 'selected'; ?> value="1">In Investigation</option>
+                        <option <?php if ($row['ReportStatus'] == 2) echo 'selected'; ?> value="2">On Hold</option>
+                        <option <?php if ($row['ReportStatus'] == 3) echo 'selected'; ?> value="3">Resolved</option>
                       </select>
                     </td>
                     <td>
                       <ul class="list-inline">
                         <li class="list-inline-item">
                           <button type="submit" class="btn btn-primary" onclick="return confirm('Confirm update?')">Update</button>
+                            <a class="btn btn-outline-danger ms-2" href="./controllers/DeleteCommentReportController.php?report_id=<?php echo $row['ReportID']; ?>" onclick="return confirm('Confirm delete this comment report?')">
+                              <i class="fa-solid fa-trash text-danger fa-lg"></i>
+                            </a>
                         </li>
                       </ul>
                     </td>
