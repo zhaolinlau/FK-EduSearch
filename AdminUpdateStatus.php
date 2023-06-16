@@ -30,6 +30,27 @@ if (isset($_POST["UpdateStatus"])) {
         echo $e->getMessage();
     }
 }
+    if (isset($_POST["post"])) {
+        try {
+            require "./config/db.php";
+            $complaint_responses = $_POST['complaint_response'];
+            $complaint_ids = $_POST['complaint_ids'];
+    
+            foreach ($complaint_ids as $key => $complaint_id) {
+                $complaint_response = $complaint_responses[$key];
+                $stmt = $conn->prepare("UPDATE complaint SET ComplaintResponse = :response WHERE ComplaintID = :complaintID");
+                $stmt->bindParam(":response", $complaint_response);
+                $stmt->bindParam(":complaintID", $complaint_id);
+                $stmt->execute();
+            }
+    
+            $_SESSION['success_message'] = 'The response has been recorded.';
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+            exit();
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -56,6 +77,16 @@ if (isset($_POST["UpdateStatus"])) {
                 <div style="margin-top: 80px; margin-bottom: 20px;">
                     &nbsp;&nbsp;<label class="text3">Complaint List</label>
                     <hr>
+                    <div id="successMessage">
+    <?php
+    if (isset($_SESSION['success_message'])) {
+        echo '<div class="alert alert-success alert-dismissible fade show" role="alert">' . $_SESSION['success_message'] . '
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>';
+        unset($_SESSION['success_message']); // Remove the message after displaying it
+    }
+    ?>
+</div>
                     <div id="alertContainer"></div>
                     <button type="button" class="btn btn-secondary" value="report" style="background-color:lightgreen;margin-bottom:20px;" onclick="window.location.href='AdminComplaintReport.php'">View Complaint Report</button>
                     <form method="post" action="">
@@ -71,7 +102,7 @@ if (isset($_POST["UpdateStatus"])) {
                                     <th scope="col">Date</th>
                                     <th scope="col">Time</th>
                                     <th scope="col" style="width: 240px;">Complaint Status</th>
-                                    <th scope="col">Operation</th>
+                                    <th scope="col" style="width:200px;">Operation</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -89,6 +120,7 @@ if (isset($_POST["UpdateStatus"])) {
                                     if ($stmt->rowCount() > 0) {
                                         foreach ($result as $complaint) {
                                             $timestamp = strtotime($complaint['ComplaintCreatedDate']);
+                                            $modalId = 'modal_' . $complaint['ComplaintID'];
                                             ?>
                                             <tr>
                                                 <th scope="row">
@@ -115,11 +147,47 @@ if (isset($_POST["UpdateStatus"])) {
                                                         <li class="list-inline-item">
                                                             <button type="submit" class="btn btn-primary" name="UpdateStatus">Update</button>
                                                         </li>
+                                                        </form>
+                                                        <li class="list-inline-item">
+                                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#<?php echo $modalId; ?>" data-feedback-id="<?php echo $complaint['ComplaintID']; ?>">
+                                                        Give Response</button>
+                                                        </li>
                                                     </ul>
                                                 </td>
                                             </tr>
+        <!-- ... -->
+<div class="modal fade" id="<?php echo $modalId; ?>" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content p-3">
+            <div class="modal-header">
+                <h5 class="modal-title">Provide Response</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" class="needs-validation row g-3" method="post" novalidate enctype="multipart/form-data">
+            <input type="hidden" id="complaint_ids_input" name="complaint_ids[]" value="<?php echo $complaint['ComplaintID']; ?>">
+                    <div class="col-12">
+                        <label for="complaint_response">Complaint Response</label>
+                        <textarea name="complaint_response[]" id="complaint_response" class="form-control" rows="5" required></textarea>
+                        <div class="invalid-feedback">
+                            Please enter your response toward the complaint.
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-primary" name="post" value="Submit">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ... -->
+
+
                                         <?php
                                         }
+                                        
                                     } else {
                                         ?>
                                         <tr>
@@ -133,10 +201,10 @@ if (isset($_POST["UpdateStatus"])) {
                                 ?>
                             </tbody>
                         </table>
-                    </form>
                 </div>
             </div>
         </div>
+        
 
 
 		<script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -146,9 +214,13 @@ if (isset($_POST["UpdateStatus"])) {
   <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script src="https://cdn.datatables.net/v/bs5/jq-3.6.0/jszip-2.5.0/dt-1.13.4/b-2.3.6/b-colvis-2.3.6/b-html5-2.3.6/b-print-2.3.6/datatables.min.js"></script>
-		<script>
+  <script src="./resources/js/form_validate.js"></script>
+	<script src="./resources/js/livechat.js"></script>
 
+
+<script>
             $.fn.dataTable.Buttons.defaults.dom.button.className = "btn btn-outline-primary";
     $("#complaint_table").DataTable({
       language: {
@@ -166,6 +238,13 @@ if (isset($_POST["UpdateStatus"])) {
         "print",
       ],
     });
+    function showModal(complaintId) {
+        const modalId = `modal_${complaintId}`;
+        const modalElement = document.getElementById(modalId);
+        const modal = new bootstrap.Modal(modalElement);
+        modal.show();
+    }
+
 		</script>
 </body>
 
