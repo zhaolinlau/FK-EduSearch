@@ -250,25 +250,25 @@ require './config/db.php';
 								<div class="col-11">
 									<b><?php echo $comment->UserName; ?></b> commented on <?php echo $comment->CommentCreated; ?>
 								</div>
-									<div class="col-1 d-flex justify-content-end">
-										<div class="dropdown">
-											<button class="btn circle-1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-												<i class="fa-solid fa-ellipsis fa-xl"></i>
-											</button>
-											<ul class="dropdown-menu dropdown-menu-end shadow-sm">
-												<?php if ($_SESSION['user_id'] == $comment->UserID) : ?>
+								<div class="col-1 d-flex justify-content-end">
+									<div class="dropdown">
+										<button class="btn circle-1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+											<i class="fa-solid fa-ellipsis fa-xl"></i>
+										</button>
+										<ul class="dropdown-menu dropdown-menu-end shadow-sm">
+											<?php if ($_SESSION['user_id'] == $comment->UserID) : ?>
 												<li><a class="dropdown-item" href="./EditComment.php?comment_id=<?php echo $comment->CommentID; ?>"><i class="fa-solid fa-pen-to-square text-info"></i> Edit</a></li>
 												<li>
 													<a class="dropdown-item" href="./controllers/DeleteCommentController.php?comment_id=<?php echo $comment->CommentID; ?>" onclick="return confirm('Confirm delete this comment?')">
 														<i class="fa-solid fa-trash text-danger"></i> Delete
 													</a>
 												</li>
-											<?php elseif($_SESSION['user_id'] != $comment->UserID) : ?>
+											<?php elseif ($_SESSION['user_id'] != $comment->UserID) : ?>
 												<li><a class="dropdown-item" href="./ReportComment.php?comment_id=<?php echo $comment->CommentID; ?>"><i class="fa-solid fa-warning text-warning"></i> Report</a></li>
-										<?php endif; ?>
-											</ul>
-										</div>
+											<?php endif; ?>
+										</ul>
 									</div>
+								</div>
 							</div>
 
 						</div>
@@ -321,16 +321,15 @@ require './config/db.php';
 								<div class="col-11">
 									<b><?php echo $feedback->UserName; ?></b> answered on <?php echo $feedback->FeedbackCreated; ?>
 								</div>
-		
 
+
+								<?php if ($_SESSION['id'] == $feedback->ExpertID) : ?>
 									<div class="col-1 d-flex justify-content-end">
 										<div class="dropdown">
 											<button class="btn circle-1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
 												<i class="fa-solid fa-ellipsis fa-xl"></i>
 											</button>
 											<ul class="dropdown-menu dropdown-menu-end shadow-sm">
-											<?php
-												if ($_SESSION['id'] == $feedback->ExpertID) : ?>
 												<li><a class="dropdown-item" href="./EditFeedbackController.php?feedback_id=<?php echo $feedback->feedbackID; ?>"><i class="fa-solid fa-pen-to-square text-info"></i> Edit</a></li>
 												<li>
 													<a class="dropdown-item" href="./controllers/DeleteFeedbackController.php?feedback_id=<?php echo $feedback->feedbackID; ?>" onclick="return confirm('Confirm delete this answer?')">
@@ -338,33 +337,26 @@ require './config/db.php';
 													</a>
 												</li>
 											</ul>
-											<?php else:?>
-												<?php if ($_SESSION['user_id'] == $row->UserID):?>
-												<div class="col-1 d-flex justify-content-end">
-												<div class="dropdown">
-												<button class="btn circle-1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+										</div>
+									</div>
+								<?php elseif ($_SESSION['user_id'] == $row->UserID) : ?>
+									<div class="col-1 d-flex justify-content-end">
+										<div class="dropdown">
+											<button class="btn circle-1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
 												<i class="fa-solid fa-ellipsis fa-xl"></i>
-												</button>
-												<ul class="dropdown-menu dropdown-menu-end shadow-sm">
-												<li><a href="#" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#post_form" data-feedback-id="<?php echo $feedback->FeedbackID; ?>">
-  											Create Complaint
-												</a></li>
-												<script>
-												document.getElementById("discussion").classList.add("active");
-												var createComplaintBtn = document.querySelector('[data-bs-target="#post_form"]');
-												var feedbackId = createComplaintBtn.getAttribute('data-feedback-id');
-												var feedbackIdInput = document.getElementById('feedback_id_input');
-												feedbackIdInput.value = feedbackId;
-												</script>
-												<?php endif; ?>
+											</button>
+											<ul class="dropdown-menu dropdown-menu-end shadow-sm">
+												<li>
+													<button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#post_form" data-feedback-id="<?php echo $feedback->FeedbackID; ?>">
+														Create Complaint
+													</button>
+												</li>
 										</div>
 									</div>
 								<?php endif; ?>
-							</div>
-						</div>
-						<div class="col-12">
-							<?php echo $feedback->ExpertFeedback; ?>
-						</div>
+								<div class="col-12">
+									<?php echo $feedback->ExpertFeedback; ?>
+								</div>
 					</li>
 				<?php endforeach; ?>
 			</ul>
@@ -402,9 +394,9 @@ require './config/db.php';
 							</div>
 						</div>
 						<div class="col-12">
-						<label for="UploadImage">Please upload screenshot about expert feedback</label>
-						<input type="file" name="fileToUpload" id="fileToUpload">
-						<div class="invalid-feedback">
+							<label for="UploadImage">Please upload screenshot about expert feedback</label>
+							<input type="file" name="fileToUpload" id="fileToUpload">
+							<div class="invalid-feedback">
 								Please upload screenshot.
 							</div>
 						</div>
@@ -421,6 +413,13 @@ require './config/db.php';
 	<script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="./resources/js/form_validate.js"></script>
 	<script src="./resources/js/livechat.js"></script>
+	<script>
+		document.getElementById("discussion").classList.add("active");
+		var createComplaintBtn = document.querySelector('[data-bs-target="#post_form"]');
+		var feedbackId = createComplaintBtn.getAttribute('data-feedback-id');
+		var feedbackIdInput = document.getElementById('feedback_id_input');
+		feedbackIdInput.value = feedbackId;
+	</script>
 </body>
 
 </html>
