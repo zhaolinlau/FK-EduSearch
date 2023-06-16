@@ -24,9 +24,11 @@ try {
 
   if ($rowCount > 0) {
     // Update successful
-    $_SESSION['posted'] = 'Comment report ticket status updated successfully!';
+    echo "<script>alert('Comment report ticket status updated successfully!'); history.back();</script>";
+    
+    // $_SESSION['posted'] = 'Comment report ticket status updated successfully!';
 
-    header('location: ../CommentReportList.php');
+    // header('location: ../CommentReportList.php');
   } else {
     // No rows updated
     echo "No records found or no changes made.";
