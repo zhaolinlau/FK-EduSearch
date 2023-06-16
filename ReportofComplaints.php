@@ -42,7 +42,7 @@ $conn=null;
   <p>Report of Total Number of Complaints based on complaint type:</p>
   <input class="btn btn-primary" id="viewButton" type="button" value="View" style="margin-left: 30px; padding:10px 30px;margin-bottom:30px;">
 <input class="btn btn-primary" id="qrbutton" type="button" value="Scan QR code to view" style="margin-left: 40px; padding:10px 30px; margin-bottom:30px;">
-  <div class="col-md-8" id="chartContainer">
+  <div class="col-md-10" id="chartContainer">
   <canvas id="myChart" style="display:none;"></canvas>
 </div>
   </div>
