@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 13, 2023 at 05:50 AM
+-- Generation Time: Jun 16, 2023 at 11:08 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -63,7 +63,24 @@ INSERT INTO `comment` (`CommentID`, `PostID`, `UserID`, `CommentDetails`, `Comme
 (50, 26, 21, 'asdasd', '2023-06-07 17:59:09', '2023-06-07 17:59:09'),
 (51, 26, 21, 'sdfsdf', '2023-06-07 18:00:15', '2023-06-07 18:00:15'),
 (54, 27, 2, 'afsdfasdf', '2023-06-09 05:58:49', '2023-06-09 05:58:49'),
-(55, 27, 15, 'sdfgsdfgsdfg', '2023-06-09 05:59:15', '2023-06-09 05:59:15');
+(55, 27, 15, 'sdfgsdfgsdfg', '2023-06-09 05:59:15', '2023-06-09 05:59:15'),
+(56, 23, 1, 'asdasd', '2023-06-16 08:45:04', '2023-06-16 08:45:04'),
+(57, 34, 2, 'dfghdfghdfgh', '2023-06-16 08:46:08', '2023-06-16 08:46:08');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `comment_report`
+--
+
+CREATE TABLE `comment_report` (
+  `ReportID` bigint(255) NOT NULL,
+  `CommentID` bigint(255) NOT NULL,
+  `UserID` bigint(255) NOT NULL,
+  `ReportDescription` varchar(255) NOT NULL,
+  `ReportStatus` int(1) NOT NULL,
+  `Reported_On` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -132,7 +149,8 @@ INSERT INTO `feedback` (`FeedbackID`, `PostID`, `ExpertID`, `ExpertFeedback`, `U
 (14, 32, 'EXB023', ' Cloud computing allows users to access and use resources and applications stored on remote servers over the internet, providing flexibility and scalability.\r\n\r\n\r\n\r\n\r\n', 0, '', '2023-06-09 08:19:42'),
 (15, 31, 'EXB023', 'Install antivirus software, update your system regularly, be cautious with email attachments and links, enable a firewall, practice safe browsing, and back up your files.', 0, '', '2023-06-09 08:19:58'),
 (16, 30, 'EXB023', 'HTTPS adds an extra layer of security by encrypting data, while HTTP does not.', 0, '', '2023-06-09 08:20:09'),
-(17, 33, 'EXP111', 'yeah', 0, '', '2023-03-13 03:20:22');
+(17, 33, 'EXP111', 'yeah', 0, '', '2023-03-13 03:20:22'),
+(18, 34, 'EXB023', 'rghdrfghdfgh', 0, '', '2023-06-16 08:46:05');
 
 -- --------------------------------------------------------
 
@@ -146,6 +164,13 @@ CREATE TABLE `likes` (
   `PostID` bigint(255) NOT NULL,
   `Liked_On` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `likes`
+--
+
+INSERT INTO `likes` (`LikeID`, `UserID`, `PostID`, `Liked_On`) VALUES
+(41, 2, 34, '2023-06-16 08:46:01');
 
 -- --------------------------------------------------------
 
@@ -180,7 +205,8 @@ INSERT INTO `post` (`PostID`, `UserID`, `PostStatus`, `PostTitle`, `PostContent`
 (30, 15, 'Revised', 'HTTP and HTTPS?', ' What is the difference between HTTP and HTTPS?', 'QNA', 'EXB023', '2023-06-09 08:18:14', '2023-06-09 08:20:09'),
 (31, 15, 'Revised', 'malware and viruses?', 'Question: How can I protect my computer from malware and viruses?\r\n', 'QNA', 'EXB023', '2023-06-09 08:19:04', '2023-06-09 08:19:58'),
 (32, 15, 'Revised', 'cloud computing', 'Question: What is cloud computing and how does it work?\r\n', 'QNA', 'EXB023', '2023-06-09 08:19:18', '2023-06-09 08:19:42'),
-(33, 22, 'Revised', 'test for old', 'yes?', 'QNA', 'EXP111', '2023-03-13 03:20:01', '2023-03-13 03:20:22');
+(33, 22, 'Revised', 'test for old', 'yes?', 'QNA', 'EXP111', '2023-03-13 03:20:01', '2023-03-13 03:20:22'),
+(34, 1, 'Revised', 'asdfasdf', 'fds', 'Annoucement', 'EXB023', '2023-06-16 08:45:43', '2023-06-16 08:46:05');
 
 -- --------------------------------------------------------
 
@@ -286,6 +312,14 @@ ALTER TABLE `comment`
   ADD KEY `UserID` (`UserID`);
 
 --
+-- Indexes for table `comment_report`
+--
+ALTER TABLE `comment_report`
+  ADD PRIMARY KEY (`ReportID`),
+  ADD KEY `CommentID` (`CommentID`,`UserID`),
+  ADD KEY `UserID` (`UserID`);
+
+--
 -- Indexes for table `complaint`
 --
 ALTER TABLE `complaint`
@@ -364,7 +398,13 @@ ALTER TABLE `bug`
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `CommentID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `CommentID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+
+--
+-- AUTO_INCREMENT for table `comment_report`
+--
+ALTER TABLE `comment_report`
+  MODIFY `ReportID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `complaint`
@@ -376,19 +416,19 @@ ALTER TABLE `complaint`
 -- AUTO_INCREMENT for table `feedback`
 --
 ALTER TABLE `feedback`
-  MODIFY `FeedbackID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `FeedbackID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `likes`
 --
 ALTER TABLE `likes`
-  MODIFY `LikeID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `LikeID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
-  MODIFY `PostID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `PostID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `publication`
@@ -424,6 +464,13 @@ ALTER TABLE `bug`
 ALTER TABLE `comment`
   ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`UserID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`PostID`) REFERENCES `post` (`PostID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `comment_report`
+--
+ALTER TABLE `comment_report`
+  ADD CONSTRAINT `comment_report_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`UserID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `comment_report_ibfk_2` FOREIGN KEY (`CommentID`) REFERENCES `comment` (`CommentID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `complaint`
