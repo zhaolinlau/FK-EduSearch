@@ -58,7 +58,7 @@ require './config/db.php';
                    <td><?php echo $row['UserID'] ?></td>
                    <td><?php echo $row['ReportDescription'] ?></td>
                    <td><?php echo $row['ReportStatus'] ?></td>
-                   <form action="./controller/" method="post">
+                   <form action="./controllers/UpdateCommentReport.php" method="post">
                    <td>
                      <input type="text" class="d-none" name="ReportID" value="<?php echo $row['ReportID'] ?>" required readonly>
                      <select class="form-select" aria-label="Complaint Status">
