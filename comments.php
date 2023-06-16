@@ -321,8 +321,7 @@ require './config/db.php';
 								<div class="col-11">
 									<b><?php echo $feedback->UserName; ?></b> answered on <?php echo $feedback->FeedbackCreated; ?>
 								</div>
-								<?php
-								if ($_SESSION['id'] == $feedback->ExpertID) : ?>
+		
 
 									<div class="col-1 d-flex justify-content-end">
 										<div class="dropdown">
@@ -330,6 +329,8 @@ require './config/db.php';
 												<i class="fa-solid fa-ellipsis fa-xl"></i>
 											</button>
 											<ul class="dropdown-menu dropdown-menu-end shadow-sm">
+											<?php
+												if ($_SESSION['id'] == $feedback->ExpertID) : ?>
 												<li><a class="dropdown-item" href="./EditFeedbackController.php?feedback_id=<?php echo $feedback->feedbackID; ?>"><i class="fa-solid fa-pen-to-square text-info"></i> Edit</a></li>
 												<li>
 													<a class="dropdown-item" href="./controllers/DeleteFeedbackController.php?feedback_id=<?php echo $feedback->feedbackID; ?>" onclick="return confirm('Confirm delete this answer?')">
@@ -348,7 +349,13 @@ require './config/db.php';
 												<li><a href="#" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#post_form" data-feedback-id="<?php echo $feedback->FeedbackID; ?>">
   											Create Complaint
 												</a></li>
-
+												<script>
+												document.getElementById("discussion").classList.add("active");
+												var createComplaintBtn = document.querySelector('[data-bs-target="#post_form"]');
+												var feedbackId = createComplaintBtn.getAttribute('data-feedback-id');
+												var feedbackIdInput = document.getElementById('feedback_id_input');
+												feedbackIdInput.value = feedbackId;
+												</script>
 												<?php endif; ?>
 										</div>
 									</div>
@@ -414,13 +421,6 @@ require './config/db.php';
 	<script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="./resources/js/form_validate.js"></script>
 	<script src="./resources/js/livechat.js"></script>
-	<script>
-		document.getElementById("discussion").classList.add("active");
-  var createComplaintBtn = document.querySelector('[data-bs-target="#post_form"]');
-  var feedbackId = createComplaintBtn.getAttribute('data-feedback-id');
-  var feedbackIdInput = document.getElementById('feedback_id_input');
-  feedbackIdInput.value = feedbackId;
-	</script>
 </body>
 
 </html>
