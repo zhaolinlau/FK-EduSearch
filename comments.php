@@ -396,11 +396,7 @@ require './config/db.php';
 						<div class="col-12">
 							<label for="UploadImage">Please upload screenshot about expert feedback</label>
 							<input type="file" name="fileToUpload" id="fileToUpload">
-							<div class="invalid-feedback">
-								Please upload screenshot.
-							</div>
 						</div>
-
 						<div class="modal-footer">
 							<input type="submit" class="btn btn-primary" name="post" value="File Complaint">
 							<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>

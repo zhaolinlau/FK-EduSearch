@@ -6,7 +6,7 @@ require "./Middleware/Authenticate.php";
 	$complaintID = $_GET['ComplaintID'];
 	$UserID = $_SESSION["user_id"];
 
-	$stmt=$conn->prepare("SELECT u.UserID, u.UserName,c.FeedbackID, c.ComplaintStatus,c.ComplaintDescription,c.ComplaintType,c.ComplaintCreatedDate FROM user u
+	$stmt=$conn->prepare("SELECT u.UserID, u.UserName,c.FeedbackID,c.ComplaintResponse, c.ComplaintStatus,c.ComplaintDescription,c.ComplaintType,c.ComplaintCreatedDate FROM user u
 	                      JOIN complaint c ON c.UserID = u.UserID
 	                      WHERE ComplaintID = :complaintID;");
 	 $stmt->bindParam(':complaintID', $complaintID);
@@ -104,6 +104,12 @@ require "./Middleware/Authenticate.php";
   <label for="ComplaintStatus" class="col-sm-2 col-form-label">Complaint Status</label>
   <div class="col-sm-8">
      <input type="text" class="form-control" id="ComplaintStatus" placeholder="Complaint Status" value="<?php echo $complaint['ComplaintStatus'];?>"disabled>
+  </div>
+  </div>
+  <div class="form-group row">
+  <label for="ComplaintResponse" class="col-sm-2 col-form-label">Complaint Response</label>
+  <div class="col-sm-8">
+     <input type="text" class="form-control" id="ComplaintResponse" placeholder="Complaint Response" value="<?php echo $complaint['ComplaintResponse'];?>"disabled>
   </div>
   </div>
   <div class="form-group row">
