@@ -250,24 +250,25 @@ require './config/db.php';
 								<div class="col-11">
 									<b><?php echo $comment->UserName; ?></b> commented on <?php echo $comment->CommentCreated; ?>
 								</div>
-								<?php
-								if ($_SESSION['user_id'] == $comment->UserID) : ?>
 									<div class="col-1 d-flex justify-content-end">
 										<div class="dropdown">
 											<button class="btn circle-1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
 												<i class="fa-solid fa-ellipsis fa-xl"></i>
 											</button>
 											<ul class="dropdown-menu dropdown-menu-end shadow-sm">
+												<?php if ($_SESSION['user_id'] == $comment->UserID) : ?>
 												<li><a class="dropdown-item" href="./EditComment.php?comment_id=<?php echo $comment->CommentID; ?>"><i class="fa-solid fa-pen-to-square text-info"></i> Edit</a></li>
 												<li>
 													<a class="dropdown-item" href="./controllers/DeleteCommentController.php?comment_id=<?php echo $comment->CommentID; ?>" onclick="return confirm('Confirm delete this comment?')">
 														<i class="fa-solid fa-trash text-danger"></i> Delete
 													</a>
 												</li>
+											<?php elseif($_SESSION['user_id'] != $comment->UserID) : ?>
+												<li><a class="dropdown-item" href="./ReportComment.php?comment_id=<?php echo $comment->CommentID; ?>"><i class="fa-solid fa-warning text-warning"></i> Report</a></li>
+										<?php endif; ?>
 											</ul>
 										</div>
 									</div>
-								<?php endif; ?>
 							</div>
 
 						</div>
