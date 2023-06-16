@@ -330,9 +330,9 @@ require './config/db.php';
 												<i class="fa-solid fa-ellipsis fa-xl"></i>
 											</button>
 											<ul class="dropdown-menu dropdown-menu-end shadow-sm">
-												<li><a class="dropdown-item" href="./EditFeedbackController.php?feedback_id=<?php echo $feedback->FeedbackID; ?>"><i class="fa-solid fa-pen-to-square text-info"></i> Edit</a></li>
+												<li><a class="dropdown-item" href="./EditFeedbackController.php?feedback_id=<?php echo $feedback->feedbackID; ?>"><i class="fa-solid fa-pen-to-square text-info"></i> Edit</a></li>
 												<li>
-													<a class="dropdown-item" href="./controllers/DeleteFeedbackController.php?feedback_id=<?php echo $feedback->FeedbackID; ?>" onclick="return confirm('Confirm delete this answer?')">
+													<a class="dropdown-item" href="./controllers/DeleteFeedbackController.php?feedback_id=<?php echo $feedback->feedbackID; ?>" onclick="return confirm('Confirm delete this answer?')">
 														<i class="fa-solid fa-trash text-danger"></i> Delete
 													</a>
 												</li>
