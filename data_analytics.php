@@ -50,6 +50,7 @@ require './config/db.php';
 
 
         try {
+          //Get total likes
           $stmt = $conn->prepare('SELECT COUNT(*) AS total_likes FROM likes');
           $stmt->execute();
           $likes = $stmt->fetch(PDO::FETCH_OBJ);
@@ -143,15 +144,15 @@ require './config/db.php';
 
 		const info = [{
 				activity: "Posts",
-				count: 10,
+				count: <?php echo $totalPosts; ?>,
 			},
 			{
 				activity: "Comments",
-				count: 20,
+				count: <?php echo $totalComments; ?>,
 			},
 			{
 				activity: "Likes",
-				count: 15,
+				count: <?php echo $totalLikes; ?>,
 			},
 		];
 
