@@ -53,6 +53,7 @@
 				<a class="nav-link" id="user_list" href="./user_list.php">User List</a>
 				<a class="nav-link" id="complaint_list" href="./AdminUpdateStatus.php">Complaint List</a>
 				<a class="nav-link" id="bug_list" href="./bug_list.php">Bug List</a>
+        <a class="nav-link" id="commentreportlist" href="./CommentReportList.php">Comment Report List</a>
 			<?php
 			elseif (isset($_SESSION["expert"])) :
 			?>
