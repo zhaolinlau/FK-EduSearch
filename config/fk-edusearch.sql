@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 17, 2023 at 09:44 AM
+-- Generation Time: Jun 17, 2023 at 10:07 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -31,10 +31,18 @@ CREATE TABLE `bug` (
   `BugID` bigint(255) NOT NULL,
   `UserID` bigint(255) NOT NULL,
   `Screenshot` varchar(255) NOT NULL,
+  `Bug_Title` varchar(255) NOT NULL,
   `Bug_Description` varchar(255) NOT NULL,
   `Bug_Status` varchar(25) NOT NULL,
   `Bug_Reported` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `bug`
+--
+
+INSERT INTO `bug` (`BugID`, `UserID`, `Screenshot`, `Bug_Title`, `Bug_Description`, `Bug_Status`, `Bug_Reported`) VALUES
+(8, 1, 'programmer-1653351.png', 'hello', 'asdfasdf', 'New Reported', '2023-06-17 08:00:24');
 
 -- --------------------------------------------------------
 
@@ -396,7 +404,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `bug`
 --
 ALTER TABLE `bug`
-  MODIFY `BugID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `BugID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `comment`

@@ -32,7 +32,9 @@ require './config/db.php';
 						<thead>
 							<tr>
 								<th>No.</th>
-								<th>Bug Description</th>
+								<th>Title</th>
+								<th>Description</th>
+								<th>Screenshot</th>
 								<th>Reported By</th>
 								<th>Action</th>
 							</tr>
@@ -42,11 +44,14 @@ require './config/db.php';
 							$stmt = $conn->prepare('SELECT * FROM user JOIN bug ON user.UserID = bug.UserID');
 							$stmt->execute();
 							$bugs = $stmt->fetchAll(PDO::FETCH_OBJ);
+							$count = 1;
 							foreach($bugs as $bug) : ?>
 							<tr>
-								<td>1</td>
-								<td>Unable to create post.</td>
-								<td>UserID: 253</td>
+								<td><?php echo $count++ ?></td>
+								<td><?php echo $bug->Bug_Title ?></td>
+								<td><?php echo $bug->Bug_Description ?></td>
+								<td><?php echo $bug->Screenshot ?></td>
+								<td><?php echo $bug->UserName ?></td>
 								<td><a href="#" class="btn btn-success" onclick="confirm('Are you sure the bug has been resolved?');">Resolved</a></td>
 							</tr>
 						<?php endforeach; ?>

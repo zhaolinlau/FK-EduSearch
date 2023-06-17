@@ -5,16 +5,18 @@ try {
   require '../config/db.php';
   if (isset($_POST['report'])) {
 
-    $screenshot = $_FILES['screenshot'];
+    $bug_title = $_POST['bug_title'];
     $bug_description = $_POST['bug_description'];
+    $screenshot = $_FILES['screenshot'];
     $userId = $_SESSION['user_id'];
     $status = 'New Reported';
 
     $filename = $screenshot['name'];
 
-    $stmt = $conn->prepare('INSERT INTO bug (UserID, Screenshot, Bug_Description, Bug_Status) VALUES (:user_id, :screenshot, :bug_description, :status)');
+    $stmt = $conn->prepare('INSERT INTO bug (UserID, Bug_Title, Bug_Description, Screenshot, Bug_Status) VALUES (:user_id, :bug_title, :bug_description, :screenshot, :status)');
 
     $stmt->bindParam(':user_id', $userId);
+    $stmt->bindParam(':bug_title', $bug_title);
     $stmt->bindParam(':screenshot', $filename);
     $stmt->bindParam(':bug_description', $bug_description);
     $stmt->bindParam(':status', $status);

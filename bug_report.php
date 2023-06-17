@@ -34,10 +34,10 @@ require "./Middleware/Authenticate.php";
 						<h3>Bug Report</h3>
 					</div>
 					<div class="col-12">
-						<label for="screenshot">Screenshot (JPG/PNG)</label>
-						<input type="file" class="form-control" name="screenshot" accept="image/jpeg,image/x-png" required>
+						<label for="bug_title" class="form-label">Bug Title</label>
+						<input type="text" class="form-control" name="bug_title" id="bug_title" required>
 						<div class="invalid-feedback">
-							Please upload a screenshot of the bug.
+							Please enter a bug title.
 						</div>
 					</div>
 					<div class="col-12">
@@ -45,6 +45,13 @@ require "./Middleware/Authenticate.php";
 						<textarea name="bug_description" class="form-control" id="bug_description" maxlength="255" cols="100" rows="5" required></textarea>
 						<div class="invalid-feedback">
 							Please describe the bug.
+						</div>
+					</div>
+					<div class="col-12">
+						<label for="screenshot">Screenshot (JPG/PNG)</label>
+						<input type="file" class="form-control" name="screenshot" accept="image/jpeg,image/x-png" required>
+						<div class="invalid-feedback">
+							Please upload a screenshot of the bug.
 						</div>
 					</div>
 					<div class="col-12">
