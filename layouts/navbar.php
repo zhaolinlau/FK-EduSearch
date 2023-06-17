@@ -20,6 +20,7 @@
 			<ul class="dropdown-menu dropdown-menu-end shadow-sm">
 				<li><a class="dropdown-item" href="./profile.php">My Profile</a></li>
 				<li><a class="dropdown-item" id="my_posts" href="./myposts.php">My Posts</a></li>
+        <li><a class="dropdown-item" id="CommentReportStatus" href="./CommentReportStatus.php">View Comment Report</a></li>
 				<?php if(isset($_SESSION['expert'])) : ?>
 				<li><a class="dropdown-item" id="assigned_posts" href="./assignedPost.php">Assigned Posts</a></li>
 			<?php endif; ?>
