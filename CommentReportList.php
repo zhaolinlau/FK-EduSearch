@@ -48,7 +48,7 @@ require './config/db.php';
 
             <?php
             //Get all data from table comment_report
-            $stmt = $conn->prepare('SELECT * FROM comment_report');
+            $stmt = $conn->prepare('SELECT * FROM user JOIN comment_report ON user.UserID = comment_report.UserID');
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $count = 1;
@@ -74,7 +74,7 @@ require './config/db.php';
                 <tr>
                   <th scope="row"><?php echo $count++ ?></th>
                   <td><?php echo $row['CommentID'] ?></td>
-                  <td><?php echo $row['UserID'] ?></td>
+                  <td><?php echo $row['UserName'] ?></td>
                   <td><?php echo $row['ReportDescription'] ?></td>
                   <td><?php if ($row['ReportStatus'] == 1) {
                         echo "<p>In Investigation</p>";
