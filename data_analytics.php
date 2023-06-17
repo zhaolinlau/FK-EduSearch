@@ -24,88 +24,89 @@ require './config/db.php';
 <body>
 	<?php require "layouts/navbar.php" ?>
 
-	<div class="row justify-content-center d-flex py-5">
-		<div class="col-4 my-auto">
-			<div class="shadow bg-white">
-				<?php
-				$stmt = $conn->prepare('SELECT COUNT(*) AS admins FROM user WHERE userRole = 0');
-				$stmt->execute();
-				$admins = $stmt->fetchAll(PDO::FETCH_OBJ);
-				$total_admins = $admins[0]->admins;
+	<div class="container-fluid py-5 mt-5">
+		<div class="row justify-content-center">
+			<div class="col-4 my-auto">
+				<div class="shadow bg-white">
+					<?php
+					$stmt = $conn->prepare('SELECT COUNT(*) AS admins FROM user WHERE userRole = 0');
+					$stmt->execute();
+					$admins = $stmt->fetchAll(PDO::FETCH_OBJ);
+					$total_admins = $admins[0]->admins;
 
-				$stmt = $conn->prepare('SELECT COUNT(*) AS experts FROM user WHERE userRole = 1');
-				$stmt->execute();
-				$experts = $stmt->fetchAll(PDO::FETCH_OBJ);
-				$total_experts = $experts[0]->experts;
+					$stmt = $conn->prepare('SELECT COUNT(*) AS experts FROM user WHERE userRole = 1');
+					$stmt->execute();
+					$experts = $stmt->fetchAll(PDO::FETCH_OBJ);
+					$total_experts = $experts[0]->experts;
 
-				$stmt = $conn->prepare('SELECT COUNT(*) AS lecturers FROM user WHERE userRole = 2');
-				$stmt->execute();
-				$lecturers = $stmt->fetchAll(PDO::FETCH_OBJ);
-				$total_lecturers = $lecturers[0]->lecturers;
+					$stmt = $conn->prepare('SELECT COUNT(*) AS lecturers FROM user WHERE userRole = 2');
+					$stmt->execute();
+					$lecturers = $stmt->fetchAll(PDO::FETCH_OBJ);
+					$total_lecturers = $lecturers[0]->lecturers;
 
-				$stmt = $conn->prepare('SELECT COUNT(*) AS students FROM user WHERE userRole = 3');
-				$stmt->execute();
-				$students = $stmt->fetchAll(PDO::FETCH_OBJ);
-				$total_students = $students[0]->students;
-				?>
-				<canvas id="users"></canvas>
-        <h3 class="text-center mt-3">Total Number Of Users</h3>
+					$stmt = $conn->prepare('SELECT COUNT(*) AS students FROM user WHERE userRole = 3');
+					$stmt->execute();
+					$students = $stmt->fetchAll(PDO::FETCH_OBJ);
+					$total_students = $students[0]->students;
+					?>
+					<canvas id="users"></canvas>
+	        <h3 class="text-center mt-3">Total Number Of Users</h3>
+				</div>
 			</div>
-		</div>
 
-		<div class="col-3">
-			<div class="shadow">
-				<?php
-        try {
-          //Get total likes
-          $stmt = $conn->prepare('SELECT COUNT(*) AS total_likes FROM likes');
-          $stmt->execute();
-          $likes = $stmt->fetch(PDO::FETCH_OBJ);
-          $totalLikes = $likes->total_likes;
-          // Get total posts
-          $stmt = $conn->prepare('SELECT COUNT(*) AS total_posts FROM post');
-          $stmt->execute();
-          $posts = $stmt->fetch(PDO::FETCH_OBJ);
-          $totalPosts = $posts->total_posts;
+			<div class="col-3">
+				<div class="shadow bg-white">
+					<?php
+	        try {
+	          //Get total likes
+	          $stmt = $conn->prepare('SELECT COUNT(*) AS total_likes FROM likes');
+	          $stmt->execute();
+	          $likes = $stmt->fetch(PDO::FETCH_OBJ);
+	          $totalLikes = $likes->total_likes;
+	          // Get total posts
+	          $stmt = $conn->prepare('SELECT COUNT(*) AS total_posts FROM post');
+	          $stmt->execute();
+	          $posts = $stmt->fetch(PDO::FETCH_OBJ);
+	          $totalPosts = $posts->total_posts;
 
-          // Get total comments
-          $stmt = $conn->prepare('SELECT COUNT(*) AS total_comments FROM comment');
-          $stmt->execute();
-          $comments = $stmt->fetch(PDO::FETCH_OBJ);
-          $totalComments = $comments->total_comments;
-        } catch (PDOException $e) {
-          echo $e->getMessage();
-        }
-				?>
-      <canvas id="UserActivity" class="bg-white"></canvas>
-			<h3 class="text-center mt-1">User Activity</h3>
-      </div>
-		</div>
+	          // Get total comments
+	          $stmt = $conn->prepare('SELECT COUNT(*) AS total_comments FROM comment');
+	          $stmt->execute();
+	          $comments = $stmt->fetch(PDO::FETCH_OBJ);
+	          $totalComments = $comments->total_comments;
+	        } catch (PDOException $e) {
+	          echo $e->getMessage();
+	        }
+					?>
+	      <canvas id="UserActivity" class="bg-white"></canvas>
+				<h3 class="text-center mt-1">User Activity</h3>
+	      </div>
+			</div>
 
-		<div class="col-4 my-auto">
-			<div class="shadow bg-white">
-				<?php
-				$stmt = $conn->prepare('SELECT COUNT(*) AS new FROM bug WHERE Bug_Status = "New Reported"');
-				$stmt->execute();
-				$new = $stmt->fetchAll(PDO::FETCH_OBJ);
-				$total_new = $new[0]->new;
+			<div class="col-3 my-auto">
+				<div class="shadow bg-white">
+					<?php
+					$stmt = $conn->prepare('SELECT COUNT(*) AS new FROM bug WHERE Bug_Status = "New Reported"');
+					$stmt->execute();
+					$new = $stmt->fetchAll(PDO::FETCH_OBJ);
+					$total_new = $new[0]->new;
 
-				$stmt = $conn->prepare('SELECT COUNT(*) AS fixing FROM bug WHERE Bug_Status = "Fixing"');
-				$stmt->execute();
-				$fixing = $stmt->fetchAll(PDO::FETCH_OBJ);
-				$total_fixing = $fixing[0]->fixing;
+					$stmt = $conn->prepare('SELECT COUNT(*) AS fixing FROM bug WHERE Bug_Status = "Fixing"');
+					$stmt->execute();
+					$fixing = $stmt->fetchAll(PDO::FETCH_OBJ);
+					$total_fixing = $fixing[0]->fixing;
 
-				$stmt = $conn->prepare('SELECT COUNT(*) AS resolved FROM bug WHERE Bug_Status = "Resolved"');
-				$stmt->execute();
-				$resolved = $stmt->fetchAll(PDO::FETCH_OBJ);
-				$total_resolved = $resolved[0]->resolved;
-				?>
-				<canvas id="bugs"></canvas>
-        <h3 class="text-center mt-3">Total Number Of Bugs</h3>
+					$stmt = $conn->prepare('SELECT COUNT(*) AS resolved FROM bug WHERE Bug_Status = "Resolved"');
+					$stmt->execute();
+					$resolved = $stmt->fetchAll(PDO::FETCH_OBJ);
+					$total_resolved = $resolved[0]->resolved;
+					?>
+					<canvas id="bugs"></canvas>
+	        <h3 class="text-center mt-3">Total Number Of Bugs</h3>
+				</div>
 			</div>
 		</div>
 	</div>
-
 
 	<script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="./resources/js/livechat.js"></script>
