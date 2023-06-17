@@ -49,11 +49,33 @@ require './config/db.php';
 							$bugs = $stmt->fetchAll(PDO::FETCH_OBJ);
 							$count = 1;
 							foreach($bugs as $bug) : ?>
+
+							<div class="modal fade" id="imageModal<?php echo $bug->BugID ?>" tabindex="-1" aria-labelledby="imageModalLabel<?php echo $bug->BugID ?>" aria-hidden="true">
+								<div class="modal-dialog modal-lg">
+									<div class="modal-content">
+										<div class="modal-header">
+										<h5 class="modal-title" id="imageModalLabel<?php echo $bug->BugID ?>"><?php echo basename($bug->Screenshot); ?></h5>
+											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+										</div>
+										<div class="modal-body">
+											<img src="./bug_reports/<?php echo $bug->BugID . '/' . $bug->Screenshot ?>" class="img-fluid" alt="<?php echo $bug->Screenshot ?>">
+										</div>
+										<div class="modal-footer">
+							        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+							      </div>
+									</div>
+								</div>
+							</div>
+
 							<tr>
 								<td><?php echo $count++ ?></td>
 								<td><?php echo $bug->Bug_Title ?></td>
 								<td><?php echo $bug->Bug_Description ?></td>
-								<td><a href="./bug_reports/<?php echo $bug->BugID . '/' . $bug->Screenshot ?>"><?php echo $bug->Screenshot ?></a></td>
+								<td>
+									<a data-bs-toggle="modal" href="./bug_reports/<?php echo $bug->BugID . '/' . $bug->Screenshot ?>" data-bs-target="#imageModal<?php echo $bug->BugID ?>" data-image="./bug_reports/<?php echo $bug->BugID . '/' . $bug->Screenshot ?>">
+										<?php echo $bug->Screenshot ?>
+									</a>
+								</td>
 								<td><?php echo $bug->UserName ?></td>
 								<td><?php echo $bug->Bug_Status ?></td>
 								<td class="text-center"><a href="./controllers/FixBugController.php?bug_id=<?php echo $bug->BugID ?>" onclick="return confirm('Confirm add to fixing list?')" class="btn btn-warning"><i class="fa-solid fa-wrench"></i> Fix</a></td>
