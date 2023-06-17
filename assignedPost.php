@@ -168,6 +168,7 @@ require './config/db.php';
 	<script src="./recources/js/livechat.js"></script>
 	<script>
 		document.getElementById("assigned_posts").classList.add("active");
+		document.getElementById("nav_assigned_posts").classList.add("active");
 	</script>
 </body>
 
