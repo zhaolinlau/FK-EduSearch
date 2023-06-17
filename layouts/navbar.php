@@ -57,7 +57,7 @@
 			<?php
 			elseif (isset($_SESSION["expert"])) :
 			?>
-				<a class="nav-link" id="assigned_posts" href="./assignedPost.php">Assigned Posts</a>
+				<a class="nav-link" id="nav_assigned_posts" href="./assignedPost.php">Assigned Posts</a>
 				<a class="nav-link" id="expert_statistics" href="./expertStatistics.php">Your Report</a>
 			<?php else: ?>
 					<a class="nav-link" id="complaint" href="./ComplaintDashBoard.php">Complaint</a>

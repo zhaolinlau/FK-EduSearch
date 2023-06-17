@@ -32,16 +32,30 @@ require './config/db.php';
 						<i class="gg-format-center"></i> &nbsp; Filter by Post Status
 					</a>
 					<ul class="dropdown-menu" aria-labelledby="filterDropdown">
-						<li><a class="dropdown-item" href="#" onclick="">Accepted</a></li>
-						<li><a class="dropdown-item" href="#" onclick="">Revised</a></li>
-						<li><a class="dropdown-item" href="#" onclick="">Completed</a></li>
-					</ul>
+					 <li><a class="dropdown-item <?php if(!isset($_GET['post_status'])) : echo 'active'; endif; ?>" href="./myposts.php">All</a></li>
+					 <li><a class="dropdown-item <?php if(isset($_GET['post_status']) && $_GET['post_status'] == 'Pending') : echo 'active'; endif; ?>" href="./myposts.php?post_status=Pending">Pending</a></li>
+					 <li><a class="dropdown-item <?php if(isset($_GET['post_status']) && $_GET['post_status'] == 'Accepted') : echo 'active'; endif; ?>" href="./myposts.php?post_status=Accepted">Accepted</a></li>
+					 <li><a class="dropdown-item <?php if(isset($_GET['post_status']) && $_GET['post_status'] == 'Revised') : echo 'active'; endif; ?>" href="./myposts.php?post_status=Revised">Revised</a></li>
+					 <li><a class="dropdown-item <?php if(isset($_GET['post_status']) && $_GET['post_status'] == 'Completed') : echo 'active'; endif; ?>" href="./myposts.php?post_status=Completed">Completed</a></li>
+				 </ul>
 				</div>
 			</div>
 
 			<?php
       $user_id = $_SESSION['user_id'];
-			$stmt = $conn->prepare('SELECT * FROM post JOIN user ON post.UserID = user.UserID WHERE post.UserID = :user_id ORDER BY post.PostID DESC');
+
+			if(isset($_GET['post_status']) && $_GET['post_status'] == "Pending") :
+			  $stmt = $conn->prepare('SELECT * FROM post JOIN user ON post.UserID = user.UserID WHERE post.UserID = :user_id AND post.PostStatus = "Pending" ORDER BY post.PostID DESC');
+			elseif(isset($_GET['post_status']) && $_GET['post_status'] == "Accepted") :
+			  $stmt = $conn->prepare('SELECT * FROM post JOIN user ON post.UserID = user.UserID WHERE post.UserID = :user_id AND post.PostStatus = "Accepted" ORDER BY post.PostID DESC');
+			elseif (isset($_GET['post_status']) && $_GET['post_status'] == "Revised") :
+			  $stmt = $conn->prepare('SELECT * FROM post JOIN user ON post.UserID = user.UserID WHERE post.UserID = :user_id AND post.PostStatus = "Revised" ORDER BY post.PostID DESC');
+			elseif (isset($_GET['post_status']) && $_GET['post_status'] == "Completed") :
+			  $stmt = $conn->prepare('SELECT * FROM post JOIN user ON post.UserID = user.UserID WHERE post.UserID = :user_id AND post.PostStatus = "Completed" ORDER BY post.PostID DESC');
+			elseif (!isset($_GET['post_status'])) :
+				$stmt = $conn->prepare('SELECT * FROM post JOIN user ON post.UserID = user.UserID WHERE post.UserID = :user_id ORDER BY post.PostID DESC');
+			endif;
+
       $stmt->bindParam(':user_id', $user_id);
 			$stmt->execute();
 
@@ -55,7 +69,13 @@ require './config/db.php';
 						<div class="row">
 							<div class="col-11">
 								<span class="badge bg-secondary fs-6"><i class="fa-solid fa-tag"></i> <?php echo $row->PostCategory; ?></span>
-								Posted by <?php echo $row->UserName; ?> on <?php echo $row->PostCreated; ?>
+								Posted by <?php
+			          if($_SESSION['user_id'] == $row->UserID) :
+			            echo "you";
+			          else :
+			            echo $row->UserName;
+			          endif;
+			          ?> on <?php echo $row->PostCreated; ?>
 							</div>
 							<?php
 							if($_SESSION['user_id'] == $row->UserID) : ?>
@@ -66,11 +86,11 @@ require './config/db.php';
 									</button>
 									<ul class="dropdown-menu dropdown-menu-end shadow-sm">
 										<li><a class="dropdown-item" href="./EditPost.php?post_id=<?php echo $row->PostID; ?>"><i class="fa-solid fa-pen-to-square text-info"></i> Edit</a></li>
-										<li><a class="dropdown-item" href="#"><i class="fa-solid fa-check text-success"></i> Resolved</a></li>
+										<li><a class="dropdown-item" href="./controllers/ResolveController.php?post_id=<?php echo $row->PostID; ?>"><i class="fa-solid fa-check text-success"></i> Resolved</a></li>
 										<li>
 											<a class="dropdown-item" href="./controllers/DeletePostController.php?post_id=<?php echo $row->PostID; ?>" onclick="return confirm('Are you sure to delete the post?')">
-											<i class="fa-solid fa-trash text-danger"></i> Delete
-										</a>
+												<i class="fa-solid fa-trash text-danger"></i> Delete
+											</a>
 										</li>
 									</ul>
 								</div>
