@@ -27,7 +27,7 @@ require './config/db.php';
     <div class="col-12 my-auto text-center text-center">
       <div class="col-11 mx-auto shadow mt-5 text-center">
         <br><br>
-        <form action="./controllers/CreateCommentReportController.php" method="post">
+        <form action="./controllers/CreateCommentReportController.php" method="post" enctype="multipart/form-data">
           <div class="container">
             <h3>Comment Report</h3>
             <hr><br>
@@ -37,7 +37,15 @@ require './config/db.php';
               <input type="hidden" name="CommentID" value="<?php echo $_GET['comment_id']; ?>">
             </div>
             <br>
-            <button type="submit" class="btn btn-outline-secondary">Save</button>
+            <div class="col-12">
+              <label for="screenshot">Screenshot (JPG/PNG)</label>
+              <input type="file" class="form-control" name="screenshot" accept="image/jpeg,image/x-png" required>
+              <div class="invalid-feedback">
+                Please upload a screenshot of the comment that going to report.
+              </div>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-outline-secondary" name="report">Save</button>
             <br>
             <br>
           </div>

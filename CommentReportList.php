@@ -32,53 +32,89 @@ require './config/db.php';
         <div id="alertContainer"></div>
         <table class="table w-100" id="comment_report_table">
           <thead>
-            <tr>
+            <tr class="text-center">
               <th scope="col">No.</th>
               <th scope="col">Comment ID</th>
               <th scope="col">Reported By</th>
               <th scope="col">Report Description</th>
+              <th scope="col">Status</th>
               <th scope="col">Reported On</th>
               <th scope="col" style="width: 240px;">Report Status</th>
               <th scope="col">Operation</th>
             </tr>
           </thead>
           <tbody>
+
+
             <?php
             //Get all data from table comment_report
             $stmt = $conn->prepare('SELECT * FROM comment_report');
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $count = 1;
 
             if ($stmt->rowCount() > 0) :
               foreach ($result as $row) :
             ?>
+                <!-- Modal -->
+                <div class="modal fade" id="imageModal<?php echo $row['ReportID']; ?>" tabindex="-1" aria-labelledby="imageModalLabel<?php echo $row['ReportID']; ?>" aria-hidden="true">
+
+
+
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                      <h5 class="modal-title" id="imageModalLabel<?php echo $row['ReportID']; ?>"><?php echo basename($row['screenshot']); ?></h5>
+
+
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                      <img id="previewImage<?php echo $row['ReportID']; ?>" src="" alt="Preview">
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <tr>
-                  <th scope="row"><?php echo $row['ReportID'] ?></th>
+                  <th scope="row"><?php echo $count++ ?></th>
                   <td><?php echo $row['CommentID'] ?></td>
                   <td><?php echo $row['UserID'] ?></td>
                   <td><?php echo $row['ReportDescription'] ?></td>
+                  <td><?php if ($row['ReportStatus'] == 1) {
+                        echo "<p>In Investigation</p>";
+                      } elseif ($row['ReportStatus'] == 2) {
+                        echo "<p>On Hold</p>";
+                      } elseif ($row['ReportStatus'] == 3) {
+                        echo "<p>Resolved</p>";
+                      }
+                      ?></td>
                   <td><?php echo $row['Reported_On'] ?></td>
-                  <form action="./controllers/UpdateCommentReportController.php" method="post">
-                    <td>
+                  <td class="d-flex">
+                    <form action="./controllers/UpdateCommentReportController.php" method="post">
                       <input type="text" class="d-none" name="ReportID" value="<?php echo $row['ReportID'] ?>" required readonly>
-                      <select class="form-select" aria-label="Complaint Status" name="ReportStatus">
+                      <select class="form-select" aria-label="ReportStatus" name="ReportStatus">
                         <option value="">Select Report Status</option>
                         <option <?php if ($row['ReportStatus'] == 1) echo 'selected'; ?> value="1">In Investigation</option>
                         <option <?php if ($row['ReportStatus'] == 2) echo 'selected'; ?> value="2">On Hold</option>
                         <option <?php if ($row['ReportStatus'] == 3) echo 'selected'; ?> value="3">Resolved</option>
                       </select>
-                    </td>
-                    <td>
-                      <ul class="list-inline">
-                        <li class="list-inline-item">
-                          <button type="submit" class="btn btn-primary" onclick="return confirm('Confirm update?')">Update</button>
-                            <a class="btn btn-outline-danger ms-2" href="./controllers/DeleteCommentReportController.php?report_id=<?php echo $row['ReportID']; ?>" onclick="return confirm('Confirm delete this comment report?')">
-                              <i class="fa-solid fa-trash text-danger fa-lg"></i>
-                            </a>
-                        </li>
-                      </ul>
-                    </td>
-                  </form>
+                      <button type="submit" class="btn btn-primary ms-1 mt-2" onclick="return confirm('Confirm update?')">Update</button>
+                    </form>
+                  </td>
+                  <td>
+                    <ul class="list-inline">
+                      <li class="list-inline-item">
+
+                      <button class="btn btn-outline-info ms-2 preview-button" data-bs-toggle="modal" data-bs-target="#imageModal<?php echo $row['ReportID']; ?>" data-image="./comment_reports/<?php echo $row['ReportID'] . '/' . $row['screenshot']; ?>">
+                          <i class="fa-regular fa-file-image fa-lg" style="color: #09f1ed;"></i>
+                        </button>
+                        <a class="btn btn-outline-danger ms-2" href="./controllers/DeleteCommentReportController.php?report_id=<?php echo $row['ReportID']; ?>" onclick="return confirm('Confirm delete this comment report?')">
+                          <i class="fa-solid fa-trash text-danger fa-lg"></i>
+                        </a>
+                      </li>
+                    </ul>
+                  </td>
                 </tr>
             <?php
               endforeach;
@@ -123,6 +159,24 @@ require './config/db.php';
 
     document.getElementById("commentreportlist").classList.add("active");
   </script>
+
+
+<script>
+  // JavaScript code to handle the click event and update the image source
+  const previewButtons = document.querySelectorAll('.preview-button');
+
+  previewButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const imagePath = this.getAttribute('data-image');
+      const modalId = this.getAttribute('data-bs-target').replace('#imageModal', '');
+      const previewImage = document.getElementById('previewImage' + modalId);
+      previewImage.src = imagePath;
+    });
+  });
+</script>
+
+
+
 </body>
 
 </html>
