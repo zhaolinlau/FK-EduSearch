@@ -66,6 +66,16 @@ if (isset($_POST["UpdateStatus"])) {
 	<link rel="stylesheet" href="./node_modules/@fortawesome/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
   <link href="https://cdn.datatables.net/v/bs5/jq-3.6.0/jszip-2.5.0/dt-1.13.4/b-2.3.6/b-colvis-2.3.6/b-html5-2.3.6/b-print-2.3.6/datatables.min.css" rel="stylesheet" />
+  <style>
+    .list-inline {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* optional, to center the items horizontally */
+}
+.list-inline li{
+    margin-top:5px;
+}
+  </style>
 </head>
 
 <body class="h-100">
@@ -109,7 +119,7 @@ if (isset($_POST["UpdateStatus"])) {
                                 <?php
                                 try {
                                     require "./config/db.php";
-                                    $stmt = $conn->prepare("SELECT f.ExpertFeedback,p.PostTitle,c.ComplaintID, u.UserName, c.ComplaintType, c.ComplaintDescription, c.ComplaintStatus, c.ComplaintCreatedDate
+                                    $stmt = $conn->prepare("SELECT f.ExpertFeedback,c.ComplaintPhoto,p.PostTitle,c.ComplaintID, u.UserName, c.ComplaintType, c.ComplaintDescription, c.ComplaintStatus, c.ComplaintCreatedDate
                                                         FROM complaint c
                                                         JOIN user u ON c.UserID = u.UserID
                                                         JOIN feedback f ON c.FeedbackID= f.FeedbackID
@@ -121,6 +131,7 @@ if (isset($_POST["UpdateStatus"])) {
                                         foreach ($result as $complaint) {
                                             $timestamp = strtotime($complaint['ComplaintCreatedDate']);
                                             $modalId = 'modal_' . $complaint['ComplaintID'];
+                                            $modal= 'ImageModel_'. $complaint['ComplaintPhoto'];
                                             ?>
                                             <tr>
                                                 <th scope="row">
@@ -145,17 +156,35 @@ if (isset($_POST["UpdateStatus"])) {
                                                 <td>
                                                     <ul class="list-inline">
                                                         <li class="list-inline-item">
-                                                            <button type="submit" class="btn btn-primary" name="UpdateStatus">Update</button>
+                                                            <button type="submit" class="btn btn-primary" style="width:100px;" name="UpdateStatus">Update</button>
                                                         </li>
                                                         </form>
                                                         <li class="list-inline-item">
-                                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#<?php echo $modalId; ?>" data-feedback-id="<?php echo $complaint['ComplaintID']; ?>">
+                                                        <button class="btn btn-outline-info ms-2 preview-button" style="width:100px;" type="button" style="width:50px;" data-bs-toggle="modal" data-bs-target="#<?php echo $modal; ?>" data-image="./uploads/<?php echo $complaint['ComplaintPhoto']?>">
+                                                        View <i class="fa-regular fa-file-image fa-lg" style="color: #09f1ed;"></i>
+                                                        </button>
+                                                        <li class="list-inline-item">
+                                                        <button type="button" class="btn btn-primary" style="width:100px;" data-bs-toggle="modal" data-bs-target="#<?php echo $modalId; ?>" data-feedback-id="<?php echo $complaint['ComplaintID']; ?>">
                                                         Give Response</button>
                                                         </li>
                                                     </ul>
                                                 </td>
                                             </tr>
-        <!-- ... -->
+                <!-- Modal for Image -->
+<div class="modal fade" id="<?php echo $modal; ?>" tabindex="-1" aria-labelledby="imageModalLabel<?php echo $complaint['ComplaintPhoto']; ?>" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="imageModalLabel<?php echo $complaint['ComplaintPhoto']; ?>">Screenshot</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <img id="previewImage<?php echo $complaint['ComplaintPhoto']; ?>" class="img-fluid" alt="Preview" src="./uploads/<?php echo $complaint['ComplaintPhoto']; ?>">
+      </div>
+    </div>
+  </div>
+</div>
+        <!-- Modal for Response -->
 <div class="modal fade" id="<?php echo $modalId; ?>" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content p-3">
@@ -244,6 +273,16 @@ if (isset($_POST["UpdateStatus"])) {
         const modal = new bootstrap.Modal(modalElement);
         modal.show();
     }
+    const previewButtons = document.querySelectorAll('.preview-button');
+
+previewButtons.forEach(button => {
+  button.addEventListener('click', function() {
+    const imagePath = this.getAttribute('data-image');
+    const modalId = this.getAttribute('data-bs-target').replace('#imageModal', '');
+    const previewImage = document.getElementById('previewImage' + modalId);
+    previewImage.src = imagePath;
+  });
+});
 
 		</script>
 </body>
