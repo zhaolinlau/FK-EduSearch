@@ -118,7 +118,13 @@ require './config/db.php';
 						<div class="row">
 							<div class="col-11">
 								<span class="badge bg-secondary fs-6"><i class="fa-solid fa-tag"></i> <?php echo $row->PostCategory; ?></span>
-								Posted by <?php echo $row->UserName; ?> on <?php echo $row->PostCreated; ?>
+								Posted by <?php
+			          if($_SESSION['user_id'] == $row->UserID) :
+			            echo "you";
+			          else :
+			            echo $row->UserName;
+			          endif;
+			          ?> on <?php echo $row->PostCreated; ?>
 							</div>
 							<?php
 							if ($_SESSION['user_id'] == $row->UserID) : ?>
