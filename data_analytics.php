@@ -24,139 +24,91 @@ require './config/db.php';
 <body>
   <?php require "layouts/navbar.php" ?>
 
-  <div class="row justify-content-center d-flex py-5">
-    <div class="col-4 my-auto">
-      <div class="shadow bg-white">
-        <?php
-        $stmt = $conn->prepare('SELECT COUNT(*) AS admins FROM user WHERE userRole = 0');
-        $stmt->execute();
-        $admins = $stmt->fetchAll(PDO::FETCH_OBJ);
-        $total_admins = $admins[0]->admins;
+	<div class="row justify-content-center d-flex py-5">
+		<div class="col-4 my-auto">
+			<div class="shadow bg-white">
+				<?php
+				$stmt = $conn->prepare('SELECT COUNT(*) AS admins FROM user WHERE userRole = 0');
+				$stmt->execute();
+				$admins = $stmt->fetchAll(PDO::FETCH_OBJ);
+				$total_admins = $admins[0]->admins;
 
-        $stmt = $conn->prepare('SELECT COUNT(*) AS experts FROM user WHERE userRole = 1');
-        $stmt->execute();
-        $experts = $stmt->fetchAll(PDO::FETCH_OBJ);
-        $total_experts = $experts[0]->experts;
+	        $stmt = $conn->prepare('SELECT COUNT(*) AS experts FROM user WHERE userRole = 1');
+	        $stmt->execute();
+	        $experts = $stmt->fetchAll(PDO::FETCH_OBJ);
+	        $total_experts = $experts[0]->experts;
 
-        $stmt = $conn->prepare('SELECT COUNT(*) AS lecturers FROM user WHERE userRole = 2');
-        $stmt->execute();
-        $lecturers = $stmt->fetchAll(PDO::FETCH_OBJ);
-        $total_lecturers = $lecturers[0]->lecturers;
+	        $stmt = $conn->prepare('SELECT COUNT(*) AS lecturers FROM user WHERE userRole = 2');
+	        $stmt->execute();
+	        $lecturers = $stmt->fetchAll(PDO::FETCH_OBJ);
+	        $total_lecturers = $lecturers[0]->lecturers;
 
-        $stmt = $conn->prepare('SELECT COUNT(*) AS students FROM user WHERE userRole = 3');
-        $stmt->execute();
-        $students = $stmt->fetchAll(PDO::FETCH_OBJ);
-        $total_students = $students[0]->students;
+				$stmt = $conn->prepare('SELECT COUNT(*) AS students FROM user WHERE userRole = 3');
+				$stmt->execute();
+				$students = $stmt->fetchAll(PDO::FETCH_OBJ);
+				$total_students = $students[0]->students;
 
-
-        try {
-          //Get total likes
-          $stmt = $conn->prepare('SELECT COUNT(*) AS total_likes FROM likes');
-          $stmt->execute();
-          $likes = $stmt->fetch(PDO::FETCH_OBJ);
-          $totalLikes = $likes->total_likes;
-          // Get total posts
-          $stmt = $conn->prepare('SELECT COUNT(*) AS total_posts FROM post');
-          $stmt->execute();
-          $posts = $stmt->fetch(PDO::FETCH_OBJ);
-          $totalPosts = $posts->total_posts;
+			<div class="col-3">
+				<div class="shadow bg-white">
+					<?php
+	        try {
+	          //Get total likes
+	          $stmt = $conn->prepare('SELECT COUNT(*) AS total_likes FROM likes');
+	          $stmt->execute();
+	          $likes = $stmt->fetch(PDO::FETCH_OBJ);
+	          $totalLikes = $likes->total_likes;
+	          // Get total posts
+	          $stmt = $conn->prepare('SELECT COUNT(*) AS total_posts FROM post');
+	          $stmt->execute();
+	          $posts = $stmt->fetch(PDO::FETCH_OBJ);
+	          $totalPosts = $posts->total_posts;
 
           // Get total comments
           $stmt = $conn->prepare('SELECT COUNT(*) AS total_comments FROM comment');
           $stmt->execute();
           $comments = $stmt->fetch(PDO::FETCH_OBJ);
           $totalComments = $comments->total_comments;
-
-
-          // Query for the current day
-          $currentDayQuery = "SELECT ReportStatus, COUNT(*) AS TotalReports FROM comment_report WHERE DATE(Reported_On) = CURDATE() GROUP BY ReportStatus";
-          $currentDayStatement = $conn->prepare($currentDayQuery);
-          $currentDayStatement->execute();
-          $currentDayResult = $currentDayStatement->fetchAll(PDO::FETCH_ASSOC);
-
-          // Query for the current week
-          $currentWeekQuery = "SELECT ReportStatus, COUNT(*) AS TotalReports FROM comment_report WHERE WEEK(Reported_On) = WEEK(CURDATE()) GROUP BY ReportStatus";
-          $currentWeekStatement = $conn->prepare($currentWeekQuery);
-          $currentWeekStatement->execute();
-          $currentWeekResult = $currentWeekStatement->fetchAll(PDO::FETCH_ASSOC);
-
-          // Query for the current month
-          $currentMonthQuery = "SELECT ReportStatus, COUNT(*) AS TotalReports FROM comment_report WHERE MONTH(Reported_On) = MONTH(CURDATE()) GROUP BY ReportStatus";
-          $currentMonthStatement = $conn->prepare($currentMonthQuery);
-          $currentMonthStatement->execute();
-          $currentMonthResult = $currentMonthStatement->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
           echo $e->getMessage();
         }
-        ?>
-        <canvas id="users"></canvas>
+				?>
+				<canvas id="users"></canvas>
         <h3 class="text-center mt-3">Total Number Of Users</h3>
+			</div>
+		</div>
+
+		<div class="col-3">
+			<div class="shadow">
+      <canvas id="UserActivity" class="bg-white"></canvas>
+			<h3 class="text-center mt-1">User Activity</h3>
       </div>
-    </div>
-
-    <div class="col-3">
-      <div class="shadow">
-        <canvas id="UserActivity" class="bg-white"></canvas>
-        <h3 class="text-center mt-1">User Activity</h3>
-      </div>
-    </div>
-  </div>
-
-  <div class="row g-5 mx-3">
-    <div class="col-4">
-      <div class="shadow">
-        <canvas id="ReportByDay" class="bg-white"></canvas>
-        <h3 class="text-center mt-1">Total Number Of Reports (Today)</h3>
-      </div>
-    </div>
-    <div class="col-4">
-      <div class="shadow">
-        <canvas id="ReportByWeek" class="bg-white"></canvas>
-        <h3 class="text-center mt-1">Total Number Of Reports (This Week)</h3>
-      </div>
-    </div>
-    <div class="col-4">
-      <div class="shadow">
-        <canvas id="ReportByMonth" class="bg-white"></canvas>
-        <h3 class="text-center mt-1">Total Number Of Reports (This Month)</h3>
-      </div>
-    </div>
-  </div>
+		</div>
+	</div>
 
 
+	<script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="./resources/js/livechat.js"></script>
+	<script src="./node_modules/chart.js/dist/chart.umd.js"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	<script>
 
-
-
-
-
-
-
-
-
-  <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="./resources/js/livechat.js"></script>
-  <script src="./node_modules/chart.js/dist/chart.umd.js"></script>
-  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- -->
-
-  <script>
-    const users = [{
-        user_label: "Admins",
-        user_count: <?php echo $total_admins; ?>,
-      },
-      {
-        user_label: "Experts",
-        user_count: <?php echo $total_experts; ?>,
-      },
-      {
-        user_label: "Lecturers",
-        user_count: <?php echo $total_lecturers; ?>,
-      },
-      {
-        user_label: "Students",
-        user_count: <?php echo $total_students; ?>,
-      },
-    ];
+	const users = [{
+			user_label: "Admins",
+			user_count: <?php echo $total_admins; ?>,
+		},
+		{
+			user_label: "Experts",
+			user_count: <?php echo $total_experts; ?>,
+		},
+		{
+			user_label: "Lecturers",
+			user_count: <?php echo $total_lecturers; ?>,
+		},
+		{
+			user_label: "Students",
+			user_count: <?php echo $total_students; ?>,
+		},
+	];
 
     new Chart(document.getElementById('users'), {
       type: 'bar',
@@ -220,105 +172,7 @@ require './config/db.php';
       },
     });
 
-
-
-    // Store the PHP retrieved data in JavaScript variables
-    const currentDayReports = <?php echo json_encode($currentDayResult); ?>;
-    const currentWeekReports = <?php echo json_encode($currentWeekResult); ?>;
-    const currentMonthReports = <?php echo json_encode($currentMonthResult); ?>;
-
-    // Create a chart using Chart.js for the current day
-    new Chart(document.getElementById("ReportByDay"), {
-      type: "polarArea",
-      data: {
-        labels: currentDayReports.map(row => {
-          switch (row.ReportStatus) {
-            case 1:
-              return "In Investigation";
-            case 2:
-              return "On Hold";
-            case 3:
-              return "Resolved";
-            default:
-              return "";
-          }
-        }),
-        datasets: [{
-          label: "Total reports",
-          data: currentDayReports.map(row => row.TotalReports),
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)', // In Investigation color
-            'rgba(54, 162, 235, 0.2)', // On Hold color
-            'rgba(75, 192, 192, 0.2)', // Resolved color
-          ],
-        }],
-      },
-    });
-
-
   
-    // Create a chart using Chart.js for the current week
-    new Chart(document.getElementById("ReportByWeek"), {
-      type: "polarArea",
-      data: {
-        labels: currentWeekReports.map(row => {
-          switch (row.ReportStatus) {
-            case 1:
-              return "In Investigation";
-            case 2:
-              return "On Hold";
-            case 3:
-              return "Resolved";
-            default:
-              return "";
-          }
-        }),
-        datasets: [{
-          label: "Total reports",
-          data: currentWeekReports.map(row => row.TotalReports),
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)', // In Investigation color
-            'rgba(54, 162, 235, 0.2)', // On Hold color
-            'rgba(75, 192, 192, 0.2)', // Resolved color
-          ],
-        }],
-      },
-    });
-
-
-
-  
-    // Create a chart using Chart.js for the current month
-    new Chart(document.getElementById("ReportByMonth"), {
-      type: "polarArea",
-      data: {
-        labels: currentMonthReports.map(row => {
-          switch (row.ReportStatus) {
-            case 1:
-              return "In Investigation";
-            case 2:
-              return "On Hold";
-            case 3:
-              return "Resolved";
-            default:
-              return "";
-          }
-        }),
-        datasets: [{
-          label: "Total reports",
-          data: currentMonthReports.map(row => row.TotalReports),
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)', // In Investigation color
-            'rgba(54, 162, 235, 0.2)', // On Hold color
-            'rgba(75, 192, 192, 0.2)', // Resolved color
-          ],
-        }],
-      },
-    });
-
-
-
-
 
     document.getElementById("data_analytics").classList.add("active");
   </script>

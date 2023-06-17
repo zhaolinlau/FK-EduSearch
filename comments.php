@@ -118,27 +118,58 @@ require './config/db.php';
 						<div class="row">
 							<div class="col-11">
 								<span class="badge bg-secondary fs-6"><i class="fa-solid fa-tag"></i> <?php echo $row->PostCategory; ?></span>
-								Posted by <?php echo $row->UserName; ?> on <?php echo $row->PostCreated; ?>
+								Posted by <?php
+			          if($_SESSION['user_id'] == $row->UserID) :
+			            echo "you";
+			          else :
+			            echo $row->UserName;
+			          endif;
+			          ?> on <?php echo $row->PostCreated; ?>
 							</div>
-							<?php
-							if ($_SESSION['user_id'] == $row->UserID) : ?>
-								<div class="col-1 d-flex justify-content-end">
-									<div class="dropdown">
-										<button class="btn circle-1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-											<i class="fa-solid fa-ellipsis fa-xl"></i>
-										</button>
-										<ul class="dropdown-menu dropdown-menu-end shadow-sm">
-											<li><a class="dropdown-item" href="./EditPost.php?post_id=<?php echo $row->PostID; ?>"><i class="fa-solid fa-pen-to-square text-info"></i> Edit</a></li>
-											<li><a class="dropdown-item" href="./controllers/ResolveController.php?post_id=<?php echo $row->PostID; ?>"><i class="fa-solid fa-check text-success"></i> Resolved</a></li>
-											<li>
-												<a class="dropdown-item" href="./controllers/DeletePostController.php?post_id=<?php echo $row->PostID; ?>" onclick="return confirm('Are you sure to delete the post?')">
-													<i class="fa-solid fa-trash text-danger"></i> Delete
-												</a>
-											</li>
-										</ul>
-									</div>
-								</div>
-							<?php endif; ?>
+
+							<div class="col-1 d-flex justify-content-end">
+			          <?php if(isset($_SESSION['expert'])) : ?>
+			            <?php if(($row->PostStatus == "Pending") && ($row->UserID != $_SESSION['user_id'])) : ?>
+			              <form class="needs-validation row g-3" action="./controllers/AcceptPostController.php" method="post" novalidate>
+			                <div class="col-12 d-none">
+			                  <input type="text" name="post_id" class="form-control" value="<?php echo $row->PostID; ?>" readonly required>
+			                  <div class="invalid-feedback">
+			                    You are disallowed to modify this field.
+			                  </div>
+			                </div>
+											<div class="col-12 d-none">
+			                  <input type="text" name="expert_id" class="form-control" value="<?php echo $_SESSION['id']; ?>" readonly required>
+			                  <div class="invalid-feedback">
+			                    You are disallowed to modify this field.
+			                  </div>
+			                </div>
+			                <div class="col-12">
+			                	<button class="btn" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Assign to me" onclick="return confirm('Confirm self assign?')"><i class="fa-solid fa-marker"></i></button>
+			                </div>
+			              </form>
+									<?php
+			            else :
+										echo "";
+			             endif;
+			          endif; ?>
+			        <?php if($_SESSION['user_id'] == $row->UserID) : ?>
+			          <div class="dropdown">
+			            <button class="btn circle-1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+			              <i class="fa-solid fa-ellipsis fa-xl"></i>
+			            </button>
+									<ul class="dropdown-menu dropdown-menu-end shadow-sm">
+										<li><a class="dropdown-item" href="./EditPost.php?post_id=<?php echo $row->PostID; ?>"><i class="fa-solid fa-pen-to-square text-info"></i> Edit</a></li>
+										<li><a class="dropdown-item" href="./controllers/ResolveController.php?post_id=<?php echo $row->PostID; ?>"><i class="fa-solid fa-check text-success"></i> Resolved</a></li>
+										<li>
+											<a class="dropdown-item" href="./controllers/DeletePostController.php?post_id=<?php echo $row->PostID; ?>" onclick="return confirm('Are you sure to delete the post?')">
+												<i class="fa-solid fa-trash text-danger"></i> Delete
+											</a>
+										</li>
+									</ul>
+			          </div>
+			        <?php endif; ?>
+			        </div>
+
 							<div class="col-12">
 								<h5 class="card-title fw-semibold"><?php echo $row->PostTitle; ?></h5>
 							</div>
@@ -409,6 +440,7 @@ require './config/db.php';
 	<script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="./resources/js/form_validate.js"></script>
 	<script src="./resources/js/livechat.js"></script>
+	<script src="./resources/js/tooltip.js" charset="utf-8"></script>
 	<script>
 		document.getElementById("discussion").classList.add("active");
 		var createComplaintBtn = document.querySelector('[data-bs-target="#post_form"]');

@@ -104,7 +104,7 @@ require './config/db.php';
 			                  </div>
 			                </div>
 			                <div class="col-12">
-			                	<button class="btn" type="submit" onclick="return confirm('Confirm self assign?')"><i class="fa-solid fa-marker"></i></button>
+			                	<button class="btn" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Assign to me" onclick="return confirm('Confirm self assign?')"><i class="fa-solid fa-marker"></i></button>
 			                </div>
 			              </form>
 									<?php
@@ -117,15 +117,15 @@ require './config/db.php';
 			            <button class="btn circle-1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
 			              <i class="fa-solid fa-ellipsis fa-xl"></i>
 			            </button>
-			            <ul class="dropdown-menu dropdown-menu-end shadow-sm">
-			              <li><a class="dropdown-item" href="./EditPost.php?post_id=<?php echo $row->PostID; ?>"><i class="fa-solid fa-pen-to-square text-info"></i> Edit</a></li>
-			              <li><a class="dropdown-item" href="#"><i class="fa-solid fa-check text-success"></i> Resolved</a></li>
-			              <li>
-			                <a class="dropdown-item" href="./controllers/DeletePostController.php?post_id=<?php echo $row->PostID; ?>" onclick="return confirm('Are you sure to delete the post?')">
-			                <i class="fa-solid fa-trash text-danger"></i> Delete
-			              </a>
-			              </li>
-			            </ul>
+									<ul class="dropdown-menu dropdown-menu-end shadow-sm">
+										<li><a class="dropdown-item" href="./EditPost.php?post_id=<?php echo $row->PostID; ?>"><i class="fa-solid fa-pen-to-square text-info"></i> Edit</a></li>
+										<li><a class="dropdown-item" href="./controllers/ResolveController.php?post_id=<?php echo $row->PostID; ?>"><i class="fa-solid fa-check text-success"></i> Resolved</a></li>
+										<li>
+											<a class="dropdown-item" href="./controllers/DeletePostController.php?post_id=<?php echo $row->PostID; ?>" onclick="return confirm('Are you sure to delete the post?')">
+												<i class="fa-solid fa-trash text-danger"></i> Delete
+											</a>
+										</li>
+									</ul>
 			          </div>
 			        <?php endif; ?>
 			        </div>
@@ -261,6 +261,7 @@ require './config/db.php';
 	<script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="./resources/js/form_validate.js"></script>
 	<script src="./recources/js/livechat.js"></script>
+	<script src="./resources/js/tooltip.js" charset="utf-8"></script>
 	<script>
 		document.getElementById("discussion").classList.add("active");
 	</script>
