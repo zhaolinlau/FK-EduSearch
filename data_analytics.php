@@ -47,8 +47,15 @@ require './config/db.php';
 				$stmt->execute();
 				$students = $stmt->fetchAll(PDO::FETCH_OBJ);
 				$total_students = $students[0]->students;
+				?>
+				<canvas id="users"></canvas>
+        <h3 class="text-center mt-3">Total Number Of Users</h3>
+			</div>
+		</div>
 
-
+		<div class="col-3">
+			<div class="shadow">
+				<?php
         try {
           //Get total likes
           $stmt = $conn->prepare('SELECT COUNT(*) AS total_likes FROM likes');
@@ -70,16 +77,32 @@ require './config/db.php';
           echo $e->getMessage();
         }
 				?>
-				<canvas id="users"></canvas>
-        <h3 class="text-center mt-3">Total Number Of Users</h3>
-			</div>
-		</div>
-
-		<div class="col-3">
-			<div class="shadow">
       <canvas id="UserActivity" class="bg-white"></canvas>
 			<h3 class="text-center mt-1">User Activity</h3>
       </div>
+		</div>
+
+		<div class="col-4 my-auto">
+			<div class="shadow bg-white">
+				<?php
+				$stmt = $conn->prepare('SELECT COUNT(*) AS new FROM bug WHERE Bug_Status = "New Reported"');
+				$stmt->execute();
+				$new = $stmt->fetchAll(PDO::FETCH_OBJ);
+				$total_new = $new[0]->new;
+
+				$stmt = $conn->prepare('SELECT COUNT(*) AS fixing FROM bug WHERE Bug_Status = "Fixing"');
+				$stmt->execute();
+				$fixing = $stmt->fetchAll(PDO::FETCH_OBJ);
+				$total_fixing = $fixing[0]->fixing;
+
+				$stmt = $conn->prepare('SELECT COUNT(*) AS resolved FROM bug WHERE Bug_Status = "Resolved"');
+				$stmt->execute();
+				$resolved = $stmt->fetchAll(PDO::FETCH_OBJ);
+				$total_resolved = $resolved[0]->resolved;
+				?>
+				<canvas id="bugs"></canvas>
+        <h3 class="text-center mt-3">Total Number Of Bugs</h3>
+			</div>
 		</div>
 	</div>
 
@@ -168,7 +191,36 @@ require './config/db.php';
 			},
 		});
 
-  
+		const bugs = [{
+				bug_label: "New Reported",
+				bug_count: <?php echo $total_new; ?>,
+			},
+			{
+				bug_label: "Fixing",
+				bug_count: <?php echo $total_fixing; ?>,
+			},
+			{
+				bug_label: "Resolved",
+				bug_count: <?php echo $total_resolved; ?>,
+			},
+		];
+
+	   new Chart(document.getElementById('bugs'), {
+	     type: 'doughnut',
+	     data: {
+	       labels: bugs.map((row) => row.bug_label),
+	       datasets: [{
+	         label: 'Total Number of Bugs',
+	         data: bugs.map((row) => row.bug_count),
+					 backgroundColor: [
+						 'rgb(255, 99, 132)',
+				      'rgb(54, 162, 235)',
+				      'rgb(255, 205, 86)'
+			    ],
+					hoverOffset: 4
+	       }]
+	     },
+	   });
 
 		document.getElementById("data_analytics").classList.add("active");
 	</script>

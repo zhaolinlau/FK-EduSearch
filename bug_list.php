@@ -44,7 +44,7 @@ require './config/db.php';
 						</thead>
 						<tbody>
 							<?php
-							$stmt = $conn->prepare('SELECT * FROM user JOIN bug ON user.UserID = bug.UserID');
+							$stmt = $conn->prepare('SELECT * FROM user JOIN bug ON user.UserID = bug.UserID ORDER BY BugID DESC');
 							$stmt->execute();
 							$bugs = $stmt->fetchAll(PDO::FETCH_OBJ);
 							$count = 1;
