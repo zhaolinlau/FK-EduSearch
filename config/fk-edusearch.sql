@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 17, 2023 at 12:23 AM
+-- Generation Time: Jun 17, 2023 at 09:44 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -81,8 +81,17 @@ CREATE TABLE `comment_report` (
   `UserID` bigint(255) NOT NULL,
   `ReportDescription` varchar(255) NOT NULL,
   `ReportStatus` int(1) NOT NULL,
-  `Reported_On` timestamp NOT NULL DEFAULT current_timestamp()
+  `Reported_On` timestamp NOT NULL DEFAULT current_timestamp(),
+  `screenshot` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `comment_report`
+--
+
+INSERT INTO `comment_report` (`ReportID`, `CommentID`, `UserID`, `ReportDescription`, `ReportStatus`, `Reported_On`, `screenshot`) VALUES
+(1, 52, 3, 'Testtttting@!', 3, '2023-06-17 01:42:31', 'e4rd.png'),
+(2, 53, 3, 'william good morning!!!', 1, '2023-06-17 01:43:03', 'DIVERSITY (1).png');
 
 -- --------------------------------------------------------
 
@@ -399,7 +408,7 @@ ALTER TABLE `comment`
 -- AUTO_INCREMENT for table `comment_report`
 --
 ALTER TABLE `comment_report`
-  MODIFY `ReportID` bigint(255) NOT NULL AUTO_INCREMENT;
+  MODIFY `ReportID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `complaint`
