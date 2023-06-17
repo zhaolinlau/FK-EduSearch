@@ -29,7 +29,7 @@ require "./Middleware/AdminAuth.php";
 			</div>
 			<div class="col-12">
 				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#user_form">
-					Add User
+					<i class="fa-solid fa-user-plus"></i> Add User
 				</button>
 			</div>
 			<div class="col-12">
@@ -74,13 +74,13 @@ require "./Middleware/AdminAuth.php";
 											endif;
 											?>
 										</td>
-                    <td>
-											<a class="btn btn-dark" href="./qrcode.php?UserID=<?php echo $row["UserID"]; ?>" target="_blank">QR Code</a>
+                    <td class="text-center">
+											<a class="btn btn-dark" href="./qrcode.php?UserID=<?php echo $row["UserID"]; ?>" target="_blank"><i class="fa-solid fa-qrcode"></i> QR Code</a>
                     </td>
 										<td class="text-center">
-											<a class="btn btn-info" href="./user_profile.php?UserID=<?php echo $row["UserID"]; ?>">View</a>
+											<a class="btn btn-info" href="./user_profile.php?UserID=<?php echo $row["UserID"]; ?>"><i class="fa-solid fa-eye"></i> View</a>
 										</td>
-										<td class="text-center"><a class="btn btn-danger" href="./Controllers/DeleteUserController.php?UserID=<?php echo $row["UserID"]; ?>" onclick="return confirm('Are you sure to delete <?php echo $row['UserName']; ?> ?')">Delete</a></td>
+										<td class="text-center"><a class="btn btn-danger" href="./Controllers/DeleteUserController.php?UserID=<?php echo $row["UserID"]; ?>" onclick="return confirm('Are you sure to delete <?php echo $row['UserName']; ?> ?')"><i class="fa-regular fa-trash-can"></i> Delete</a></td>
 									</tr>
 							<?php
 								endforeach;

@@ -27,7 +27,7 @@ require './config/db.php';
 		<div class="row w-100">
 			<div class="col-12">
 				<div class="table-responsive w-100">
-					<table class="table table-hover w-100" id="bug_table">
+					<table class="table table-hover w-100 table-bordered" id="bug_table">
 						<h3>Bug List</h3>
 						<thead>
 							<tr>
@@ -36,7 +36,10 @@ require './config/db.php';
 								<th>Description</th>
 								<th>Screenshot</th>
 								<th>Reported By</th>
-								<th>Action</th>
+								<th>Status</th>
+								<th>Fix Issue</th>
+								<th>Close Issue</th>
+								<th>Deletion</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -50,9 +53,12 @@ require './config/db.php';
 								<td><?php echo $count++ ?></td>
 								<td><?php echo $bug->Bug_Title ?></td>
 								<td><?php echo $bug->Bug_Description ?></td>
-								<td><?php echo $bug->Screenshot ?></td>
+								<td><a href="./bug_reports/<?php echo $bug->BugID . '/' . $bug->Screenshot ?>"><?php echo $bug->Screenshot ?></a></td>
 								<td><?php echo $bug->UserName ?></td>
-								<td><a href="#" class="btn btn-success" onclick="confirm('Are you sure the bug has been resolved?');">Resolved</a></td>
+								<td><?php echo $bug->Bug_Status ?></td>
+								<td class="text-center"><a href="./controllers/FixBugController.php?bug_id=<?php echo $bug->BugID ?>" onclick="return confirm('Confirm add to fixing list?')" class="btn btn-warning"><i class="fa-solid fa-wrench"></i> Fix</a></td>
+								<td class="text-center"><a href="./controllers/CloseBugController.php?bug_id=<?php echo $bug->BugID ?>" class="btn btn-success" onclick="return confirm('Are you sure the bug has been resolved?');"><i class="fa-regular fa-circle-check"></i> Close</a></td>
+								<td class="text-center"><a href="./controllers/DeleteBugController.php?bug_id=<?php echo $bug->BugID ?>" class="btn btn-danger" onclick="return confirm('Confirm delete?');"><i class="fa-regular fa-trash-can"></i> Delete</a></td>
 							</tr>
 						<?php endforeach; ?>
 						</tbody>
