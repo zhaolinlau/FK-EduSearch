@@ -58,24 +58,19 @@ require './config/db.php';
             ?>
                 <!-- Modal -->
                 <div class="modal fade" id="imageModal<?php echo $row['ReportID']; ?>" tabindex="-1" aria-labelledby="imageModalLabel<?php echo $row['ReportID']; ?>" aria-hidden="true">
-
-
-
-                  <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                       <div class="modal-header">
                       <h5 class="modal-title" id="imageModalLabel<?php echo $row['ReportID']; ?>"><?php echo basename($row['screenshot']); ?></h5>
-
-
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
-                      <img id="previewImage<?php echo $row['ReportID']; ?>" src="" alt="Preview">
-
+                      <img id="previewImage<?php echo $row['ReportID']; ?>" class="img-fluid" alt="Preview">
                       </div>
                     </div>
                   </div>
                 </div>
+
                 <tr>
                   <th scope="row"><?php echo $count++ ?></th>
                   <td><?php echo $row['CommentID'] ?></td>
@@ -105,7 +100,6 @@ require './config/db.php';
                   <td>
                     <ul class="list-inline">
                       <li class="list-inline-item">
-
                       <button class="btn btn-outline-info ms-2 preview-button" data-bs-toggle="modal" data-bs-target="#imageModal<?php echo $row['ReportID']; ?>" data-image="./comment_reports/<?php echo $row['ReportID'] . '/' . $row['screenshot']; ?>">
                           <i class="fa-regular fa-file-image fa-lg" style="color: #09f1ed;"></i>
                         </button>
