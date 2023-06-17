@@ -66,25 +66,6 @@ require './config/db.php';
 								<span class="badge bg-secondary fs-6"><i class="fa-solid fa-tag"></i> <?php echo $row->PostCategory; ?></span>
 								Posted by <?php echo $row->UserName; ?> on <?php echo $row->PostCreated; ?>
 							</div>
-							<?php
-							if($_SESSION['user_id'] == $row->UserID) : ?>
-							<div class="col-1 d-flex justify-content-end">
-								<div class="dropdown">
-									<button class="btn circle-1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-										<i class="fa-solid fa-ellipsis fa-xl"></i>
-									</button>
-									<ul class="dropdown-menu dropdown-menu-end shadow-sm">
-										<li><a class="dropdown-item" href="./EditPost.php?post_id=<?php echo $row->PostID; ?>"><i class="fa-solid fa-pen-to-square text-info"></i> Edit</a></li>
-										<li><a class="dropdown-item" href="#"><i class="fa-solid fa-check text-success"></i> Resolved</a></li>
-										<li>
-											<a class="dropdown-item" href="./controllers/DeletePostController.php?post_id=<?php echo $row->PostID; ?>" onclick="return confirm('Are you sure to delete the post?')">
-											<i class="fa-solid fa-trash text-danger"></i> Delete
-										</a>
-										</li>
-									</ul>
-								</div>
-							</div>
-						<?php endif; ?>
 							<div class="col-12">
 								<h5 class="card-title fw-semibold"><?php echo $row->PostTitle; ?></h5>
 							</div>
