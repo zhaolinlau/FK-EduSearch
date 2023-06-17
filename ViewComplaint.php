@@ -6,7 +6,7 @@ require "./Middleware/Authenticate.php";
 	$complaintID = $_GET['ComplaintID'];
 	$UserID = $_SESSION["user_id"];
 
-	$stmt=$conn->prepare("SELECT u.UserID, u.UserName,c.FeedbackID,c.ComplaintResponse, c.ComplaintStatus,c.ComplaintDescription,c.ComplaintType,c.ComplaintCreatedDate FROM user u
+	$stmt=$conn->prepare("SELECT u.UserID, u.UserName,c.ComplaintPhoto,c.FeedbackID,c.ComplaintResponse, c.ComplaintStatus,c.ComplaintDescription,c.ComplaintType,c.ComplaintCreatedDate FROM user u
 	                      JOIN complaint c ON c.UserID = u.UserID
 	                      WHERE ComplaintID = :complaintID;");
 	 $stmt->bindParam(':complaintID', $complaintID);
@@ -46,12 +46,11 @@ require "./Middleware/Authenticate.php";
 
 <body class="h-100">
 <?php require "layouts/navbar.php"?>
-		<div class="col" style="margin-top:80px; margin-bottom:20px">
+		<div class="col" style="margin-top:80px; margin-bottom:30px">
 			<div style="width: 900px; border:1px solid; margin:0 auto;border-color:lightgrey">
     	<br>
 	&nbsp &nbsp<label class="text2">View Complaint</label>
 	<hr>
-  <form>
   <div class="form-group row">
     <label for="UserID" class="col-sm-2 col-form-label">User ID</label>
     <div class="col-sm-8">
@@ -113,12 +112,19 @@ require "./Middleware/Authenticate.php";
   </div>
   </div>
   <div class="form-group row">
+  <label for="ComplaintPhoto" class="col-sm-2 col-form-label">Complaint Photo</label>
   <div class="col-sm-8">
-	<input class="btn btn-primary" type="button" value="Edit" style="margin-left: 100px; padding:10px 30px;" onclick="window.location.href='EditComplaint.php?ComplaintID=<?php echo $complaintID;?>'">
-  <input class="btn btn-primary" type="button" value="Back" style="margin-left: 250px;padding:10px 30px;" onclick="window.location.href='ComplaintList.php'">
+  <button class="btn btn-outline-info ms-2 preview-button" style="width:280px;" data-bs-toggle="modal" data-bs-target="#imageModal<?php echo $complaint['ComplaintPhoto']; ?>" data-image="./uploads/<?php echo $complaint['ComplaintPhoto']?>">
+    View Complaint Photo  <i class="fa-regular fa-file-image fa-lg" style="color: #09f1ed;"></i>
+  </button>
   </div>
   </div>
-</form method="post">
+  <div class="form-group row">
+  <div class="col-sm-8">
+	<input class="btn btn-primary" type="button" value="Edit" style="margin-top:20px; margin-left: 100px; padding:10px 30px;" onclick="window.location.href='EditComplaint.php?ComplaintID=<?php echo $complaintID;?>'">
+  <input class="btn btn-primary" type="button" value="Back" style="margin-top:20px; margin-left: 250px;padding:10px 30px;" onclick="window.location.href='ComplaintList.php'">
+  </div>
+  </div>
   </div>
   </div>
   <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
@@ -137,6 +143,32 @@ require "./Middleware/Authenticate.php";
     </div>
   </div>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="imageModal<?php echo $complaint['ComplaintPhoto']; ?>" tabindex="-1" aria-labelledby="imageModalLabel<?php echo $complaint['ComplaintPhoto']; ?>" aria-hidden="true">
+                  <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                      <h5 class="modal-title" id="imageModalLabel<?php echo $complaint['ComplaintPhoto']; ?>">Screenshot</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                      <img id="previewImage<?php echo $complaint['ComplaintPhoto']; ?>" class="img-fluid" alt="Preview">
+                      </div>
+                    </div>
+                  </div>
+                </div>
 <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+<script>
+   const previewButtons = document.querySelectorAll('.preview-button');
+
+previewButtons.forEach(button => {
+  button.addEventListener('click', function() {
+    const imagePath = this.getAttribute('data-image');
+    const modalId = this.getAttribute('data-bs-target').replace('#imageModal', '');
+    const previewImage = document.getElementById('previewImage' + modalId);
+    previewImage.src = imagePath;
+  });
+});
+</script>
 </body>
 </html>
