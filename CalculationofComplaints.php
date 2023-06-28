@@ -187,9 +187,6 @@ $conn = null;
         }
       });
 
-      // Show the day chart by default
-      document.getElementById('complaintDayChart').style.display = 'block';
-
       // Attach click event handlers to the buttons
       document.getElementById('dayButton').addEventListener('click', function () {
         document.getElementById('complaintDayChart').style.display = 'block';
