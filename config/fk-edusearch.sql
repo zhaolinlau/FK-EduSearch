@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 17, 2023 at 10:07 AM
+-- Generation Time: Jun 17, 2023 at 10:48 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -42,7 +42,11 @@ CREATE TABLE `bug` (
 --
 
 INSERT INTO `bug` (`BugID`, `UserID`, `Screenshot`, `Bug_Title`, `Bug_Description`, `Bug_Status`, `Bug_Reported`) VALUES
-(8, 1, 'programmer-1653351.png', 'hello', 'asdfasdf', 'New Reported', '2023-06-17 08:00:24');
+(11, 1, 'vuejs.png', 'dfghdfgh', 'dfghdfgh', 'New Reported', '2023-06-17 16:22:13'),
+(12, 1, 'vuejs.png', 'fghjfghj', 'fghjfghj', 'Fixing', '2023-06-17 16:22:22'),
+(13, 1, 'vuejs.png', 'ftghjfghj', 'fghjfghj', 'Resolved', '2023-06-17 16:22:27'),
+(14, 1, 'vuejs.png', 'jjj', 'jjj', 'New Reported', '2023-06-17 16:23:05'),
+(15, 1, 'programmer-1653351.png', 'fghdrfgh', 'dfghdfgh', 'New Reported', '2023-06-17 19:20:13');
 
 -- --------------------------------------------------------
 
@@ -75,7 +79,9 @@ INSERT INTO `comment` (`CommentID`, `PostID`, `UserID`, `CommentDetails`, `Comme
 (53, 24, 15, '', '2023-06-07 19:00:16', '2023-06-07 19:00:16'),
 (54, 26, 2, 'hhhhh', '2023-06-07 22:52:41', '2023-06-07 22:52:41'),
 (55, 25, 2, 'ggggg', '2023-06-07 23:55:05', '2023-06-07 23:55:05'),
-(56, 27, 3, 'sdnbfrb', '2023-06-16 13:57:54', '2023-06-16 13:57:54');
+(56, 27, 3, 'sdnbfrb', '2023-06-16 13:57:54', '2023-06-16 13:57:54'),
+(58, 29, 21, 'sdfsdf', '2023-06-17 14:51:30', '2023-06-17 14:51:30'),
+(59, 29, 2, 'asdasd', '2023-06-17 14:51:52', '2023-06-17 14:51:52');
 
 -- --------------------------------------------------------
 
@@ -176,7 +182,9 @@ INSERT INTO `feedback` (`FeedbackID`, `PostID`, `ExpertID`, `ExpertFeedback`, `U
 (12, 25, 'EXB023', 'ggggg', 0, '', '2023-06-07 23:55:01'),
 (13, 27, 'EXB023', 'cafcwkifwf\r\n', 0, '', '2023-06-09 05:21:37'),
 (14, 28, 'EXP222', 'ya.  You are right. But Laravel and PHP are more better than  C# and ASP.NET', 0, '', '2023-06-15 17:54:09'),
-(15, 23, 'EXB023', 'zbdsghbw', 0, '', '2023-06-16 14:08:43');
+(15, 23, 'EXB023', 'zbdsghbw', 0, '', '2023-06-16 14:08:43'),
+(16, 29, 'EXB023', 'http://localhost/FK-EduSearch/comments.php?post_id=29', 0, '', '2023-06-17 14:51:56'),
+(17, 24, 'EXP222', 'dfhdfgh', 0, '', '2023-06-17 15:05:49');
 
 -- --------------------------------------------------------
 
@@ -223,11 +231,17 @@ CREATE TABLE `post` (
 INSERT INTO `post` (`PostID`, `UserID`, `PostStatus`, `PostTitle`, `PostContent`, `PostCategory`, `ExpertID`, `PostCreated`, `PostUpdated`) VALUES
 (22, 15, 'Revised', 'sdfgsdfg', 'sdefgsdfg', 'Others', 'EXB023', '2023-06-06 22:14:10', '2023-06-06 22:30:31'),
 (23, 15, 'Revised', 'ggg', 'ggg', 'QNA', 'EXB023', '2023-06-07 02:41:03', '2023-06-07 02:46:31'),
-(24, 2, 'Pending', 'asdfasdf', 'asdfasdf', 'Annoucement', '', '2023-06-07 17:03:06', '2023-06-07 17:03:06'),
+(24, 2, 'Revised', 'asdfasdf', 'asdfasdf', 'Annoucement', 'EXP222', '2023-06-07 17:03:06', '2023-06-17 15:05:49'),
 (25, 15, 'Revised', 'aaa', 'aaa', 'Sharing', 'EXB023', '2023-06-07 17:22:14', '2023-06-07 17:39:51'),
 (26, 15, 'Revised', 'fff', 'fff', 'Annoucement', 'EXB023', '2023-06-07 17:43:14', '2023-06-07 17:50:09'),
 (27, 15, 'Revised', 'adSFEGW', 'FWFWFW', 'Sharing', 'EXB023', '2023-06-09 05:20:29', '2023-06-09 05:21:37'),
-(28, 3, 'Revised', 'C# is the trend', 'ASP.NET is one of the popular languages for the programming language C#. C# is one of the famous server-side language to develop the back-end.', 'Sharing', 'EXP222', '2023-06-15 17:53:04', '2023-06-15 17:54:09');
+(28, 3, 'Revised', 'C# is the trend', 'ASP.NET is one of the popular languages for the programming language C#. C# is one of the famous server-side language to develop the back-end.', 'Sharing', 'EXP222', '2023-06-15 17:53:04', '2023-06-15 17:54:09'),
+(29, 1, 'Revised', 'sfda', 'sadf', 'Sharing', 'EXB023', '2023-06-17 14:37:26', '2023-06-17 14:51:56'),
+(30, 2, 'Accepted', 'asfd', 'sfd', 'Annoucement', 'EXP222', '2023-06-17 14:54:58', '2023-06-17 15:03:57'),
+(31, 21, 'Completed', 'fghj', 'fgjh', 'Annoucement', '', '2023-06-17 15:04:01', '2023-06-17 15:09:19'),
+(32, 21, 'Completed', 'fghjfghj', 'ghjfghjfghj', 'Annoucement', '', '2023-06-17 15:06:00', '2023-06-17 15:08:19'),
+(33, 21, 'Completed', 'sdfgsdfg', 'dfgsdfg', 'Annoucement', '', '2023-06-17 15:09:24', '2023-06-17 15:09:29'),
+(34, 21, 'Completed', 'asdf', 'asdf', 'Annoucement', '', '2023-06-17 16:00:11', '2023-06-17 16:06:17');
 
 -- --------------------------------------------------------
 
@@ -296,7 +310,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`UserID`, `UserName`, `UserPassword`, `UserEmail`, `UserSocialMedia`, `UserResearchArea`, `StaffID`, `StudentID`, `ExpertID`, `UserRole`, `ResearchTopic`, `ExpertAreaOfExpertise`, `ExpertCV`, `ExpertAccountStatus`, `ExpertRatings`, `PublicationID`, `UserCreated`, `UserUpdated`) VALUES
-(1, 'admin', '$2y$10$KNL1l8BZGYGbtA63C.ikpuevRBo3OIsZQ3ITuZ2LkACh8B5mxptSy', 'admin@gmail.com', '', '', 'STA001', '0', '', 0, '', '', '', 0, 0, 0, '2023-06-04 21:32:22', '2023-06-06 22:43:11'),
+(1, 'admin', '$2y$10$KNL1l8BZGYGbtA63C.ikpuevRBo3OIsZQ3ITuZ2LkACh8B5mxptSy', 'admin@gmail.com', '', '', 'STA001', '0', '', 0, '', '', '', 1, 0, 0, '2023-06-04 21:32:22', '2023-06-17 14:30:48'),
 (2, 'expert', '$2y$10$oqnJGRxriBE8NJli9yice.P4..48apl7fH2EmuC0rxljahoD3mey6', 'expert@gmail.com', '', '', '', '0', 'EXB023', 1, '', '', '', 0, 0, 0, '2023-06-04 21:32:22', '2023-06-04 21:32:53'),
 (3, 'lecturer', '$2y$10$u3lUUWPNcQD3a5rz3IhkfeNg1asAuRe766JDH4bJGtlWj524jUyEq', 'lecturer@gmail.com', '', '', 'STH750', '0', '', 2, '', '', '', 1, 0, 0, '2023-06-04 21:32:22', '2023-06-16 10:31:22'),
 (15, 'student', '$2y$10$JD3I5mBarXmeIu9RdTM.R.Xw8vNYJUPKtS97M2raOeHlTXTsamizW', 'student@gmail.com', '', '', '', 'cb22039', '', 3, '', '', '', 0, 0, 0, '2023-06-04 22:41:48', '2023-06-06 23:21:46'),
@@ -404,13 +418,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `bug`
 --
 ALTER TABLE `bug`
-  MODIFY `BugID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `BugID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `CommentID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `CommentID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT for table `comment_report`
@@ -428,7 +442,7 @@ ALTER TABLE `complaint`
 -- AUTO_INCREMENT for table `feedback`
 --
 ALTER TABLE `feedback`
-  MODIFY `FeedbackID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `FeedbackID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `likes`
@@ -440,7 +454,7 @@ ALTER TABLE `likes`
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
-  MODIFY `PostID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `PostID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `publication`

@@ -91,6 +91,7 @@ $conn = null;
     <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js'></script>
     <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
     <script>
+    document.getElementById('complaint_list').classList.add('active');
           // Pass the complaint data to the JavaScript code
           var complaintData = <?php echo json_encode($ComplaintData); ?>;
 

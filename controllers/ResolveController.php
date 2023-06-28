@@ -9,7 +9,7 @@ try {
   $stmt->bindParam(':post_status', $post_status);
   $stmt->execute();
 
-  header('location: ../comments.php?post_id=' . $post_id);
+  echo "<script>history.back()</script>";
 
 } catch (PDOException $e) {
   echo $e->getMessage();

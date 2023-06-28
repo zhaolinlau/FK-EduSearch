@@ -24,123 +24,189 @@ require './config/db.php';
 <body>
 	<?php require "layouts/navbar.php" ?>
 
-	<div class="row justify-content-center d-flex py-5">
-		<div class="col-4 my-auto">
-			<div class="shadow bg-white">
-				<?php
-				$stmt = $conn->prepare('SELECT COUNT(*) AS admins FROM user WHERE userRole = 0');
-				$stmt->execute();
-				$admins = $stmt->fetchAll(PDO::FETCH_OBJ);
-				$total_admins = $admins[0]->admins;
+	<div class="container-fluid py-5 mt-5">
+		<div class="row justify-content-center">
+			<div class="col-4 my-auto">
+				<div class="shadow bg-white">
+					<?php
+					$stmt = $conn->prepare('SELECT COUNT(*) AS admins FROM user WHERE userRole = 0');
+					$stmt->execute();
+					$admins = $stmt->fetchAll(PDO::FETCH_OBJ);
+					$total_admins = $admins[0]->admins;
 
-				$stmt = $conn->prepare('SELECT COUNT(*) AS experts FROM user WHERE userRole = 1');
-				$stmt->execute();
-				$experts = $stmt->fetchAll(PDO::FETCH_OBJ);
-				$total_experts = $experts[0]->experts;
+					$stmt = $conn->prepare('SELECT COUNT(*) AS experts FROM user WHERE userRole = 1');
+					$stmt->execute();
+					$experts = $stmt->fetchAll(PDO::FETCH_OBJ);
+					$total_experts = $experts[0]->experts;
 
-				$stmt = $conn->prepare('SELECT COUNT(*) AS lecturers FROM user WHERE userRole = 2');
-				$stmt->execute();
-				$lecturers = $stmt->fetchAll(PDO::FETCH_OBJ);
-				$total_lecturers = $lecturers[0]->lecturers;
+					$stmt = $conn->prepare('SELECT COUNT(*) AS lecturers FROM user WHERE userRole = 2');
+					$stmt->execute();
+					$lecturers = $stmt->fetchAll(PDO::FETCH_OBJ);
+					$total_lecturers = $lecturers[0]->lecturers;
 
-				$stmt = $conn->prepare('SELECT COUNT(*) AS students FROM user WHERE userRole = 3');
-				$stmt->execute();
-				$students = $stmt->fetchAll(PDO::FETCH_OBJ);
-				$total_students = $students[0]->students;
-
-
-        try {
-          //Get total likes
-          $stmt = $conn->prepare('SELECT COUNT(*) AS total_likes FROM likes');
-          $stmt->execute();
-          $likes = $stmt->fetch(PDO::FETCH_OBJ);
-          $totalLikes = $likes->total_likes;
-          // Get total posts
-          $stmt = $conn->prepare('SELECT COUNT(*) AS total_posts FROM post');
-          $stmt->execute();
-          $posts = $stmt->fetch(PDO::FETCH_OBJ);
-          $totalPosts = $posts->total_posts;
-
-          // Get total comments
-          $stmt = $conn->prepare('SELECT COUNT(*) AS total_comments FROM comment');
-          $stmt->execute();
-          $comments = $stmt->fetch(PDO::FETCH_OBJ);
-          $totalComments = $comments->total_comments;
-        } catch (PDOException $e) {
-          echo $e->getMessage();
-        }
-				?>
-				<canvas id="users"></canvas>
-        <h3 class="text-center mt-3">Total Number Of Users</h3>
+					$stmt = $conn->prepare('SELECT COUNT(*) AS students FROM user WHERE userRole = 3');
+					$stmt->execute();
+					$students = $stmt->fetchAll(PDO::FETCH_OBJ);
+					$total_students = $students[0]->students;
+					?>
+					<canvas id="users"></canvas>
+					<h3 class="text-center mt-3">Total Number Of Users</h3>
+				</div>
 			</div>
-		</div>
 
-		<div class="col-3">
-			<div class="shadow">
-      <canvas id="UserActivity" class="bg-white"></canvas>
-			<h3 class="text-center mt-1">User Activity</h3>
-      </div>
+			<div class="col-3">
+				<div class="shadow bg-white">
+					<?php
+					try {
+						//Get total likes
+						$stmt = $conn->prepare('SELECT COUNT(*) AS total_likes FROM likes');
+						$stmt->execute();
+						$likes = $stmt->fetch(PDO::FETCH_OBJ);
+						$totalLikes = $likes->total_likes;
+						// Get total posts
+						$stmt = $conn->prepare('SELECT COUNT(*) AS total_posts FROM post');
+						$stmt->execute();
+						$posts = $stmt->fetch(PDO::FETCH_OBJ);
+						$totalPosts = $posts->total_posts;
+
+						// Get total comments
+						$stmt = $conn->prepare('SELECT COUNT(*) AS total_comments FROM comment');
+						$stmt->execute();
+						$comments = $stmt->fetch(PDO::FETCH_OBJ);
+						$totalComments = $comments->total_comments;
+					} catch (PDOException $e) {
+						echo $e->getMessage();
+					}
+					?>
+					<canvas id="UserActivity" class="bg-white"></canvas>
+					<h3 class="text-center mt-1">User Activity</h3>
+				</div>
+			</div>
+
+			<div class="col-3 my-auto">
+				<div class="shadow bg-white">
+					<?php
+					$stmt = $conn->prepare('SELECT COUNT(*) AS new FROM bug WHERE Bug_Status = "New Reported"');
+					$stmt->execute();
+					$new = $stmt->fetchAll(PDO::FETCH_OBJ);
+					$total_new = $new[0]->new;
+
+					$stmt = $conn->prepare('SELECT COUNT(*) AS fixing FROM bug WHERE Bug_Status = "Fixing"');
+					$stmt->execute();
+					$fixing = $stmt->fetchAll(PDO::FETCH_OBJ);
+					$total_fixing = $fixing[0]->fixing;
+
+					$stmt = $conn->prepare('SELECT COUNT(*) AS resolved FROM bug WHERE Bug_Status = "Resolved"');
+					$stmt->execute();
+					$resolved = $stmt->fetchAll(PDO::FETCH_OBJ);
+					$total_resolved = $resolved[0]->resolved;
+					?>
+					<canvas id="bugs"></canvas>
+					<h3 class="text-center mt-3">Total Number Of Bugs</h3>
+				</div>
+			</div>
+
+			<div class="col-3">
+				<div class="shadow bg-white">
+					<?php
+					// Query for the current day
+					$currentDayQuery = "SELECT ReportStatus, COUNT(*) AS TotalReports FROM comment_report WHERE DATE(Reported_On) = CURDATE() GROUP BY ReportStatus";
+					$currentDayStatement = $conn->prepare($currentDayQuery);
+					$currentDayStatement->execute();
+					$currentDayResult = $currentDayStatement->fetchAll(PDO::FETCH_ASSOC);
+					?>
+					<canvas id="ReportByDay" class="bg-white"></canvas>
+					<h3 class="text-center mt-1">Total Number Of Reports (Today)</h3>
+				</div>
+			</div>
+
+			<div class="col-3 my-auto">
+				<div class="shadow bg-white">
+					<?php
+					// Query for the current week
+					$currentWeekQuery = "SELECT ReportStatus, COUNT(*) AS TotalReports FROM comment_report WHERE WEEK(Reported_On) = WEEK(CURDATE()) GROUP BY ReportStatus";
+					$currentWeekStatement = $conn->prepare($currentWeekQuery);
+					$currentWeekStatement->execute();
+					$currentWeekResult = $currentWeekStatement->fetchAll(PDO::FETCH_ASSOC);
+					?>
+					<canvas id="ReportByWeek" class="bg-white"></canvas>
+					<h3 class="text-center mt-1">Total Number Of Reports (This Week)</h3>
+				</div>
+			</div>
+
+			<div class="col-3 my-auto">
+				<div class="shadow bg-white">
+					<?php
+					// Query for the current month
+					$currentMonthQuery = "SELECT ReportStatus, COUNT(*) AS TotalReports FROM comment_report WHERE MONTH(Reported_On) = MONTH(CURDATE()) GROUP BY ReportStatus";
+					$currentMonthStatement = $conn->prepare($currentMonthQuery);
+					$currentMonthStatement->execute();
+					$currentMonthResult = $currentMonthStatement->fetchAll(PDO::FETCH_ASSOC);
+					?>
+					<canvas id="ReportByMonth" class="bg-white"></canvas>
+					<h3 class="text-center mt-1">Total Number Of Reports (This Month)</h3>
+				</div>
+			</div>
+
 		</div>
 	</div>
-
 
 	<script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="./resources/js/livechat.js"></script>
 	<script src="./node_modules/chart.js/dist/chart.umd.js"></script>
 	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 	<script>
+		const users = [{
+				user_label: "Admins",
+				user_count: <?php echo $total_admins; ?>,
+			},
+			{
+				user_label: "Experts",
+				user_count: <?php echo $total_experts; ?>,
+			},
+			{
+				user_label: "Lecturers",
+				user_count: <?php echo $total_lecturers; ?>,
+			},
+			{
+				user_label: "Students",
+				user_count: <?php echo $total_students; ?>,
+			},
+		];
 
-	const users = [{
-			user_label: "Admins",
-			user_count: <?php echo $total_admins; ?>,
-		},
-		{
-			user_label: "Experts",
-			user_count: <?php echo $total_experts; ?>,
-		},
-		{
-			user_label: "Lecturers",
-			user_count: <?php echo $total_lecturers; ?>,
-		},
-		{
-			user_label: "Students",
-			user_count: <?php echo $total_students; ?>,
-		},
-	];
-
-   new Chart(document.getElementById('users'), {
-     type: 'bar',
-     data: {
-       labels: users.map((row) => row.user_label),
-       datasets: [{
-         label: 'Total Number of Users',
-         data: users.map((row) => row.user_count),
-				 backgroundColor: [
-		      'rgba(255, 99, 132, 0.2)',
-		      'rgba(255, 159, 64, 0.2)',
-		      'rgba(255, 205, 86, 0.2)',
-		      'rgba(75, 192, 192, 0.2)',
-		    ],
-		    borderColor: [
-		      'rgb(255, 99, 132)',
-		      'rgb(255, 159, 64)',
-		      'rgb(255, 205, 86)',
-		      'rgb(75, 192, 192)',
-		    ],
-         borderWidth: 1
-       }]
-     },
-     options: {
-       scales: {
-         y: {
-           beginAtZero: true,
-					 ticks: {
-          	precision: 0,
-        	}
-        }
-       }
-     }
-   });
+		new Chart(document.getElementById('users'), {
+			type: 'bar',
+			data: {
+				labels: users.map((row) => row.user_label),
+				datasets: [{
+					label: 'Total Number of Users',
+					data: users.map((row) => row.user_count),
+					backgroundColor: [
+						'rgba(255, 99, 132, 0.2)',
+						'rgba(255, 159, 64, 0.2)',
+						'rgba(255, 205, 86, 0.2)',
+						'rgba(75, 192, 192, 0.2)',
+					],
+					borderColor: [
+						'rgb(255, 99, 132)',
+						'rgb(255, 159, 64)',
+						'rgb(255, 205, 86)',
+						'rgb(75, 192, 192)',
+					],
+					borderWidth: 1
+				}]
+			},
+			options: {
+				scales: {
+					y: {
+						beginAtZero: true,
+						ticks: {
+							precision: 0,
+						}
+					}
+				}
+			}
+		});
 
 		const info = [{
 				activity: "Posts",
@@ -168,7 +234,130 @@ require './config/db.php';
 			},
 		});
 
-  
+		const bugs = [{
+				bug_label: "New Reported",
+				bug_count: <?php echo $total_new; ?>,
+			},
+			{
+				bug_label: "Fixing",
+				bug_count: <?php echo $total_fixing; ?>,
+			},
+			{
+				bug_label: "Resolved",
+				bug_count: <?php echo $total_resolved; ?>,
+			},
+		];
+
+		new Chart(document.getElementById('bugs'), {
+			type: 'doughnut',
+			data: {
+				labels: bugs.map((row) => row.bug_label),
+				datasets: [{
+					label: 'Total Number of Bugs',
+					data: bugs.map((row) => row.bug_count),
+					backgroundColor: [
+						'rgb(255, 99, 132)',
+						'rgb(54, 162, 235)',
+						'rgb(255, 205, 86)'
+					],
+					hoverOffset: 4
+				}]
+			},
+		});
+
+		// Store the PHP retrieved data in JavaScript variables
+		const currentDayReports = <?php echo json_encode($currentDayResult); ?>;
+		const currentWeekReports = <?php echo json_encode($currentWeekResult); ?>;
+		const currentMonthReports = <?php echo json_encode($currentMonthResult); ?>;
+
+		// Create a chart using Chart.js for the current day
+		new Chart(document.getElementById("ReportByDay"), {
+			type: "polarArea",
+			data: {
+				labels: currentDayReports.map(row => {
+					switch (row.ReportStatus) {
+						case 1:
+							return "In Investigation";
+						case 2:
+							return "On Hold";
+						case 3:
+							return "Resolved";
+						default:
+							return "";
+					}
+				}),
+				datasets: [{
+					label: "Total reports",
+					data: currentDayReports.map(row => row.TotalReports),
+					backgroundColor: [
+						'rgba(255, 99, 132, 0.2)', // In Investigation color
+						'rgba(54, 162, 235, 0.2)', // On Hold color
+						'rgba(75, 192, 192, 0.2)', // Resolved color
+					],
+				}],
+			},
+		});
+
+
+
+		// Create a chart using Chart.js for the current week
+		new Chart(document.getElementById("ReportByWeek"), {
+			type: "polarArea",
+			data: {
+				labels: currentWeekReports.map(row => {
+					switch (row.ReportStatus) {
+						case 1:
+							return "In Investigation";
+						case 2:
+							return "On Hold";
+						case 3:
+							return "Resolved";
+						default:
+							return "";
+					}
+				}),
+				datasets: [{
+					label: "Total reports",
+					data: currentWeekReports.map(row => row.TotalReports),
+					backgroundColor: [
+						'rgba(255, 99, 132, 0.2)', // In Investigation color
+						'rgba(54, 162, 235, 0.2)', // On Hold color
+						'rgba(75, 192, 192, 0.2)', // Resolved color
+					],
+				}],
+			},
+		});
+
+
+
+
+		// Create a chart using Chart.js for the current month
+		new Chart(document.getElementById("ReportByMonth"), {
+			type: "polarArea",
+			data: {
+				labels: currentMonthReports.map(row => {
+					switch (row.ReportStatus) {
+						case 1:
+							return "In Investigation";
+						case 2:
+							return "On Hold";
+						case 3:
+							return "Resolved";
+						default:
+							return "";
+					}
+				}),
+				datasets: [{
+					label: "Total reports",
+					data: currentMonthReports.map(row => row.TotalReports),
+					backgroundColor: [
+						'rgba(255, 99, 132, 0.2)', // In Investigation color
+						'rgba(54, 162, 235, 0.2)', // On Hold color
+						'rgba(75, 192, 192, 0.2)', // Resolved color
+					],
+				}],
+			},
+		});
 
 		document.getElementById("data_analytics").classList.add("active");
 	</script>

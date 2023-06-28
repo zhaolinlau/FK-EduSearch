@@ -35,7 +35,7 @@ if (isset($_POST["UpdateStatus"])) {
             require "./config/db.php";
             $complaint_responses = $_POST['complaint_response'];
             $complaint_ids = $_POST['complaint_ids'];
-    
+
             foreach ($complaint_ids as $key => $complaint_id) {
                 $complaint_response = $complaint_responses[$key];
                 $stmt = $conn->prepare("UPDATE complaint SET ComplaintResponse = :response WHERE ComplaintID = :complaintID");
@@ -43,7 +43,7 @@ if (isset($_POST["UpdateStatus"])) {
                 $stmt->bindParam(":complaintID", $complaint_id);
                 $stmt->execute();
             }
-    
+
             $_SESSION['success_message'] = 'The response has been recorded.';
             header('Location: ' . $_SERVER['HTTP_REFERER']);
             exit();
@@ -216,7 +216,7 @@ if (isset($_POST["UpdateStatus"])) {
 
                                         <?php
                                         }
-                                        
+
                                     } else {
                                         ?>
                                         <tr>
@@ -233,7 +233,7 @@ if (isset($_POST["UpdateStatus"])) {
                 </div>
             </div>
         </div>
-        
+
 
 
 		<script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -250,6 +250,7 @@ if (isset($_POST["UpdateStatus"])) {
 
 
 <script>
+document.getElementById('complaint_list').classList.add('active');
             $.fn.dataTable.Buttons.defaults.dom.button.className = "btn btn-outline-primary";
     $("#complaint_table").DataTable({
       language: {
