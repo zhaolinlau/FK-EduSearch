@@ -91,22 +91,21 @@ require "./Middleware/Authenticate.php";
             </table>
         </div>
         <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="alertModalLabel">Record</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p id="alertMessage"></p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
-                    </div>
-                </div>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="alertModalLabel">Record</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="alertMessage"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
             </div>
         </div>
     </div>
+</div>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -115,34 +114,37 @@ require "./Middleware/Authenticate.php";
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
   <script src="https://cdn.datatables.net/v/bs5/jq-3.6.0/jszip-2.5.0/dt-1.13.4/b-2.3.6/b-colvis-2.3.6/b-html5-2.3.6/b-print-2.3.6/datatables.min.js"></script>
-    <script>
-         function deleteComplaint(complaintID) {
-            const confirmed = confirm("Are you sure you want to delete this record?");
-            if (confirmed) {
-                $.ajax({
-                    type: "POST",
-                    url: "./controllers/DeleteComplaint.php",
-                    data: {
-                        complaintID: complaintID
-                    },
-                    success: function(response) {
-                        showAlert(response);
-												location.reload();
-                    },
-                    error: function(xhr, status, error) {
-                        showAlert("Error: " + xhr.responseText);
-                    }
-                });
-            }
+  <script>
+    function deleteComplaint(complaintID) {
+        const confirmed = confirm("Are you sure you want to delete this record?");
+        if (confirmed) {
+            $.ajax({
+                type: "POST",
+                url: "./controllers/DeleteComplaint.php",
+                data: {
+                    complaintID: complaintID
+                },
+                success: function(response) {
+                    showAlert(response);
+                    setTimeout(function() {
+                        location.reload();
+                    }, 3000); // Reload after 3 seconds (adjust the delay as needed)
+                },
+                error: function(xhr, status, error) {
+                    showAlert("Error: " + xhr.responseText);
+                }
+            });
         }
+    }
 
-        function showAlert(message) {
-            var alertMessage = document.getElementById("alertMessage");
-            alertMessage.textContent = message;
-            var alertModal = new bootstrap.Modal(document.getElementById("alertModal"));
-            alertModal.show();
-        }
-    </script>
+    function showAlert(message) {
+        var alertMessage = document.getElementById("alertMessage");
+        alertMessage.textContent = message;
+        var alertModal = new bootstrap.Modal(document.getElementById("alertModal"));
+        alertModal.show();
+    }
+</script>
+
     <script>
         (function() {
             $(document).ready(function() {
