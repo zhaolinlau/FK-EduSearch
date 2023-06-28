@@ -70,9 +70,9 @@ require "./Middleware/Authenticate.php";
     </div>
   </div>
   <div class="form-group row">
-    <label for="Feedback" class="col-sm-2 col-form-label">Feedback</label>
+    <label for="Expert Feedback" class="col-sm-2 col-form-label">Expert Feedback</label>
     <div class="col-sm-8">
-      <input type="text" class="form-control" id="Feedback" placeholder="Expert Feedback" value="<?php echo $feedback['FeedbackID']?>" disabled>
+      <input type="text" class="form-control" id="Feedback" placeholder="Expert Feedback" value="<?php echo $feedback['ExpertFeedback']?>" disabled>
     </div>
   </div>
   <div class="form-group row">
